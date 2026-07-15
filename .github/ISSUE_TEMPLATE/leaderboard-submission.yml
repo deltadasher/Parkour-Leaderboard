@@ -16,8 +16,8 @@ body:
       options: [Meta, Recounter, Gearless, "Gearless: Gloveless", Time Trials]
     validations: { required: true }
   - type: input
-    id: rating
-    attributes: { label: Current ranked rating or Time Trial score }
+    id: score
+    attributes: { label: Proposed Review Score or Time Trial score, description: Ranked categories use a 0–100 Review Score. Time Trials uses its in-game score. }
     validations: { required: true }
   - type: textarea
     id: sessions

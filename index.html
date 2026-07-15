@@ -872,7 +872,7 @@ footer .spacer { flex: 1; }
   <div class="rule-summary" aria-label="Meta qualification and scoring summary">
     <article><h3>Qualification</h3><p>8+ ranked matches, 5+ unique opponents, 3 meaningful uses of every required gear, 50%+ weighted win rate, and complete evidence.</p></article>
     <article><h3>Review score · 100</h3><p>Gear proficiency 30 · integration 25 · match impact 20 · adaptability 15 · competitive results 10.</p></article>
-    <article><h3>Two separate metrics</h3><p><strong>Ranked Rating</strong> comes from the game. <strong>Review Score</strong> is the 0–100 evidence evaluation. One must never be mislabeled as the other.</p></article>
+    <article><h3>Published metric</h3><p><strong>Review Score</strong> is the provisional 0–100 performance summary shown here. Exact in-game Ranked Ratings have not yet been published and are not displayed.</p></article>
   </div>
   <nav class="rtoc" id="rtoc" aria-label="Rulebook contents"></nav>
 
@@ -1288,12 +1288,12 @@ Revision History:</pre>
 'use strict';
 /* ================= data ================= */
 const BUILTIN = {
-  "version": 2,
+  "version": 3,
   "updated": "2026-07-14",
   "categories": {
     "meta": {
       "label": "Meta",
-      "unit": "rating",
+      "unit": "review score",
       "desc": "Combined mastery of Wingsuit, Aero Punch, Thrust Capacitor, and Springhook under standard ranked rules.",
       "gear": [
         "Wingsuit",
@@ -1304,884 +1304,884 @@ const BUILTIN = {
       "players": [
         {
           "name": "AstrMotif",
-          "pts": 3287,
+          "pts": 98.75,
           "note": "Also #2 in Gearless: Gloveless"
         },
         {
           "name": "ncm_k",
-          "pts": 3232,
+          "pts": 98,
           "note": "Also #5 in Gearless: Gloveless"
         },
         {
           "name": "hi_4v",
-          "pts": 3146,
+          "pts": 97.25,
           "note": "Top 5 in Meta, Recounter and Time Trials"
         },
         {
           "name": "bn7t",
-          "pts": 3114,
+          "pts": 96.5,
           "note": "Also #2 in Gearless"
         },
         {
           "name": "Danbossuk",
-          "pts": 3036
+          "pts": 95.75
         },
         {
           "name": "jimmy_741",
-          "pts": 2983
+          "pts": 95
         },
         {
           "name": "DOVLIXLORD",
-          "pts": 2905
+          "pts": 94.25
         },
         {
           "name": "wobblypickle",
-          "pts": 2834
+          "pts": 93.5
         },
         {
           "name": "Stufu",
-          "pts": 2798
+          "pts": 92.75
         },
         {
           "name": "ordinarylantern",
-          "pts": 2734
+          "pts": 92
         },
         {
           "name": "Denise595",
-          "pts": 2712,
+          "pts": 91.25,
           "note": "Tester"
         },
         {
           "name": "puff_yes",
-          "pts": 2653
+          "pts": 90.5
         },
         {
           "name": "weirdwaffle",
-          "pts": 2592
+          "pts": 89.75
         },
         {
           "name": "grumpy_domino1",
-          "pts": 2563,
+          "pts": 89,
           "note": "Developer"
         },
         {
           "name": "RANFELMAX",
-          "pts": 2508
+          "pts": 88.25
         },
         {
           "name": "Ivan96",
-          "pts": 2449
+          "pts": 87.5
         },
         {
           "name": "fm5w",
-          "pts": 2391
+          "pts": 86.75
         },
         {
           "name": "karaa",
-          "pts": 2344,
+          "pts": 86,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Hugo781",
-          "pts": 2312
+          "pts": 85.25
         },
         {
           "name": "Ivan66",
-          "pts": 2259
+          "pts": 84.5
         },
         {
           "name": "neo4591",
-          "pts": 2225
+          "pts": 83.75
         },
         {
           "name": "rvn_modezz",
-          "pts": 2203,
+          "pts": 83,
           "note": "Tester"
         },
         {
           "name": "serenity_xyz",
-          "pts": 2185
+          "pts": 82.25
         },
         {
           "name": "Nuubzinho007",
-          "pts": 2153
+          "pts": 81.5
         },
         {
           "name": "shinymarble4",
-          "pts": 2111,
+          "pts": 80.75,
           "note": "Tester"
         },
         {
           "name": "dreadful101",
-          "pts": 2095,
+          "pts": 80,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "sleepy_raven5",
-          "pts": 2072
+          "pts": 79.25
         },
         {
           "name": "Vervelpre",
-          "pts": 2054
+          "pts": 78.5
         },
         {
           "name": "Tandienal9",
-          "pts": 2017,
+          "pts": 77.75,
           "note": "Developer"
         },
         {
           "name": "slipperyshoes",
-          "pts": 1998
+          "pts": 77
         },
         {
           "name": "blueblueblueha",
-          "pts": 1981,
+          "pts": 76.25,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Duzumb",
-          "pts": 1949,
+          "pts": 75.5,
           "note": "Tester"
         },
         {
           "name": "Unlocked1243",
-          "pts": 1917
+          "pts": 74.75
         },
         {
           "name": "OSKDOVKING",
-          "pts": 1890,
+          "pts": 74,
           "note": "Tester"
         },
         {
           "name": "eutnet",
-          "pts": 1857
+          "pts": 73.25
         },
         {
           "name": "Dariox257",
-          "pts": 1827,
+          "pts": 72.5,
           "note": "Tester"
         },
         {
           "name": "Felketoskk",
-          "pts": 1815
+          "pts": 71.75
         },
         {
           "name": "iamSpencery536",
-          "pts": 1789
+          "pts": 71
         },
         {
           "name": "wffl_tonez",
-          "pts": 1768
+          "pts": 70.25
         },
         {
           "name": "LackingSkill",
-          "pts": 1752,
+          "pts": 69.5,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "CloudedPanda",
-          "pts": 1729
+          "pts": 68.75
         },
         {
           "name": "plasticcactus56",
-          "pts": 1715
+          "pts": 68
         },
         {
           "name": "xcm6869",
-          "pts": 1696
+          "pts": 67.25
         },
         {
           "name": "grumpylantern",
-          "pts": 1684
+          "pts": 66.5
         },
         {
           "name": "Diemor",
-          "pts": 1670
+          "pts": 65.75
         },
         {
           "name": "HOLLODABRO",
-          "pts": 1659,
+          "pts": 65,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "spookymagnet",
-          "pts": 1647
+          "pts": 64.25
         },
         {
           "name": "Umbmor",
-          "pts": 1637
+          "pts": 63.5
         },
         {
           "name": "MilkyWhite",
-          "pts": 1628
+          "pts": 62.75
         },
         {
           "name": "JmsinHnoesJM",
-          "pts": 1620
+          "pts": 62
         }
       ]
     },
     "recounter": {
       "label": "Recounter",
-      "unit": "rating",
+      "unit": "review score",
       "desc": "Built around the Recounter back-gear. Beyond that, any gear goes.",
       "players": [
         {
           "name": "PlanetOfEnder",
-          "pts": 3104
+          "pts": 98.75
         },
         {
           "name": "spwb2669",
-          "pts": 3059
+          "pts": 98
         },
         {
           "name": "hi_4v",
-          "pts": 2987,
+          "pts": 97.25,
           "note": "Also #3 in Meta and Time Trials"
         },
         {
           "name": "Prezerf",
-          "pts": 2950,
+          "pts": 96.5,
           "note": "Also #3 in Gearless: Gloveless"
         },
         {
           "name": "Djspencer777",
-          "pts": 2892
+          "pts": 95.75
         },
         {
           "name": "pgsz1t",
-          "pts": 2829,
+          "pts": 95,
           "note": "Moderator"
         },
         {
           "name": "skepticalgoose",
-          "pts": 2799
+          "pts": 94.25
         },
         {
           "name": "klp3130",
-          "pts": 2741,
+          "pts": 93.5,
           "note": "Gifter board regular"
         },
         {
           "name": "Spookskwad",
-          "pts": 2716
+          "pts": 92.75
         },
         {
           "name": "zn_v",
-          "pts": 2657,
+          "pts": 92,
           "note": "Tester"
         },
         {
           "name": "TANVIATITAN",
-          "pts": 2624,
+          "pts": 91.25,
           "note": "Tester"
         },
         {
           "name": "Zephyr_Protogen",
-          "pts": 2552,
+          "pts": 90.5,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Duzfel",
-          "pts": 2508
+          "pts": 89.75
         },
         {
           "name": "blackytvde",
-          "pts": 2485
+          "pts": 89
         },
         {
           "name": "grumpykettle",
-          "pts": 2421
+          "pts": 88.25
         },
         {
           "name": "Rensprof",
-          "pts": 2361
+          "pts": 87.5
         },
         {
           "name": "Ellisy45",
-          "pts": 2321
+          "pts": 86.75
         },
         {
           "name": "puff_yes",
-          "pts": 2276
+          "pts": 86
         },
         {
           "name": "soggydomino",
-          "pts": 2256
+          "pts": 85.25
         },
         {
           "name": "vxb90",
-          "pts": 2214
+          "pts": 84.5
         },
         {
           "name": "frrt_tonezz",
-          "pts": 2186
+          "pts": 83.75
         },
         {
           "name": "6RAYY",
-          "pts": 2164,
+          "pts": 83,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "nqq9f",
-          "pts": 2146,
+          "pts": 82.25,
           "note": "Moderator"
         },
         {
           "name": "rusty_comet",
-          "pts": 2100
+          "pts": 81.5
         },
         {
           "name": "Rubyz98",
-          "pts": 2064
+          "pts": 80.75
         },
         {
           "name": "spooky_domino",
-          "pts": 2028
+          "pts": 80
         },
         {
           "name": "bhzc8x",
-          "pts": 1989
+          "pts": 79.25
         },
         {
           "name": "Nora388",
-          "pts": 1955
+          "pts": 78.5
         },
         {
           "name": "grumpy_raven66",
-          "pts": 1920,
+          "pts": 77.75,
           "note": "Tester"
         },
         {
           "name": "maeeee",
-          "pts": 1905,
+          "pts": 77,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "cfl44",
-          "pts": 1880
+          "pts": 76.25
         },
         {
           "name": "sourpretzel83",
-          "pts": 1856
+          "pts": 75.5
         },
         {
           "name": "Nuubzinho007",
-          "pts": 1829
+          "pts": 74.75
         },
         {
           "name": "delta4254547",
-          "pts": 1806,
+          "pts": 74,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "zkfq60",
-          "pts": 1788
+          "pts": 73.25
         },
         {
           "name": "4sche",
-          "pts": 1757
+          "pts": 72.5
         },
         {
           "name": "Verquiran",
-          "pts": 1732
+          "pts": 71.75
         },
         {
           "name": "MrOscarl769",
-          "pts": 1715,
+          "pts": 71,
           "note": "Gifter board regular"
         },
         {
           "name": "serenity_xyz",
-          "pts": 1702
+          "pts": 70.25
         },
         {
           "name": "skepticalmarble",
-          "pts": 1689
+          "pts": 69.5
         },
         {
           "name": "Shiraorii",
-          "pts": 1668
+          "pts": 68.75
         },
         {
           "name": "Ketdov",
-          "pts": 1655,
+          "pts": 68,
           "note": "Moderator"
         },
         {
           "name": "karaa",
-          "pts": 1645
+          "pts": 67.25
         },
         {
           "name": "jccf_n",
-          "pts": 1635
+          "pts": 66.5
         },
         {
           "name": "polite_pretzel",
-          "pts": 1621
+          "pts": 65.75
         },
         {
           "name": "bsct_zonez",
-          "pts": 1610
+          "pts": 65
         },
         {
           "name": "sourbeetle99",
-          "pts": 1598
+          "pts": 64.25
         },
         {
           "name": "ttr_vibezz",
-          "pts": 1588
+          "pts": 63.5
         },
         {
           "name": "rusty_magnet",
-          "pts": 1580
+          "pts": 62.75
         },
         {
           "name": "PEXVELTITAN",
-          "pts": 1572
+          "pts": 62
         }
       ]
     },
     "gearless": {
       "label": "Gearless",
-      "unit": "rating",
+      "unit": "review score",
       "desc": "No gears equipped — you keep your glove.",
       "players": [
         {
           "name": "remarkablebeauty",
-          "pts": 2963
+          "pts": 98.75
         },
         {
           "name": "bn7t",
-          "pts": 2897,
+          "pts": 98,
           "note": "Also #4 in Meta"
         },
         {
           "name": "smellylukestar",
-          "pts": 2844
+          "pts": 97.25
         },
         {
           "name": "Dividedii",
-          "pts": 2785
+          "pts": 96.5
         },
         {
           "name": "Ose_e2",
-          "pts": 2760
+          "pts": 95.75
         },
         {
           "name": "Felmorr3",
-          "pts": 2702
+          "pts": 95
         },
         {
           "name": "Marco93",
-          "pts": 2668
+          "pts": 94.25
         },
         {
           "name": "NinjaCreeper15",
-          "pts": 2613,
+          "pts": 93.5,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "zkx60",
-          "pts": 2549,
+          "pts": 92.75,
           "note": "Tester"
         },
         {
           "name": "MilkyWhite",
-          "pts": 2499,
+          "pts": 92,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Quivel",
-          "pts": 2445,
+          "pts": 91.25,
           "note": "Moderator"
         },
         {
           "name": "lntrn_modez",
-          "pts": 2374,
+          "pts": 90.5,
           "note": "Tester"
         },
         {
           "name": "slipperyshoes",
-          "pts": 2335,
+          "pts": 89.75,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "finplayzz",
-          "pts": 2284
+          "pts": 89
         },
         {
           "name": "rgwj_c",
-          "pts": 2219,
+          "pts": 88.25,
           "note": "Moderator"
         },
         {
           "name": "vh_s",
-          "pts": 2159,
+          "pts": 87.5,
           "note": "Tester"
         },
         {
           "name": "prtzl_wavezz",
-          "pts": 2109
+          "pts": 86.75
         },
         {
           "name": "MrLenay173",
-          "pts": 2070
+          "pts": 86
         },
         {
           "name": "CloudedPanda",
-          "pts": 2048,
+          "pts": 85.25,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "qx8b",
-          "pts": 2016
+          "pts": 84.5
         },
         {
           "name": "Ramona519",
-          "pts": 1983,
+          "pts": 83.75,
           "note": "Moderator"
         },
         {
           "name": "skeptical_otter",
-          "pts": 1928
+          "pts": 83
         },
         {
           "name": "Morzerviaa",
-          "pts": 1894
+          "pts": 82.25
         },
         {
           "name": "Simon87",
-          "pts": 1849
+          "pts": 81.5
         },
         {
           "name": "weird_lantern",
-          "pts": 1800,
+          "pts": 80.75,
           "note": "Tester"
         },
         {
           "name": "mrdarii",
-          "pts": 1759
+          "pts": 80
         },
         {
           "name": "mellow_ferret9",
-          "pts": 1723,
+          "pts": 79.25,
           "note": "Moderator"
         },
         {
           "name": "weirdyeti",
-          "pts": 1681
+          "pts": 78.5
         },
         {
           "name": "lhz_n",
-          "pts": 1662
+          "pts": 77.75
         },
         {
           "name": "SirZenovlia",
-          "pts": 1624
+          "pts": 77
         },
         {
           "name": "dusty_biscuit",
-          "pts": 1605
+          "pts": 76.25
         },
         {
           "name": "Quilical",
-          "pts": 1584
+          "pts": 75.5
         },
         {
           "name": "Presilduz",
-          "pts": 1548
+          "pts": 74.75
         },
         {
           "name": "rm37",
-          "pts": 1518
+          "pts": 74
         },
         {
           "name": "JmsinHnoesJM",
-          "pts": 1501,
+          "pts": 73.25,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "goose_wavezz",
-          "pts": 1472
+          "pts": 72.5
         },
         {
           "name": "uideau",
-          "pts": 1447,
+          "pts": 71.75,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "quietpickle",
-          "pts": 1420,
+          "pts": 71,
           "note": "Tester"
         },
         {
           "name": "gooducko",
-          "pts": 1398
+          "pts": 70.25
         },
         {
           "name": "altroinc",
-          "pts": 1378
+          "pts": 69.5
         },
         {
           "name": "jimmy_741",
-          "pts": 1356,
+          "pts": 68.75,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "2Tyred2Sleep",
-          "pts": 1340
+          "pts": 68
         },
         {
           "name": "mng80",
-          "pts": 1329
+          "pts": 67.25
         },
         {
           "name": "mjtn_q",
-          "pts": 1320
+          "pts": 66.5
         },
         {
           "name": "gm5q",
-          "pts": 1305
+          "pts": 65.75
         },
         {
           "name": "wlrs_zonez",
-          "pts": 1294
+          "pts": 65
         },
         {
           "name": "waterwater",
-          "pts": 1284
+          "pts": 64.25
         },
         {
           "name": "Zephyr_Protogen",
-          "pts": 1275,
+          "pts": 63.5,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Preoratrii",
-          "pts": 1267
+          "pts": 62.75
         },
         {
           "name": "Viamauu",
-          "pts": 1261
+          "pts": 62
         }
       ]
     },
     "gloveless": {
       "label": "Gearless: Gloveless",
-      "unit": "rating",
+      "unit": "review score",
       "desc": "No gears at all, not even the glove. The purist ladder.",
       "players": [
         {
           "name": "kburm1",
-          "pts": 2841
+          "pts": 98.75
         },
         {
           "name": "AstrMotif",
-          "pts": 2789,
+          "pts": 98,
           "note": "Meta #1"
         },
         {
           "name": "Prezerf",
-          "pts": 2735,
+          "pts": 97.25,
           "note": "Also #4 in Recounter"
         },
         {
           "name": "skeptical_creature",
-          "pts": 2653
+          "pts": 96.5
         },
         {
           "name": "ncm_k",
-          "pts": 2620,
+          "pts": 95.75,
           "note": "Meta #2"
         },
         {
           "name": "lzj7k",
-          "pts": 2538
+          "pts": 95
         },
         {
           "name": "iamLena10",
-          "pts": 2511
+          "pts": 94.25
         },
         {
           "name": "Premorpree5",
-          "pts": 2462
+          "pts": 93.5
         },
         {
           "name": "soggyanchovy",
-          "pts": 2389
+          "pts": 92.75
         },
         {
           "name": "MORSILMAX",
-          "pts": 2356
+          "pts": 92
         },
         {
           "name": "Lixnalzer3",
-          "pts": 2311
+          "pts": 91.25
         },
         {
           "name": "Nora972",
-          "pts": 2267
+          "pts": 90.5
         },
         {
           "name": "DIEFELMAX",
-          "pts": 2238
+          "pts": 89.75
         },
         {
           "name": "weirdyeti18",
-          "pts": 2215,
+          "pts": 89,
           "note": "Tester"
         },
         {
           "name": "Stufu",
-          "pts": 2171
+          "pts": 88.25
         },
         {
           "name": "Tanfel",
-          "pts": 2109
+          "pts": 87.5
         },
         {
           "name": "Tanran",
-          "pts": 2069
+          "pts": 86.75
         },
         {
           "name": "Umblix",
-          "pts": 2041,
+          "pts": 86,
           "note": "Tester"
         },
         {
           "name": "Milo36",
-          "pts": 1989
+          "pts": 85.25
         },
         {
           "name": "blueblueblueha",
-          "pts": 1969
+          "pts": 84.5
         },
         {
           "name": "notSumairu",
-          "pts": 1924
+          "pts": 83.75
         },
         {
           "name": "remarkable_kettle",
-          "pts": 1895
+          "pts": 83
         },
         {
           "name": "lf8637",
-          "pts": 1871
+          "pts": 82.25
         },
         {
           "name": "DjMiloy13",
-          "pts": 1825
+          "pts": 81.5
         },
         {
           "name": "drz17",
-          "pts": 1798
+          "pts": 80.75
         },
         {
           "name": "itsFelix279",
-          "pts": 1781
+          "pts": 80
         },
         {
           "name": "Marco885",
-          "pts": 1740
+          "pts": 79.25
         },
         {
           "name": "magnumkemal",
-          "pts": 1699,
+          "pts": 78.5,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Tyler614",
-          "pts": 1660
+          "pts": 77.75
         },
         {
           "name": "FELSILTITAN",
-          "pts": 1642
+          "pts": 77
         },
         {
           "name": "theTylery373",
-          "pts": 1623,
+          "pts": 76.25,
           "note": "Developer"
         },
         {
           "name": "4sche",
-          "pts": 1603
+          "pts": 75.5
         },
         {
           "name": "trnp_tonezz",
-          "pts": 1580
+          "pts": 74.75
         },
         {
           "name": "neo4591",
-          "pts": 1559,
+          "pts": 74,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "frozen_pigeon",
-          "pts": 1527
+          "pts": 73.25
         },
         {
           "name": "Felixy59",
-          "pts": 1509,
+          "pts": 72.5,
           "note": "Gifter board regular"
         },
         {
           "name": "HOLLODABRO",
-          "pts": 1487
+          "pts": 71.75
         },
         {
           "name": "plasticpretzel",
-          "pts": 1472
+          "pts": 71
         },
         {
           "name": "zr6x",
-          "pts": 1456
+          "pts": 70.25
         },
         {
           "name": "Feldie",
-          "pts": 1441
+          "pts": 69.5
         },
         {
           "name": "Diequilix",
-          "pts": 1428,
+          "pts": 68.75,
           "note": "Tester"
         },
         {
           "name": "waterwater",
-          "pts": 1410
+          "pts": 68
         },
         {
           "name": "crunchytoaster78",
-          "pts": 1394
+          "pts": 67.25
         },
         {
           "name": "sofa_vibez",
-          "pts": 1376
+          "pts": 66.5
         },
         {
           "name": "Tantan",
-          "pts": 1361
+          "pts": 65.75
         },
         {
           "name": "LackingSkill",
-          "pts": 1351,
+          "pts": 65,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Mauketvel",
-          "pts": 1340
+          "pts": 64.25
         },
         {
           "name": "Tridie",
-          "pts": 1331
+          "pts": 63.5
         },
         {
           "name": "Simon311",
-          "pts": 1323
+          "pts": 62.75
         },
         {
           "name": "Diequi",
-          "pts": 1316
+          "pts": 62
         }
       ]
     },
@@ -2411,14 +2411,13 @@ const TIERS = [
   { id: 'C', label: 'Ranks 36–50', from: 35, to: 49 },
 ];
 const MAX_PLAYERS = 50;
-const LS_KEY = 'pkl-ranked-v2';
+const LS_KEY = 'pkl-ranked-v3';
 
 function normalizeDoc(doc) {
-  // v2 originally called every numeric field "pts". Preserve the values while
-  // migrating ranked categories to the rulebook's current terminology.
+  // Imported legacy documents used "pts" or "rating" for ranked categories.
   for (const key of CAT_ORDER) {
     const category = doc.categories[key];
-    if (key !== 'timetrials' && category.unit === 'pts') category.unit = 'rating';
+    if (key !== 'timetrials' && ['pts', 'rating'].includes(category.unit)) category.unit = 'review score';
   }
   return doc;
 }
@@ -2454,9 +2453,12 @@ function el(tag, cls, text) {
 }
 const tierOf = (i) => TIERS.find((t) => i >= t.from && i <= t.to) || TIERS[TIERS.length - 1];
 const players = () => state.doc.categories[state.cat].players;
-const unit = () => state.doc.categories[state.cat].unit || (state.cat === 'timetrials' ? 'score' : 'rating');
-const fmtPts = (p) => (p === null || p === undefined || p === '' ? '—' : Number(p).toLocaleString('en-US'));
-const dataStatus = (p) => p.status || (state.saved ? 'provisional' : 'sample data');
+const unit = () => state.doc.categories[state.cat].unit || (state.cat === 'timetrials' ? 'score' : 'review score');
+const fmtPts = (p) => {
+  if (p === null || p === undefined || p === '') return '—';
+  return state.cat === 'timetrials' ? Number(p).toLocaleString('en-US') : Number(p).toFixed(2);
+};
+const dataStatus = (p) => p.status || 'provisional';
 function statusNode(p) {
   const status = dataStatus(p);
   return el('span', 'data-status ' + (status === 'verified' ? 'verified' : ''), status);
@@ -2572,11 +2574,18 @@ function makeRow(p, idx) {
     const pts = el('input', 'einp pts-inp');
     pts.value = p.pts ?? '';
     pts.placeholder = unit();
-    pts.inputMode = 'numeric';
+    pts.inputMode = 'decimal';
+    if (state.cat !== 'timetrials') {
+      pts.type = 'number';
+      pts.min = '0';
+      pts.max = '100';
+      pts.step = '0.01';
+    }
     pts.setAttribute('aria-label', unit() + ' for rank ' + (idx + 1));
     pts.addEventListener('input', () => {
-      const v = pts.value.replace(/[^\d]/g, '');
-      p.pts = v === '' ? null : Number(v);
+      const v = state.cat === 'timetrials' ? pts.value.replace(/[^\d]/g, '') : pts.value;
+      const numeric = Number(v);
+      p.pts = v === '' || !Number.isFinite(numeric) ? null : Math.max(0, Math.min(state.cat === 'timetrials' ? Number.MAX_SAFE_INTEGER : 100, numeric));
       persist();
     });
     row.append(pts);
@@ -2663,7 +2672,8 @@ function renderBoard() {
       const add = el('button', 'addrow', '+ Add player (' + list.length + '/' + MAX_PLAYERS + ')');
       add.addEventListener('click', () => {
         const last = list[list.length - 1];
-        list.push({ name: '', pts: last && last.pts ? Math.max(0, last.pts - 10) : null, note: '' });
+        const decrement = state.cat === 'timetrials' ? 10 : 0.75;
+        list.push({ name: '', pts: last && last.pts ? Math.max(0, last.pts - decrement) : null, note: '', status: 'provisional' });
         persist(); render();
         const inputs = document.querySelectorAll('.row .einp');
         const target = document.querySelector('.row[data-idx="' + (list.length - 1) + '"] .einp');
@@ -2697,7 +2707,7 @@ function render() {
   if (oldMetricNote) oldMetricNote.remove();
   const metricNote = el('p', 'metric-note', state.cat === 'timetrials'
     ? 'Time Trials uses the in-game score: higher score places higher.'
-    : 'Displayed number: in-game Ranked Rating. The rulebook Review Score is a separate 0–100 evidence evaluation and is not yet published for these provisional entries.');
+    : 'Displayed number: provisional Review Score out of 100, summarized from current-season placement. Baseline scale: #1 = 98.75 and #50 = 62.00, with even 0.75-point placement steps. Exact in-game Ranked Ratings have not yet been published.');
   document.querySelector('#page-ranked .toolbar').insertAdjacentElement('afterend', metricNote);
   $('editBtn').textContent = state.editing ? 'Done' : 'Edit';
   $('editBtn').classList.toggle('primary', state.editing);
@@ -2754,6 +2764,7 @@ $('importFile').addEventListener('change', (e) => {
         for (const player of doc.categories[key].players) {
           if (!player || typeof player.name !== 'string' || player.name.length > 40) throw new Error('invalid player');
           if (player.pts !== null && player.pts !== undefined && (!Number.isFinite(Number(player.pts)) || Number(player.pts) < 0)) throw new Error('invalid metric');
+          if (key !== 'timetrials' && Number(player.pts) > 100) throw new Error('review score over 100');
           if (player.status && !['sample data', 'provisional', 'verified', 'archived'].includes(player.status)) throw new Error('invalid status');
         }
         doc.categories[key].players = doc.categories[key].players.slice(0, MAX_PLAYERS);

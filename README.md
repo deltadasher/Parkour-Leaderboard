@@ -4,7 +4,7 @@ An unofficial, community-maintained PARKOUR Legacy leaderboard and reference int
 
 ## Status
 
-This repository is a working community prototype. Ranking data is provisional or unverified unless evidence is explicitly attached. The site distinguishes in-game **Ranked Rating** from the rulebook's separate **0–100 Review Score**. Built-in forum threads are example data; local drafts use browser storage, while persistent community intake uses GitHub Issue forms.
+This repository is a working community prototype. The four ranked boards display provisional **0–100 Review Scores** summarizing current-season performance; exact in-game **Ranked Ratings** have not yet been published. Time Trials retains its in-game point system. Built-in forum threads are example data; local drafts use browser storage, while persistent community intake uses GitHub Issue forms.
 
 ## Run locally
 

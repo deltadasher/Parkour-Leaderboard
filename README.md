@@ -6,7 +6,7 @@ An unofficial, community-maintained PARKOUR Legacy leaderboard and reference int
 
 This repository is a working community leaderboard. The ratified rulebook covers **Meta, Recounter, Gearless, and Gearless: Gloveless**, each with its own equipment rules and 100-point weighting. The four ranked boards display provisional Review Scores summarizing current-season performance; exact in-game Ranked Ratings have not yet been published. Review Scores use hundredths and share role-specific runner-gap and catcher-follow monitoring. Every listed top-50 player on those four boards has the competitive rank **Elite**; Time Trials retains its in-game point system and does not use competitive ranks.
 
-The Per-item page contains evidence-qualified, variable-length rankings for all 14 tracked items. Its 100-point Review Score weights proficiency, gap impact, tactical application, routing and integration, adaptability, and results. Archived forum threads are preserved as community records. New local drafts use browser storage, while persistent community intake uses GitHub Issue forms.
+The Per-item page contains evidence-qualified, variable-length rankings for all 14 tracked items. Its 100-point Review Score weights proficiency, gap impact, tactical application, routing and integration, adaptability, and results. Archived forum threads are preserved as community records. New public threads and replies use GitHub Issues, with GitHub accounts providing login, identity, notifications, and moderation history. The site reads current public threads through GitHub's public API.
 
 ## Run locally
 
@@ -26,7 +26,8 @@ Expected URL: `https://deltadasher.github.io/Parkour-Leaderboard/`
 
 - dependency-free HTML, CSS, and vanilla JavaScript;
 - hash routes for leaderboards, per-item reviews, forum archives, announcements, and rulebooks;
-- localStorage for browser-local edits and forum drafts;
+- localStorage for browser-local leaderboard edits;
+- live public forum listings from GitHub Issues, with posting and replies handled securely by GitHub;
 - GitHub Issue forms for persistent submissions, appeals, rule proposals, discussion, and reviewed announcement requests;
 - JSON import/export for transferring leaderboard data;
 - installable web manifest and service worker.

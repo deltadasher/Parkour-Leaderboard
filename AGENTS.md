@@ -209,19 +209,21 @@ The built-in forum threads are preserved community archives, as confirmed by the
 not relabel them as examples, samples, or fabricated demo content. Do not silently rewrite their
 substance; terminology corrections should be narrowly sourced to current PARKOUR Legacy mechanics.
 
-The current forum stores user-created threads and replies in that browser’s `localStorage`.
+New forum threads and replies are public GitHub Issues and comments. GitHub supplies account login,
+identity, persistence, notifications, moderation history, and abuse controls. The static site reads
+matching public issues from GitHub's unauthenticated REST API and links to GitHub for posting or replying.
+The built-in historical threads remain a read-only archive.
 
 This means:
 
-- posts are not shared between users;
-- posts are not synchronized between devices;
-- clearing site data removes local posts;
-- there is no authentication;
-- there is no real moderation system;
-- usernames are not identity-verified.
+- new posts are shared publicly and synchronized between devices;
+- a GitHub account is required to post or reply;
+- authentication secrets never enter the static site;
+- GitHub usernames identify public authors, but do not prove ownership of similarly named Roblox accounts;
+- public API rate limits or network failures may temporarily hide the live listing, while direct GitHub links remain available.
 
-Until a backend exists, visibly identify only the composer and newly created posts as browser-local.
-Do not describe the read-only built-in archive itself as a local demo.
+Do not add a password form, token input, or fake authentication layer to the static site. Do not restore
+the old localStorage forum composer. Keep repository-managed announcements separate from forum posts.
 
 Do not imply that locally submitted appeals or leaderboard applications reach staff.
 
@@ -345,7 +347,7 @@ Agents should ask or clearly flag assumptions before changing:
 High-priority improvements:
 
 1. Mark provisional ranking evaluations clearly.
-2. Keep archived threads distinct from browser-local drafts.
+2. Keep read-only archived threads distinct from live public GitHub threads.
 3. Preserve the ratified status of all four category rulebooks unless the project owner changes it.
 4. Preserve archived publication/effective dates unless the owner supplies a correction.
 5. Decouple tier grades from automatic rank bands.

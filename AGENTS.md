@@ -232,7 +232,9 @@ Do not fabricate official publication or effective dates.
 
 ## Rulebook status
 
-The rulebook is a working community draft unless the project owner explicitly confirms ratification.
+The project owner confirmed ratification on 2026-07-14 for the Meta, Recounter, Gearless, and
+Gearless: Gloveless rulebooks. Treat version 1.1 and the shared six-round gap-monitoring model as
+ratified until the owner explicitly revises or withdraws that status.
 
 The public interface should ideally provide:
 
@@ -322,7 +324,7 @@ High-priority improvements:
 
 1. Mark placeholder and provisional ranking data clearly.
 2. Change the forum label to indicate that it is currently local-only.
-3. Mark the rulebook as a draft unless ratification is confirmed.
+3. Preserve the ratified status of all four category rulebooks unless the project owner changes it.
 4. Remove fabricated publication/effective dates or label them as examples.
 5. Decouple tier grades from automatic rank bands.
 6. Replace “anything goes” in the Meta description.

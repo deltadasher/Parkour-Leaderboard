@@ -24,6 +24,18 @@ body:
     attributes: { label: Six-round set summary, description: Include three runner gaps, three catcher gaps, both averages, maps, results, and required gear uses. }
     validations: { required: true }
   - type: textarea
+    id: loadout
+    attributes:
+      label: Loadout and category compliance
+      description: Meta lists all four required gears; Recounter lists every slot; Gearless confirms empty gear slots; Gloveless also confirms the glove is disabled.
+    validations: { required: true }
+  - type: textarea
+    id: measurements
+    attributes:
+      label: Gap measurements and calculations
+      description: Provide the raw measurements, runner and catcher averages, ratios, and any telemetry or qualitative gap-state method used.
+    validations: { required: true }
+  - type: textarea
     id: evidence
     attributes: { label: Public evidence links and timestamps }
     validations: { required: true }

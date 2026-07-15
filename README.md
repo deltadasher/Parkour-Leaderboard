@@ -4,7 +4,7 @@ An unofficial, community-maintained PARKOUR Legacy leaderboard and reference int
 
 ## Status
 
-This repository is a working community prototype. The four ranked boards display provisional **0–100 Review Scores** summarizing current-season performance; exact in-game **Ranked Ratings** have not yet been published. Review Scores use hundredths and consider gear usage/proficiency, gear integration, three-round runner-gap averages, three-round catcher-follow averages, adaptability, and results. Time Trials retains its in-game point system. Built-in forum threads are example data; local drafts use browser storage, while persistent community intake uses GitHub Issue forms.
+This repository is a working community prototype. The ratified rulebook covers **Meta, Recounter, Gearless, and Gearless: Gloveless**, each with its own equipment rules and 100-point weighting. The four ranked boards display provisional Review Scores summarizing current-season performance; exact in-game Ranked Ratings have not yet been published. Review Scores use hundredths and share role-specific runner-gap and catcher-follow monitoring. Time Trials retains its in-game point system. Built-in forum threads are example data; local drafts use browser storage, while persistent community intake uses GitHub Issue forms.
 
 ## Run locally
 

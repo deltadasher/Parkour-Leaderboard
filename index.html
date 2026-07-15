@@ -736,6 +736,11 @@ body.editing .row .grip { display: block; }
 .rule-summary article { padding: 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
 .rule-summary h3 { margin: 0 0 5px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
 .rule-summary p { margin: 0; color: var(--muted); font-size: 12.5px; }
+.rule-category-nav { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 18px; }
+.rule-category-nav a { text-decoration: none; }
+.category-rulebook { margin-top: 42px; padding-top: 18px; border-top: 3px solid var(--cat); }
+.category-rulebook > h2 { font-size: 30px; }
+.formula { padding: 10px 12px; border-left: 3px solid var(--cat); background: var(--panel-2); }
 .rtoc {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -858,17 +863,24 @@ footer .spacer { flex: 1; }
 
 <section id="page-rules" class="wrap page-pane rules" hidden aria-label="Rulebook">
   <div class="pane-head">
-    <h2>Meta Category Rulebook</h2>
-    <p class="pane-sub">Working draft of ranking criteria, submission requirements and forum
-      structure for the Meta leaderboard. Drafted with AI assistance; not yet ratified.</p>
+    <h2>Ranked Category Rulebooks</h2>
+    <p class="pane-sub">Ratified criteria for Meta, Recounter, Gearless, and Gearless: Gloveless.
+      All four categories use six-round matches and role-specific gap monitoring.</p>
   </div>
   <div class="rmeta">
     <span>Version <b>1.1</b></span>
-    <span>Status <b>Draft</b></span>
-    <span>Example dates <b>not official</b></span>
-    <span>Applies to <b>Meta</b></span>
+    <span>Status <b>Ratified</b></span>
+    <span>Effective <b>2026-07-14</b></span>
+    <span>Applies to <b>all ranked categories</b></span>
     <span>Maintained by <b>project contributors</b></span>
   </div>
+  <nav class="rule-category-nav" aria-label="Category rulebooks">
+    <a class="btn primary" href="#/rules" data-rule-target="meta-title">Meta</a>
+    <a class="btn" href="#/rules" data-rule-target="rc-1">Recounter</a>
+    <a class="btn" href="#/rules" data-rule-target="gl-1">Gearless</a>
+    <a class="btn" href="#/rules" data-rule-target="gg-1">Gearless: Gloveless</a>
+  </nav>
+  <h2 id="meta-title">Meta Category Rulebook</h2>
   <div class="rule-summary" aria-label="Meta qualification and scoring summary">
     <article><h3>Measured set</h3><p>Three rounds as runner and three as catcher. End gaps are averaged separately for each role; full evidence and meaningful gear usage are required.</p></article>
     <article><h3>Review score · 100</h3><p>Gear usage/proficiency 25 · integration 15 · runner gap 20 · catcher follow 20 · adaptability 10 · results 10.</p></article>
@@ -1289,6 +1301,216 @@ Revision History:</pre>
   </ul>
   <p>Placements should reflect verified proficiency, meaningful gear integration, competitive
     impact, adaptability, and performance against credible opponents.</p>
+
+  <article class="category-rulebook" aria-labelledby="rc-title">
+    <h2 id="rc-title">Recounter Category Rulebook</h2>
+    <p><strong>Status: Ratified · Version 1.1.</strong> Recounter ranks distance control in both roles
+      while requiring Recounter in the back-gear slot. Any legal left-arm, right-arm, and leg gears
+      are permitted and must be disclosed before review.</p>
+
+    <h2 id="rc-1"><span class="no">RC 1.</span>Format and Objectives</h2>
+    <p>Every match contains three Runner rounds and three Catcher rounds. Runners maximize and
+      preserve distance; Catchers minimize distance, predict routes, maintain pressure, and convert
+      proximity into catches or forced mistakes. Neither role may be omitted or used to conceal a
+      serious weakness in the other.</p>
+
+    <h2 id="rc-2"><span class="no">RC 2.</span>Recounter and Loadout Legality</h2>
+    <p>Recounter must remain equipped for the full evaluated match. A match requires at least three
+      meaningful Recounter uses as Runner and three as Catcher. A credited use must gain or reduce
+      distance, recover position, disrupt a route, extend a chase, escape pressure, force a route
+      change, prevent a catch, or secure a catch. Empty, staged, post-result, or quota-filling uses
+      do not count. Supporting gears are free-choice but exploits and temporarily broken interactions
+      may not carry a high placement.</p>
+    <pre>Back Gear: Recounter
+Left Arm: any currently legal gear
+Right Arm: any currently legal gear
+Leg Gear: any currently legal gear</pre>
+
+    <h2 id="rc-3"><span class="no">RC 3.</span>Submission Size</h2>
+    <ul>
+      <li><strong>Standard:</strong> 3 matches, 18 rounds, 3 opponents, 9 rounds per role, at least 3 maps.</li>
+      <li><strong>Top 10:</strong> 5 matches, 30 rounds, 5 opponents, 15 rounds per role, including 2 current top-50 opponents.</li>
+      <li><strong>S tier:</strong> at least 2 verified sessions, 36 rounds, 6 opponents, multiple days, and strong A/S-level opposition.</li>
+    </ul>
+    <p>No more than two counted matches may use the same opponent in a standard submission. Every
+      match must meet the six-use Recounter minimum and have complete evidence.</p>
+
+    <h2 id="rc-4"><span class="no">RC 4.</span>Scoring · 100 Points</h2>
+    <ul>
+      <li><strong>Gap Control 45:</strong> Runner 22.5 and Catcher 22.5.</li>
+      <li><strong>Role Performance 20:</strong> Runner 10 and Catcher 10.</li>
+      <li><strong>Recounter Proficiency 15.</strong></li>
+      <li><strong>Routing and Adaptability 10.</strong></li>
+      <li><strong>Competitive Results 10.</strong></li>
+    </ul>
+    <p class="formula">Use the shared runner-gap and catcher-follow formulas in Meta sections 6.3–6.4,
+      then scale each 20-point baseline to 22.5 points: <code>category points = baseline × 22.5 / 20</code>.
+      Intermediate telemetry, maximum/minimum gap, recovery, closing speed, and time in favorable
+      states may adjust a component only when the worksheet records the reason.</p>
+
+    <h2 id="rc-5"><span class="no">RC 5.</span>Measurement and Role Review</h2>
+    <p>Prefer telemetry measured through the round. Otherwise use consistent five-second samples,
+      route transitions, post-gear samples, map landmarks, replay tools, and end gaps. Camera
+      appearance alone is insufficient. Record average, maximum, minimum, and end gap; recovery;
+      conversion; favorable-gap time; Recounter uses; mistakes; role; opponent; map; result; and
+      duration. Qualitative Critical/Pressure/Neutral/Safe/Dominant states are allowed at reduced confidence.</p>
+
+    <h2 id="rc-6"><span class="no">RC 6.</span>Tier Floors</h2>
+    <p>C requires functional gap control and meaningful Recounter use in both roles. B requires
+      consistent distance preservation as Runner and reliable reduction as Catcher. A requires strong
+      recovery, efficient routing, timing, and multi-map results against leaderboard-level opponents.
+      S requires elite control in both roles, top-level Recounter proficiency, strong opposition, and
+      consistency across multiple verified sessions. Exceptional performance in only one role cannot earn S.</p>
+
+    <h2 id="rc-7"><span class="no">RC 7.</span>Placement, Evidence, and Review</h2>
+    <p>Comparison priority is gap control, both-role performance, opponent quality, Recounter
+      proficiency, routing/adaptability, then results. Evidence must show identity, loadout, opponents,
+      roles, all rounds, maps, results, gap information, and Recounter usage. Highlight reels,
+      missing losses, staged matches, hidden identities, unexplained cuts, incomplete role coverage,
+      or footage that prevents gap review are invalid.</p>
+    <p>Two reviewers are required normally; top-10 and S-tier cases require three. Appeals must name
+      the exact round, measurement, usage count, weighting, tier, or placement error and provide timestamps
+      or telemetry. Major Recounter, supporting-gear, map, or telemetry changes trigger re-evaluation.</p>
+
+    <h2 id="rc-8"><span class="no">RC 8.</span>Core Principle</h2>
+    <p>Recounter ranks how well a player controls distance on both sides of ranked tag while using
+      Recounter. Win rate cannot override substantially stronger gap control against harder opponents.</p>
+  </article>
+
+  <article class="category-rulebook" aria-labelledby="gl-title">
+    <h2 id="gl-title">Gearless Category Rulebook</h2>
+    <p><strong>Status: Ratified · Version 1.1.</strong> Gearless measures raw movement, routing,
+      prediction, recovery, and distance control without equipped gear. The standard glove is allowed.</p>
+
+    <h2 id="gl-1"><span class="no">GL 1.</span>Format and Equipment</h2>
+    <p>Every match contains three Runner and three Catcher rounds. Any back, arm, leg, movement,
+      utility, temporary, hidden, or pre-activated player-controlled gear invalidates the affected round.
+      Evidence must visibly confirm empty gear slots before the first counted match.</p>
+    <pre>Back Gear: None
+Left Arm Gear: None
+Right Arm Gear: None
+Leg Gear: None
+Glove: Standard glove allowed</pre>
+    <p>Glove timing, accuracy, pressure, defensive use, movement conversion, failures, and
+      punishability may be reviewed, but glove skill cannot replace movement and gap control.</p>
+
+    <h2 id="gl-2"><span class="no">GL 2.</span>Submission Size</h2>
+    <ul>
+      <li><strong>Standard:</strong> 3 matches, 18 rounds, 3 opponents, 9 rounds per role, at least 3 maps.</li>
+      <li><strong>Top 10:</strong> 5 matches, 30 rounds, 5 opponents, 15 rounds per role, 2 current top-50 opponents, multiple days.</li>
+      <li><strong>S tier:</strong> 2 verified sessions, at least 36 rounds and 6 opponents, with strong A/S-level results.</li>
+    </ul>
+
+    <h2 id="gl-3"><span class="no">GL 3.</span>Scoring · 100 Points</h2>
+    <ul>
+      <li><strong>Gap Control 45:</strong> Runner 22.5 and Catcher 22.5.</li>
+      <li><strong>Movement and Routing 25.</strong></li>
+      <li><strong>Role Performance 15:</strong> Runner 7.5 and Catcher 7.5.</li>
+      <li><strong>Adaptability and Prediction 10.</strong></li>
+      <li><strong>Competitive Results 5.</strong></li>
+    </ul>
+    <p class="formula">Apply the shared 20-point runner and catcher baselines, scaled with
+      <code>category points = baseline × 22.5 / 20</code>. Review route efficiency, momentum,
+      wall movement, cornering, vertical transitions, map knowledge, recovery, collisions, and
+      mechanical consistency independently from the final result.</p>
+
+    <h2 id="gl-4"><span class="no">GL 4.</span>Role and Movement Review</h2>
+    <p>Runners create separation without emergency gear, preserve momentum, avoid predictable loops,
+      and recover after route mistakes. Catchers close the starting gap, cut and predict routes,
+      pressure transitions, deny resets, and turn movement superiority into tags. Survival or a late
+      tag cannot erase poor gap control during the rest of a round.</p>
+    <p>Each round record includes role, opponent, map, result, duration, average/maximum/minimum/end
+      gap, tag time, movement errors, route notes, and reviewer notes. The same gap thresholds must
+      be used throughout a review cycle.</p>
+
+    <h2 id="gl-5"><span class="no">GL 5.</span>Tier Floors</h2>
+    <p>C requires legal equipment, functional movement, basic gap control, and competence in both
+      roles. B requires reliable movement and respectable distance control. A requires strong
+      multi-map routing, recovery, prediction, and few serious errors against leaderboard opposition.
+      S requires elite unaided movement and gap control in both roles across multiple verified sessions.</p>
+
+    <h2 id="gl-6"><span class="no">GL 6.</span>Placement, Evidence, and Review</h2>
+    <p>Comparison priority is gap control, movement/routing, both-role performance, opponent quality,
+      adaptability/prediction, then results. Evidence must show identity, all rounds and roles, maps,
+      results, gap information, and the visible empty loadout. Any gear use, concealed equipment,
+      missing round, omitted loss, staged result, unexplained cut, or unmeasurable footage is invalid.</p>
+    <p>Two reviewers are required normally and three for top-10 or S tier. Appeals must identify the
+      disputed round and factual equipment, gap, movement, weighting, tier, or placement error.
+      Movement, glove, map, or telemetry changes may trigger re-evaluation.</p>
+
+    <h2 id="gl-7"><span class="no">GL 7.</span>Core Principle</h2>
+    <p>Gearless ranks raw ranked-tag ability without gear assistance. More wins do not outrank clearly
+      stronger movement and gap control against credible opposition.</p>
+  </article>
+
+  <article class="category-rulebook" aria-labelledby="gg-title">
+    <h2 id="gg-title">Gearless: Gloveless Category Rulebook</h2>
+    <p><strong>Status: Ratified · Version 1.1.</strong> This category measures pure core movement,
+      routing, prediction, recovery, map knowledge, and distance control without any equipment assistance.</p>
+
+    <h2 id="gg-1"><span class="no">GG 1.</span>Format and Absolute Equipment Ban</h2>
+    <p>Every match contains three Runner and three Catcher rounds. All gear and glove slots must be
+      empty or disabled. Tags use legal body contact or the game's normal gloveless condition. Any
+      gear, glove, temporary utility item, hidden equipment, pre-round carryover effect, or
+      player-controlled equipment activation invalidates the affected round; repeated violations may
+      invalidate the submission.</p>
+    <pre>Back Gear: None
+Left Arm Gear: None
+Right Arm Gear: None
+Leg Gear: None
+Glove: Disabled or unequipped</pre>
+
+    <h2 id="gg-2"><span class="no">GG 2.</span>Submission Size</h2>
+    <ul>
+      <li><strong>Standard:</strong> 3 matches, 18 rounds, 3 opponents, 9 rounds per role, at least 3 maps.</li>
+      <li><strong>Top 10:</strong> 5 matches, 30 rounds, 5 opponents, 15 rounds per role, 2 current top-50 opponents, multiple days.</li>
+      <li><strong>S tier:</strong> 2 verified sessions, at least 36 rounds and 6 opponents, with strong A/S-level results.</li>
+    </ul>
+
+    <h2 id="gg-3"><span class="no">GG 3.</span>Scoring · 100 Points</h2>
+    <ul>
+      <li><strong>Gap Control 50:</strong> Runner 25 and Catcher 25.</li>
+      <li><strong>Movement and Routing 30.</strong></li>
+      <li><strong>Prediction and Adaptability 10.</strong></li>
+      <li><strong>Competitive Results 10.</strong></li>
+    </ul>
+    <p class="formula">Apply the shared runner and catcher baselines with
+      <code>category points = baseline × 25 / 20</code>. With no rescue equipment, gap control has
+      the greatest weight. Movement review includes acceleration, momentum, walls, corners, vertical
+      transitions, landings, geometry, recovery, route variety, collisions, and hesitation.</p>
+
+    <h2 id="gg-4"><span class="no">GG 4.</span>Role, Tag, and Recovery Review</h2>
+    <p>Runners create and preserve distance through core movement alone. Catchers close distance,
+      predict and cut routes, maintain momentum, deny resets, recover after missed contact, and earn
+      legal body-contact tags. A late tag does not erase a chase spent far behind; a failed tag does
+      not erase otherwise excellent pressure.</p>
+    <p>Recovery after collisions, missed jumps, denied routes, failed approaches, and momentum loss is
+      explicitly reviewed because no gear or glove can rescue poor positioning. Each round records
+      role, opponent, map, result, duration, average/maximum/minimum/end gap, tag time, movement errors,
+      recovery notes, route notes, and reviewer notes.</p>
+
+    <h2 id="gg-5"><span class="no">GG 5.</span>Tier Floors</h2>
+    <p>C requires legal empty equipment, functional core movement, and competence in both roles.
+      B requires reliable movement, recovery, and respectable gap control. A requires strong
+      momentum, prediction, multi-map execution, and few serious errors against leaderboard players.
+      S requires elite pure movement and distance control in both roles across multiple verified sessions.</p>
+
+    <h2 id="gg-6"><span class="no">GG 6.</span>Placement, Evidence, and Review</h2>
+    <p>Comparison priority is gap control, movement/routing, both-role performance, opponent quality,
+      prediction/adaptability, then results. Evidence must show identity, all rounds and roles, maps,
+      results, gap information, visibly empty slots, and the disabled glove. If glove status is not
+      visible, use inventory/settings evidence, an activation test, or moderator observation.</p>
+    <p>Missing rounds, omitted losses, cuts, hidden identities, staged matches, gear or glove use,
+      concealed equipment, and footage that prevents gap review are invalid. Two reviewers are
+      required normally and three for top-10 or S tier. Appeals must name the exact round and factual
+      gap, equipment, glove, movement, weighting, tier, or placement error.</p>
+
+    <h2 id="gg-7"><span class="no">GG 7.</span>Relationship to Gearless and Core Principle</h2>
+    <p>Gearless permits the standard glove; Gearless: Gloveless does not. Evidence does not transfer
+      automatically. A gloveless match may support Gearless only when cross-category submission rules
+      permit it and the evidence independently satisfies that category. This leaderboard ranks pure
+      movement and distance control without equipment-assisted mechanics.</p>
+  </article>
 </section>
 
 <div class="wrap">
@@ -3340,6 +3562,13 @@ function buildRtoc() {
       h.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
     toc.append(a);
+  });
+  document.querySelectorAll('.rule-category-nav [data-rule-target]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.getElementById(a.dataset.ruleTarget);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 }
 

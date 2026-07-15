@@ -3488,11 +3488,13 @@ function badgeNodes(author) {
 let fboard = 'all';
 
 function issueBoard(title) {
+  if (/^\[ANNOUNCEMENT REQUEST\]/i.test(title)) return null;
   if (/^\[SUBMISSION\]/i.test(title)) return 'submissions';
   if (/^\[APPEAL\]/i.test(title)) return 'appeals';
   if (/^\[PROPOSAL\]/i.test(title)) return 'proposals';
   if (/^\[DISCUSSION\]/i.test(title)) return 'discussion';
-  return null;
+  // Natural, unprefixed issue titles are ordinary player discussions.
+  return 'discussion';
 }
 
 async function renderOnlineForum(host) {

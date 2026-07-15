@@ -9,6 +9,7 @@ PKL Ranked is an unofficial, community-maintained leaderboard and discussion hub
 Current sections:
 
 - Leaderboards
+- Per-item rankings
 - Forum
 - Announcements
 - Rulebook
@@ -60,6 +61,7 @@ Routes currently include:
 
 ```text
 #/ranked
+#/items
 #/forum
 #/announcements
 #/rules
@@ -92,6 +94,24 @@ Each category generally contains:
 Player order determines leaderboard placement unless the application explicitly implements a different sorting system.
 
 Do not silently reorder real or provisional player data.
+
+## Competitive ranks and per-item reviews
+
+The competitive rank order is:
+
+```text
+Unranked, Bronze, Silver, Gold, Platinum, Diamond, Master, Elite
+```
+
+The project owner confirmed that every player in the top 50 of Meta, Recounter, Gearless, and
+Gearless: Gloveless is Elite. Keep competitive rank separate from leaderboard placement, tier/placement
+band, and Review Score. Time Trials does not use these competitive ranks.
+
+Per-item lists are evidence-qualified and intentionally variable in length. Do not infer that every
+top-50 player has used every item, and never pad a per-item list to 50. The current rubric totals 100:
+proficiency 30, gap impact 25, tactical application 15, routing and integration 15, adaptability 10,
+and results 5. The owner specifically confirmed ncm_k's leading Wingsuit, Aero Punch, and Thrust
+Capacitor performance and excluded ncm_k from Springhook pending qualifying current-season evidence.
 
 ## Meta category
 
@@ -149,7 +169,6 @@ The leaderboard should distinguish between:
 - verified data;
 - provisional data;
 - nominations;
-- sample or placeholder data;
 - archived data.
 
 Never present generated point totals or placeholder placements as verified community facts.
@@ -180,13 +199,15 @@ Use explicit labels such as:
 - Draft
 - Provisional
 - Unverified
-- Sample Data
-- Local Demo
 - Archived
 
 when appropriate.
 
 ## Forum status
+
+The built-in forum threads are preserved community archives, as confirmed by the project owner. Do
+not relabel them as examples, samples, or fabricated demo content. Do not silently rewrite their
+substance; terminology corrections should be narrowly sourced to current PARKOUR Legacy mechanics.
 
 The current forum stores user-created threads and replies in that browser’s `localStorage`.
 
@@ -199,7 +220,8 @@ This means:
 - there is no real moderation system;
 - usernames are not identity-verified.
 
-Until a backend exists, visibly identify it as a local forum prototype or demo.
+Until a backend exists, visibly identify only the composer and newly created posts as browser-local.
+Do not describe the read-only built-in archive itself as a local demo.
 
 Do not imply that locally submitted appeals or leaderboard applications reach staff.
 
@@ -322,10 +344,10 @@ Agents should ask or clearly flag assumptions before changing:
 
 High-priority improvements:
 
-1. Mark placeholder and provisional ranking data clearly.
-2. Change the forum label to indicate that it is currently local-only.
+1. Mark provisional ranking evaluations clearly.
+2. Keep archived threads distinct from browser-local drafts.
 3. Preserve the ratified status of all four category rulebooks unless the project owner changes it.
-4. Remove fabricated publication/effective dates or label them as examples.
+4. Preserve archived publication/effective dates unless the owner supplies a correction.
 5. Decouple tier grades from automatic rank bands.
 6. Replace “anything goes” in the Meta description.
 7. Add per-player verification status.

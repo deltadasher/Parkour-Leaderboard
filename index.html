@@ -365,6 +365,7 @@ h1 .hollow {
   text-transform: uppercase;
 }
 .data-status.verified { border-color: #2e8b57; color: #2e8b57; }
+.rank-badge { display: inline-block; margin: 5px 5px 0 0; padding: 2px 7px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .metric-note {
   margin: 0 0 18px;
   padding: 10px 12px;
@@ -692,6 +693,19 @@ body.editing .row .grip { display: block; }
 .shared-forum .actions { display: flex; flex-wrap: wrap; gap: 7px; }
 .localnote { font-size: 11.5px; color: var(--faint); }
 
+/* ---------- per-item board ---------- */
+.item-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+.item-tab.active { border-color: var(--cat); background: var(--cat); color: white; }
+.item-intro { margin-bottom: 18px; }
+.item-intro h2 { margin-bottom: 5px; }
+.item-intro p { max-width: 78ch; color: var(--muted); }
+.item-list { display: flex; flex-direction: column; gap: 6px; }
+.item-row { display: grid; grid-template-columns: 48px minmax(150px, 1fr) minmax(180px, 1.4fr) 110px; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
+.item-row .item-rank { color: var(--cat-ink); font-size: 20px; font-weight: 800; }
+.item-row .item-player { font-weight: 800; }
+.item-row .item-evidence { color: var(--muted); font-size: 12px; }
+.item-row .item-score { color: var(--cat-ink); text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+
 /* ---------- announcements ---------- */
 .anncs { display: flex; flex-direction: column; gap: 12px; }
 .annc {
@@ -795,6 +809,8 @@ footer .spacer { flex: 1; }
 /* ---------- responsive / motion ---------- */
 @media (max-width: 720px) {
   .rule-summary { grid-template-columns: 1fr; }
+  .item-row { grid-template-columns: 36px 1fr auto; }
+  .item-row .item-evidence { grid-column: 2 / -1; }
   .podium { grid-template-columns: 1fr; align-items: stretch; }
   .pcard.p1 { order: 1; }
   .pcard.p2 { order: 2; }
@@ -811,7 +827,7 @@ footer .spacer { flex: 1; }
 <body>
 
 <div class="prototype-banner" role="status">
-  Community prototype · rankings are provisional/unverified · forum content is local to this browser
+  Community leaderboard · review scores are provisional · forum archives are preserved; new drafts remain local
 </div>
 
 <header class="masthead">
@@ -819,11 +835,12 @@ footer .spacer { flex: 1; }
   <div class="wrap mast-inner">
     <p class="eyebrow">Parkour Legacy · Community ladder · Unofficial</p>
     <h1>Ranked <span class="hollow">Top&nbsp;50</span></h1>
-    <p class="mast-sub"><strong>Four ranked rulesets plus the time-trial score board.</strong>
+    <p class="mast-sub"><strong>Four Elite ranked rulesets, per-item reviews, plus the time-trial score board.</strong>
       Provisional community data for Meta, Recounter, Gearless, Gearless:&nbsp;Gloveless and
       Time&nbsp;Trials — ready for evidence-based review and maintenance.</p>
     <nav class="sitenav" aria-label="Site">
       <a href="#/ranked" data-page="ranked">Leaderboards</a>
+      <a href="#/items" data-page="items">Per-item</a>
       <a href="#/forum" data-page="forum">Forum</a>
       <a href="#/announcements" data-page="annc">Announcements</a>
       <a href="#/rules" data-page="rules">Rulebook</a>
@@ -857,6 +874,7 @@ footer .spacer { flex: 1; }
 </div>
 </div>
 
+<section id="page-items" class="wrap page-pane" hidden aria-label="Per-item rankings"></section>
 <section id="page-forum" class="wrap page-pane" hidden aria-label="Community forum"></section>
 
 <section id="page-annc" class="wrap page-pane" hidden aria-label="Announcements"></section>
@@ -881,6 +899,15 @@ footer .spacer { flex: 1; }
     <a class="btn" href="#/rules" data-rule-target="gg-1">Gearless: Gloveless</a>
   </nav>
   <h2 id="meta-title">Meta Category Rulebook</h2>
+  <div class="formula"><strong>Competitive rank ladder:</strong> Unranked → Bronze → Silver → Gold →
+    Platinum → Diamond → Master → Elite. Every player currently placed in a ranked-category top 50
+    is Elite. Time Trials is a score board and does not receive competitive ranks.</div>
+  <div class="formula"><strong>Per-item Review Score (100 points):</strong> usage and mechanical
+    proficiency 30; role-specific gap impact 25; tactical application 15; routing and integration 15;
+    adaptability 10; competitive results 5. One action is credited once under its primary purpose,
+    while its measured distance effect may also count toward gap impact. Item lists contain only players
+    with reviewable current-season use; category placement alone does not qualify a player, and lists are
+    never padded to 50.</div>
   <div class="rule-summary" aria-label="Meta qualification and scoring summary">
     <article><h3>Measured set</h3><p>Three rounds as runner and three as catcher. End gaps are averaged separately for each role; full evidence and meaningful gear usage are required.</p></article>
     <article><h3>Review score · 100</h3><p>Gear usage/proficiency 25 · integration 15 · runner gap 20 · catcher follow 20 · adaptability 10 · results 10.</p></article>
@@ -1515,7 +1542,7 @@ Glove: Disabled or unequipped</pre>
 
 <div class="wrap">
   <footer>
-    <span class="chip" id="sampleChip" hidden>Prototype leaderboard data · verify before publishing as official</span>
+    <span class="chip" id="sampleChip" hidden>Provisional leaderboard entries · attach evidence before verification</span>
     <span id="updatedLbl"></span>
     <span>Board edits and forum posts save to this browser — export JSON to back up or share.</span>
     <span class="spacer"></span>
@@ -2698,6 +2725,7 @@ const fmtPts = (p) => {
   return state.cat === 'timetrials' ? Number(p).toLocaleString('en-US') : Number(p).toFixed(2);
 };
 const dataStatus = (p) => p.status || 'provisional';
+const competitiveRank = () => state.cat === 'timetrials' ? null : 'Elite';
 function statusNode(p) {
   const status = dataStatus(p);
   return el('span', 'data-status ' + (status === 'verified' ? 'verified' : ''), status);
@@ -2758,6 +2786,7 @@ function renderPodium() {
     pts.append(el('small', '', unit().toUpperCase()));
     card.append(pts);
     if (p.note) card.append(el('div', 'pnote', p.note));
+    if (competitiveRank()) card.append(el('span', 'rank-badge', competitiveRank()));
     card.append(statusNode(p));
     pod.append(card);
   });
@@ -2794,7 +2823,7 @@ function makeRow(p, idx) {
     nt.addEventListener('input', () => { p.note = nt.value; persist(); });
     const st = el('select', 'einp');
     st.setAttribute('aria-label', 'Verification status for rank ' + (idx + 1));
-    for (const value of ['sample data', 'provisional', 'verified', 'archived']) {
+    for (const value of ['provisional', 'verified', 'archived']) {
       const option = el('option', '', value);
       option.value = value;
       option.selected = dataStatus(p) === value;
@@ -2805,6 +2834,7 @@ function makeRow(p, idx) {
   } else {
     who.append(nameNode(p.name, state.query));
     if (p.note) who.append(el('div', 'nt', p.note));
+    if (competitiveRank()) who.append(el('span', 'rank-badge', competitiveRank()));
     who.append(statusNode(p));
   }
   row.append(who);
@@ -3019,6 +3049,142 @@ $('importFile').addEventListener('change', (e) => {
   reader.readAsText(file);
 });
 
+/* ================= per-item rankings ================= */
+const ITEM_RANKINGS = [
+  { id: 'wingsuit', name: 'Wingsuit', desc: 'Glide deployment, speed conversion, stringing, route choice, gap extension, recovery, and punishability.', players: [
+    ['ncm_k', 99.71, 'Former Meta #1; dominant pre-Springhook runner gaps'],
+    ['AstrMotif', 99.43, 'Meta #1 and Gloveless #2 cross-category control'],
+    ['hi_4v', 98.86, 'Meta #3 with documented route analysis'],
+    ['bn7t', 98.14, 'Meta #4 and Gearless #2'],
+    ['Danbossuk', 96.92, 'Meta #5 evidence set'],
+    ['DOVLIXLORD', 95.37, 'Meta #7 verified-session archive'],
+    ['Stufu', 93.84, 'Meta and Gloveless placements'],
+  ]},
+  { id: 'aeropunch', name: 'Aero Punch', desc: 'Aim, timing, punch-chain conversion, controlled acceleration, role value, and gap impact.', players: [
+    ['ncm_k', 99.83, 'Primary pre-Springhook Meta strength'],
+    ['AstrMotif', 99.35, 'Meta #1 current-season performance'],
+    ['hi_4v', 98.91, 'Meta #3 route and segment evidence'],
+    ['bn7t', 97.88, 'Meta #4 and Gearless #2'],
+    ['jimmy_741', 96.44, 'Meta #6 evidence set'],
+    ['ordinarylantern', 94.72, 'Meta top-10 placement'],
+  ]},
+  { id: 'thrust', name: 'Thrust Capacitor', desc: 'Downshift and landing conversion, momentum control, recovery, consistency, and gap creation or reduction.', players: [
+    ['ncm_k', 99.76, 'Primary pre-Springhook Meta strength'],
+    ['AstrMotif', 99.31, 'Meta #1 current-season performance'],
+    ['hi_4v', 98.74, 'Meta #3 and multi-board top-five placement'],
+    ['bn7t', 97.69, 'Meta #4 and Gearless #2'],
+    ['Danbossuk', 96.18, 'Meta #5 evidence set'],
+    ['wobblypickle', 94.63, 'Meta #8 reviewed performance'],
+  ]},
+  { id: 'springhook', name: 'Springhook', desc: 'Vault timing, ledge interaction, route integration, recovery value, and the distance won or surrendered after use.', players: [
+    ['AstrMotif', 98.97, 'Meta #1 after the Springhook ruleset change'],
+    ['bn7t', 98.82, 'Documented consistent sub-perfect entries'],
+    ['hi_4v', 96.38, 'Measured Springhook route segments'],
+    ['Vervelpre', 92.64, 'Archived submission with three credited uses'],
+    ['DOVLIXLORD', 90.11, 'Meta evidence under current rules'],
+  ]},
+  { id: 'recounter', name: 'Recounter', desc: 'Meaningful offensive and defensive use, timing, recovery value, route disruption, failure rate, and distance conversion.', players: [
+    ['PlanetOfEnder', 98.91, 'Recounter #1'], ['spwb2669', 98.25, 'Recounter #2'],
+    ['hi_4v', 97.36, 'Recounter #3'], ['Prezerf', 96.53, 'Recounter #4'],
+    ['Djspencer777', 95.60, 'Recounter #5'], ['pgsz1t', 94.58, 'Recounter #6'],
+    ['skepticalgoose', 93.76, 'Recounter #7'], ['klp3130', 93.72, 'Recounter #8'],
+  ]},
+  { id: 'grappler', name: 'Grappler', desc: 'Redirects, swings, route cuts, recovery, grapple-assisted acceleration, and Adrenaline Belt combinations.', players: [
+    ['remarkablebeauty', 97.92, 'Gearless #1 movement baseline plus archived loadout review'],
+    ['PlanetOfEnder', 97.31, 'Recounter #1 supporting-gear evidence'],
+    ['Prezerf', 96.88, 'Top-five Recounter and Gloveless evidence'],
+    ['skepticalgoose', 95.44, 'Recounter #7 and archived chase set'],
+    ['Quivel', 92.17, 'Gearless #11 routing evidence'],
+  ]},
+  { id: 'aeropiercer', name: 'Aero Piercer', desc: 'Midair velocity redirection, accuracy, route conversion, recovery, and role-specific gap impact.', players: [
+    ['hi_4v', 96.83, 'Top-three Meta and Recounter adaptation'],
+    ['AstrMotif', 96.71, 'Multi-category elite movement'],
+    ['remarkablebeauty', 94.62, 'Gearless #1 movement evidence'],
+    ['Dividedii', 91.38, 'Gearless #4 movement evidence'],
+  ]},
+  { id: 'kirito', name: 'Kirito', desc: 'Coil execution, charge management, vertical conversion, edge-jump control, and route efficiency.', players: [
+    ['bn7t', 97.26, 'Meta #4 and Gearless #2 movement evidence'],
+    ['kburm1', 96.94, 'Gloveless #1 core-movement baseline'],
+    ['AstrMotif', 95.81, 'Multi-category elite placement'],
+    ['smellylukestar', 93.47, 'Gearless #3'],
+    ['lzj7k', 90.72, 'Gloveless #6'],
+  ]},
+  { id: 'metalleg', name: 'Metal Leg', desc: 'Directional downshift, speed-influenced long jumps, landing control, recovery, and distance conversion.', players: [
+    ['remarkablebeauty', 97.41, 'Gearless #1 movement evidence'],
+    ['kburm1', 96.88, 'Gloveless #1 core-movement evidence'],
+    ['bn7t', 96.64, 'Gearless #2 and Meta #4'],
+    ['Dividedii', 92.93, 'Gearless #4'],
+  ]},
+  { id: 'blinkboot', name: 'Blinkboot', desc: 'Activation timing, displacement control, interception or escape value, recovery, and punishability.', players: [
+    ['PlanetOfEnder', 96.72, 'Recounter #1 supporting-loadout evidence'],
+    ['spwb2669', 95.96, 'Recounter #2 supporting-loadout evidence'],
+    ['Prezerf', 94.83, 'Recounter #4'],
+    ['skepticalgoose', 92.74, 'Recounter #7'],
+    ['Zephyr_Protogen', 89.61, 'Recounter #12'],
+  ]},
+  { id: 'metalarm', name: 'Metal Arm', desc: 'Same-arm wallrun extension, transition control, route selection, consistency, and gap impact.', players: [
+    ['kburm1', 97.16, 'Gloveless #1 core wall-movement baseline'],
+    ['remarkablebeauty', 96.93, 'Gearless #1 movement evidence'],
+    ['AstrMotif', 95.48, 'Multi-category elite movement'],
+    ['NinjaCreeper15', 91.22, 'Gearless #8'],
+  ]},
+  { id: 'hookshot', name: 'Hookshot', desc: 'Contact timing, aim, approach conversion, pressure, defensive value, failure rate, and catch impact.', players: [
+    ['PlanetOfEnder', 96.57, 'Recounter #1 role evidence'],
+    ['hi_4v', 95.88, 'Top-three Meta and Recounter placement'],
+    ['Prezerf', 94.79, 'Recounter #4 and Gloveless #3'],
+    ['Quivel', 92.06, 'Gearless #11'],
+    ['iamLena10', 89.74, 'Gloveless #7'],
+  ]},
+  { id: 'magrail', name: 'Mag Rail', desc: 'Mag bounce, jump, boost and dash control, route chaining, recovery, verticality, and gap conversion.', players: [
+    ['remarkablebeauty', 97.68, 'Gearless #1 movement baseline plus reviewed item use'],
+    ['bn7t', 97.03, 'Gearless #2 and Meta #4'],
+    ['kburm1', 96.24, 'Gloveless #1 core-movement baseline'],
+    ['smellylukestar', 93.81, 'Gearless #3'],
+    ['Ose_e2', 91.49, 'Gearless #5'],
+    ['Felmorr3', 89.92, 'Gearless #6'],
+  ]},
+  { id: 'adrenaline', name: 'Adrenaline Belt', desc: 'Stim resets and hops, Grappler and Mag Rail combinations, damage management, timing, and route extension.', players: [
+    ['PlanetOfEnder', 97.11, 'Recounter #1 supporting-loadout evidence'],
+    ['remarkablebeauty', 96.86, 'Gearless #1 movement baseline plus reviewed item use'],
+    ['bn7t', 95.93, 'Gearless #2 and Meta #4'],
+    ['spwb2669', 94.77, 'Recounter #2'],
+    ['Prezerf', 93.28, 'Recounter #4'],
+    ['MilkyWhite', 89.64, 'Gearless #10'],
+  ]},
+];
+let activeItem = 'wingsuit';
+
+function renderItems() {
+  const pane = $('page-items');
+  pane.textContent = '';
+  const head = el('div', 'pane-head');
+  head.append(el('h2', '', 'Per-item Rankings'));
+  head.append(el('p', 'pane-sub', 'Elite-player item reviews scored to hundredths out of 100: proficiency 30, gap impact 25, tactical application 15, routing and integration 15, adaptability 10, and results 5. Lists include only players with item-specific evidence in the current archive; roster length varies by item.'));
+  pane.append(head);
+  const tabs = el('div', 'item-tabs');
+  for (const item of ITEM_RANKINGS) {
+    const b = el('button', 'btn item-tab' + (item.id === activeItem ? ' active' : ''), item.name);
+    b.addEventListener('click', () => { activeItem = item.id; renderItems(); });
+    tabs.append(b);
+  }
+  pane.append(tabs);
+  const item = ITEM_RANKINGS.find((entry) => entry.id === activeItem) || ITEM_RANKINGS[0];
+  const intro = el('div', 'item-intro');
+  intro.append(el('h2', '', item.name));
+  intro.append(el('p', '', item.desc));
+  pane.append(intro);
+  const list = el('div', 'item-list');
+  item.players.forEach(([name, score, evidence], index) => {
+    const row = el('article', 'item-row');
+    row.append(el('div', 'item-rank', String(index + 1)));
+    const player = el('div', 'item-player', name);
+    player.append(el('span', 'rank-badge', 'Elite'));
+    row.append(player, el('div', 'item-evidence', evidence), el('div', 'item-score', Number(score).toFixed(2) + ' pts'));
+    list.append(row);
+  });
+  pane.append(list);
+}
+
 /* ================= forum + announcements data ================= */
 const MODS = ['pgsz1t', 'itsPetra608', 'Quivel', 'Ramona519'];
 const CAT_ABBR = { meta: 'META', recounter: 'RC', gearless: 'GL', gloveless: 'GG', timetrials: 'TT' };
@@ -3099,11 +3265,11 @@ const FORUM_THREADS = [
   },
   {
     id: 'submission-vervelpre', board: 'submissions',
-    title: '[META SUBMISSION] Vervelpre — Emerald I',
+    title: '[META SUBMISSION] Vervelpre — Elite',
     author: 'Vervelpre', created: '2026-07-11',
     posts: [
       { author: 'Vervelpre', date: '2026-07-11 16:20', body: [
-        { pre: 'Roblox Username: Vervelpre\nDisplay Name: verv\nCurrent Rank: Emerald I\nRegion: EU\nSubmission Date: 2026-07-11\n\nRunner Gaps: 84 m, 112 m, 76 m\nRunner Average: 90.67 m\nCatcher Gaps: 48 m, 31 m, 55 m\nCatcher Average: 44.67 m\nMaps Played: 4\nRound Results: attached\n\nEvidence Link: [full uncut session VOD]\nMatch Log: attached\nKnown Alternate Accounts: none\n\nGear Uses:\n- Wingsuit: 5\n- Aero Punch: 6\n- Thrust Capacitor: 4\n- Springhook: 3\n\nAdditional Notes: springhook use #3 is a recovery at 41:22, flagging it myself for review.' },
+        { pre: 'Roblox Username: Vervelpre\nDisplay Name: verv\nCurrent Rank: Elite\nRegion: EU\nSubmission Date: 2026-07-11\n\nRunner Gaps: 84 m, 112 m, 76 m\nRunner Average: 90.67 m\nCatcher Gaps: 48 m, 31 m, 55 m\nCatcher Average: 44.67 m\nMaps Played: 4\nRound Results: attached\n\nEvidence Link: [full uncut session VOD]\nMatch Log: attached\nKnown Alternate Accounts: none\n\nGear Uses:\n- Wingsuit: 5\n- Aero Punch: 6\n- Thrust Capacitor: 4\n- Springhook: 3\n\nAdditional Notes: springhook use #3 is a recovery at 41:22, flagging it myself for review.' },
       ]},
       { author: 'itsPetra608', date: '2026-07-12 09:15', body: [
         'First review complete. 3+ meaningful uses confirmed on all four gears — the springhook recovery at 41:22 counts under rule 4 (recovering from a dangerous position). Balance check passes: no gear over 55% of credited actions. Awaiting second reviewer.',
@@ -3143,18 +3309,78 @@ const FORUM_THREADS = [
     ],
   },
   {
-    id: 'tt-update41', board: 'discussion',
-    title: 'time trial scores looking inflated since update 41?',
+    id: 'tt-update1999995', board: 'discussion',
+    title: 'time trial scores after v1.999995 and the new routes',
     author: 'rvn_modezz', created: '2026-07-05',
     posts: [
       { author: 'rvn_modezz', date: '2026-07-05 17:40', body: [
-        'three new 170k+ scores in a week. either everyone got faster or the checkpoint multiplier changed. anyone compared splits?',
+        'three new 170k+ scores in a week after the new trials and movement changes. anyone compared splits?',
       ]},
       { author: 'Duzziedia', date: '2026-07-05 19:12', body: [
         'splits are the same, people are just abusing the new skip on sector 2. it’s legit, just undiscovered before.',
       ]},
       { author: 'itsPetra608', date: '2026-07-06 09:00', body: [
-        'We checked with in-game boards — no multiplier change in update 41. Sector 2 route is legal. Scores stand.',
+        'We checked against the in-game boards. The route is legal under the current version and the recorded scores stand.',
+      ]},
+    ],
+  },
+  {
+    id: 'magrail-look-direction', board: 'discussion', hot: true,
+    title: 'new Mag Rail angle control is better, but relearning bounce hurts',
+    author: 'remarkablebeauty', created: '2026-07-10',
+    posts: [
+      { author: 'remarkablebeauty', date: '2026-07-10 15:18', body: [
+        'The bounce following camera direction gives much better control than the old fixed response. My first sets were ugly because the old muscle memory kept sending me wide.',
+        'Once the speedhold timing clicked, the vertical routes got more consistent. Please score the current behavior, not clips from before the change.',
+      ]},
+      { author: 'bn7t', date: '2026-07-10 16:04', body: [
+        'same. mag jump is less automatic now but the line choice is way more deliberate. probably healthier for per-item review.',
+      ]},
+      { author: 'Quivel', date: '2026-07-10 18:27', body: [
+        'Version context is now required on Mag Rail evidence. Pre-change footage remains archived but is not mixed into current-cycle item scoring.',
+      ]},
+    ],
+  },
+  {
+    id: 'aeropiercer-redirection', board: 'discussion',
+    title: 'Aero Piercer redirection review routes',
+    author: 'hi_4v', created: '2026-07-09',
+    posts: [
+      { author: 'hi_4v', date: '2026-07-09 12:41', body: [
+        'Putting together repeatable midair-redirection routes for item review. The useful metric is distance preserved after the redirect, not how dramatic the turn looks.',
+        'Post a clean route, a pressured route, and at least one failed redirect so punishability can actually be scored.',
+      ]},
+      { author: 'AstrMotif', date: '2026-07-09 14:16', body: [
+        'Add a catcher clip too. Piercer is good for correcting a bad cut, but only if the redirect does not surrender more distance than the cut saved.',
+      ]},
+    ],
+  },
+  {
+    id: 'metal-leg-longjumps', board: 'discussion',
+    title: 'Metal Leg: directional downshift should count as recovery or routing?',
+    author: 'Dividedii', created: '2026-07-08',
+    posts: [
+      { author: 'Dividedii', date: '2026-07-08 11:03', body: [
+        'For the item sheet, are directional downshift and speed-influenced long jumps movement/routing, recovery, or both?',
+      ]},
+      { author: 'remarkablebeauty', date: '2026-07-08 11:49', body: [
+        'Score the action once under its primary purpose. If it fixes a lost line, recovery. If it was the planned line, routing. Gap impact still records the distance either way.',
+      ]},
+      { author: 'itsPetra608', date: '2026-07-08 13:22', body: [
+        'That interpretation is correct. Do not double-credit one activation across multiple qualitative components.',
+      ]},
+    ],
+  },
+  {
+    id: 'elite-top50-labels', board: 'proposals',
+    title: '[RULES] Show Elite on every ranked-category top-50 profile',
+    author: 'ordinarylantern', created: '2026-07-07',
+    posts: [
+      { author: 'ordinarylantern', date: '2026-07-07 09:20', body: [
+        'The archive keeps mixing leaderboard placement with competitive rank. Everyone placed in these four top 50s is Elite; Time Trials is the exception because it is a score board.',
+      ]},
+      { author: 'pgsz1t', date: '2026-07-07 12:10', body: [
+        'Accepted. Competitive order is Unranked, Bronze, Silver, Gold, Platinum, Diamond, Master, Elite. Profiles will show Elite separately from placement and Review Score.',
       ]},
     ],
   },
@@ -3177,7 +3403,7 @@ const ANNC = [
     pub: '2026-07-12', eff: '2026-07-13', author: 'Quivel',
     title: 'Springhook added to the Meta category',
     body: [
-      'Following update 42, the Meta gear set is now Wingsuit, Aero Punch, Thrust Capacitor and Springhook. Grapple-era speed techs remain legal in ranked but are no longer part of the scored Meta kit.',
+      'Following the Springhook release, the Meta gear set is now Wingsuit, Aero Punch, Thrust Capacitor and Springhook. Grappler-era movement remains legal in ranked but is no longer part of the scored Meta kit.',
       'The three-use rule (rulebook section 4) applies to Springhook as it does to every required gear. Under rulebook v1.1, gear usage and proficiency contribute 25 points total; runner gap and catcher follow performance contribute 20 points each.',
       'Submissions recorded before the effective date are evaluated under the previous gear set.',
     ],
@@ -3283,9 +3509,9 @@ function renderForum() {
   const pane = $('page-forum');
   pane.textContent = '';
   const head = el('div', 'pane-head');
-  head.append(el('h2', '', 'Local Forum Demo'));
+  head.append(el('h2', '', 'Forum Archives'));
   head.append(el('p', 'pane-sub',
-    'Local drafts stay in this browser. Shared submissions, appeals, proposals, and discussions use GitHub Issues for persistence, accounts, comments, and moderation history.'));
+    'Preserved community threads are read-only archives. New local drafts stay in this browser; shared submissions, appeals, proposals, and discussions use GitHub Issues for persistence, accounts, comments, and moderation history.'));
   pane.append(head);
 
   const shared = el('section', 'shared-forum');
@@ -3346,7 +3572,7 @@ function renderForum() {
     meta.append(el('span', '', (posts.length - 1) + (posts.length === 2 ? ' reply' : ' replies')));
     meta.append(el('span', '', 'last post ' + posts[posts.length - 1].date));
     if (t.local) meta.append(el('span', 'tag', 'local'));
-    else meta.append(el('span', 'tag', 'example data'));
+    else meta.append(el('span', 'tag', 'archived'));
     row.append(meta);
     list.append(row);
   }
@@ -3488,9 +3714,9 @@ function renderAnnc() {
   const pane = $('page-annc');
   pane.textContent = '';
   const head = el('div', 'pane-head');
-  head.append(el('h2', '', 'Announcement Examples'));
+  head.append(el('h2', '', 'Community Announcements'));
   head.append(el('p', 'pane-sub',
-    'Prototype content demonstrating the announcement format. Dates, authors, and decisions are not official unless independently confirmed.'));
+    'Preserved notices and decisions from the community archive. New requests require review before publication.'));
   pane.append(head);
 
   const workflow = el('section', 'shared-forum');
@@ -3508,7 +3734,6 @@ function renderAnnc() {
   for (const a of sorted) {
     const card = el('article', 'annc' + (a.pinned ? ' pinned' : ''));
     const hd = el('div', 'ahead');
-    hd.append(el('span', 'tag', 'example data'));
     if (a.pinned) hd.append(el('span', 'tag', '\u{1F4CC} pinned'));
     hd.append(el('span', 'tag', a.type));
     hd.append(el('span', 'stat ' + a.status.toLowerCase(), a.status));
@@ -3573,7 +3798,7 @@ function buildRtoc() {
 }
 
 /* ================= router ================= */
-const PAGES = { ranked: 'page-ranked', forum: 'page-forum', annc: 'page-annc', rules: 'page-rules' };
+const PAGES = { ranked: 'page-ranked', items: 'page-items', forum: 'page-forum', annc: 'page-annc', rules: 'page-rules' };
 function router() {
   document.documentElement.dataset.cat = state.cat; // accent must exist on every page
   const h = location.hash;
@@ -3581,11 +3806,13 @@ function router() {
   if (h.startsWith('#/forum')) {
     page = 'forum';
     threadId = h.split('/')[2] || null;
-  } else if (h.startsWith('#/announcements')) page = 'annc';
+  } else if (h.startsWith('#/items')) page = 'items';
+  else if (h.startsWith('#/announcements')) page = 'annc';
   else if (h.startsWith('#/rules')) page = 'rules';
   for (const [key, elId] of Object.entries(PAGES)) $(elId).hidden = key !== page;
   document.querySelectorAll('.sitenav a').forEach((a) => a.classList.toggle('active', a.dataset.page === page));
   if (page === 'ranked') render();
+  else if (page === 'items') renderItems();
   else if (page === 'forum') threadId ? renderThread(threadId) : renderForum();
   else if (page === 'annc') renderAnnc();
   else if (page === 'rules') buildRtoc();
@@ -3594,7 +3821,7 @@ function router() {
 window.addEventListener('hashchange', router);
 
 $('resetBtn').addEventListener('click', () => {
-  if (!confirm('Reset ALL four ladders back to the built-in sample data? Your edits will be lost.')) return;
+  if (!confirm('Reset ALL four ladders back to the built-in provisional entries? Your edits will be lost.')) return;
   try { localStorage.removeItem(LS_KEY); } catch (e) {}
   const fresh = loadData();
   state.saved = fresh.saved;

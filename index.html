@@ -3973,29 +3973,38 @@ function profileBio(data) {
   const timeTrial = data.placements.find((placement) => placement.key === 'timetrials');
   if (ranked.length) {
     const best = ranked.reduce((current, placement) => placement.idx < current.idx ? placement : current);
-    let opening = data.name + ' is an Elite competitor currently placed #' + (best.idx + 1) + ' on the ' + best.label + ' board';
+    let opening = 'I’m currently holding #' + (best.idx + 1) + ' on the ' + best.label + ' board';
     const others = ranked.filter((placement) => placement !== best).map((placement) => placement.label + ' #' + (placement.idx + 1));
-    if (others.length) opening += ', with additional placements in ' + joinNames(others);
+    if (others.length) opening += ', and you can also find me at ' + joinNames(others);
     lines.push(opening + '.');
   } else if (timeTrial) {
-    lines.push(data.name + ' is currently placed #' + (timeTrial.idx + 1) + ' on the Time Trials score board.');
+    lines.push('I’m currently #' + (timeTrial.idx + 1) + ' on the Time Trials score board—no Elite badge needed, just the clock.');
   } else if (data.items.length) {
-    lines.push(data.name + ' appears in the current evidence-qualified per-item review archive.');
+    lines.push('You’ll find me in the evidence-qualified per-item archive, where the gear gets judged one movement at a time.');
   } else {
-    lines.push(data.name + ' appears in the preserved community forum archive.');
+    lines.push('I’m mostly known around here for leaving my mark in the preserved community forum archive.');
   }
 
   if (data.items.length) {
     const strongest = data.items.slice().sort((a, b) => b.score - a.score).slice(0, 3)
       .map((item) => item.item.name + ' #' + (item.idx + 1) + ' (' + Number(item.score).toFixed(2) + ')');
-    lines.push('Their strongest recorded item reviews are ' + joinNames(strongest) + '.');
+    lines.push('My sharpest reviewed gear work right now is ' + joinNames(strongest) + '.');
   }
   if (data.threads.length) {
-    lines.push('Their community record includes ' + data.threads.length + ' archived forum ' + (data.threads.length === 1 ? 'thread' : 'threads') + '.');
+    lines.push('I’ve also shown up in ' + data.threads.length + ' archived forum ' + (data.threads.length === 1 ? 'thread' : 'threads') + '—receipts included.');
   }
   if (MODS.some((mod) => mod.toLowerCase() === data.name.toLowerCase())) {
-    lines.push('They are also listed as a community moderator in the archive.');
+    lines.push('When I’m not running routes, I’m also listed here as a community moderator.');
   }
+  const flavor = [
+    'I like clean routes, ugly gaps, and scoreboards that make people argue.',
+    'Catch me if you can; if you can’t, check the gap average.',
+    'I’m here for fast lines, tighter reviews, and one more run.',
+    'My route is usually planned. The recovery definitely wasn’t.',
+    'I trust the footage, the timestamps, and absolutely nothing else.',
+    'If the line looks questionable, that probably means it’s interesting.',
+  ];
+  lines.push(flavor[hueOf(data.name) % flavor.length]);
   return lines.join(' ');
 }
 let profileLastFocus = null;
@@ -4027,7 +4036,7 @@ function openProfile(name) {
   head.append(heading);
   card.append(head);
   const bio = el('p', 'profile-bio');
-  bio.append(el('strong', '', 'Archive bio. '), profileBio(data));
+  bio.append(el('strong', '', 'Community flavor bio. '), profileBio(data));
   card.append(bio);
 
   const boardSection = el('div', 'psec');
@@ -4085,7 +4094,7 @@ function openProfile(name) {
   }
 
   card.append(el('div', 'profile-foot',
-    'Provisional community data aggregated from the boards, per-item reviews and archived forum threads. Not an official PARKOUR record.'));
+    'Placements and scores come from the provisional community archive. The first-person bio is stylized community-written flavor text, not a verified statement from the player.'));
 
   profileLastFocus = document.activeElement;
   $('playerModal').hidden = false;

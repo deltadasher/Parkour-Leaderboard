@@ -883,6 +883,41 @@ html.theme-anim * { transition: background-color .25s ease, color .2s ease, bord
   background: var(--line-2);
   border-radius: 4px;
 }
+/* ---------- player profile cards ---------- */
+.plink { background: none; border: 0; padding: 0; font: inherit; color: inherit; cursor: pointer; text-align: left; }
+.plink:hover { color: var(--cat-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.plink .nm, .plink .pname { display: block; }
+body.modal-open { overflow: hidden; }
+.pmodal { position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; padding: 18px; }
+.pmodal-back { position: absolute; inset: 0; background: rgba(8, 10, 14, .62); backdrop-filter: blur(3px); animation: fade-in .2s ease-out backwards; }
+.pmodal-card { position: relative; width: min(620px, 100%); max-height: min(85vh, 740px); overflow-y: auto; background: var(--panel); border: 1px solid var(--line-2); border-top: 4px solid var(--cat); border-radius: 6px; box-shadow: var(--shadow); padding: 22px 22px 16px; animation: card-in .3s cubic-bezier(.2, .9, .3, 1.15) backwards; }
+@keyframes card-in { from { opacity: 0; transform: translateY(16px) scale(.97); } }
+.pmodal-close { position: absolute; top: 10px; right: 10px; width: 30px; height: 30px; border: 1px solid var(--line-2); background: var(--panel-2); border-radius: 4px; color: var(--muted); font-size: 14px; line-height: 1; }
+.pmodal-close:hover { color: var(--ink); border-color: var(--cat); }
+.profile-head { display: flex; gap: 14px; align-items: center; }
+.profile-head .avatar { width: 54px; height: 54px; font-size: 25px; border-radius: 6px; flex: none; }
+.profile-head h3 { font-family: 'Anton', sans-serif; font-weight: 400; font-size: clamp(22px, 5vw, 30px); margin: 0; text-transform: uppercase; letter-spacing: .02em; overflow-wrap: anywhere; }
+.profile-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.psec { margin-top: 18px; }
+.psec > h4 { display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--faint); margin: 0 0 8px; }
+.psec > h4::after { content: ''; flex: 1; height: 2px; border-radius: 1px; background: linear-gradient(to right, var(--line-2), transparent); }
+.pgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.pstat { background: var(--panel-2); border: 1px solid var(--line); border-radius: 4px; padding: 9px 11px; }
+.pstat .k { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+.pstat .v { font-family: 'Anton', sans-serif; font-size: 22px; margin-top: 2px; }
+.pstat .s { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.pitem-row { display: grid; grid-template-columns: 34px 1fr auto; gap: 2px 10px; align-items: baseline; padding: 7px 10px; background: var(--panel-2); border: 1px solid var(--line); border-radius: 4px; }
+.pitem-row + .pitem-row { margin-top: 6px; }
+.pitem-row .pi-rank { font-family: 'Anton', sans-serif; font-size: 17px; color: var(--cat-ink); text-align: center; }
+.pitem-row .pi-name { font-weight: 600; font-size: 13.5px; }
+.pitem-row .pi-ev { grid-column: 2 / 4; font-size: 12px; color: var(--muted); }
+.pitem-row .pi-score { font-weight: 600; font-size: 13px; color: var(--cat-ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pthreads { display: flex; flex-direction: column; gap: 5px; }
+.pthreads a { color: var(--cat-ink); text-decoration: none; font-size: 13.5px; }
+.pthreads a:hover { text-decoration: underline; }
+.pnotes { margin: 8px 0 0; font-size: 12.5px; color: var(--muted); }
+.pempty { font-size: 13px; color: var(--faint); margin: 0; }
+.profile-foot { margin-top: 18px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 11.5px; color: var(--faint); }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
@@ -1611,6 +1646,11 @@ Glove: Disabled or unequipped</pre>
       movement and distance control without equipment-assisted mechanics.</p>
   </article>
 </section>
+
+<div class="pmodal" id="playerModal" hidden role="dialog" aria-modal="true" aria-label="Player profile">
+  <div class="pmodal-back" id="playerModalBack"></div>
+  <div class="pmodal-card" id="playerModalCard"></div>
+</div>
 
 <div class="wrap">
   <footer>
@@ -2804,7 +2844,7 @@ function statusNode(p) {
 }
 
 function nameNode(name, query) {
-  const s = el('div', 'nm');
+  const s = el('span', 'nm');
   if (!query) { s.textContent = name; return s; }
   const i = name.toLowerCase().indexOf(query.toLowerCase());
   if (i < 0) { s.textContent = name; return s; }
@@ -2853,7 +2893,7 @@ function renderPodium() {
     card.style.setProperty('--medal', m.color);
     card.append(el('div', 'bignum', String(i + 1)));
     card.append(el('div', 'medal', '#' + (i + 1) + ' · ' + m.label));
-    card.append(el('div', 'pname', p.name));
+    card.append(playerLink(p.name, el('span', 'pname', p.name)));
     const pts = el('div', 'ppts', fmtPts(p.pts) + ' ');
     pts.append(el('small', '', unit().toUpperCase()));
     card.append(pts);
@@ -2905,7 +2945,7 @@ function makeRow(p, idx) {
     st.addEventListener('change', () => { p.status = st.value; persist(); });
     who.append(nm, nt, st);
   } else {
-    who.append(nameNode(p.name, state.query));
+    who.append(playerLink(p.name, nameNode(p.name, state.query)));
     if (p.note) who.append(el('div', 'nt', p.note));
     if (competitiveRank()) who.append(el('span', 'rank-badge', competitiveRank()));
     who.append(statusNode(p));
@@ -3252,8 +3292,8 @@ function renderItems() {
   item.players.forEach(([name, score, evidence], index) => {
     const row = el('article', 'item-row');
     row.append(el('div', 'item-rank', String(index + 1)));
-    const player = el('div', 'item-player', name);
-    player.append(el('span', 'rank-badge', 'Elite'));
+    const player = el('div', 'item-player');
+    player.append(playerLink(name), el('span', 'rank-badge', 'Elite'));
     row.append(player, el('div', 'item-evidence', evidence), el('div', 'item-score', Number(score).toFixed(2) + ' pts'));
     list.append(row);
   });
@@ -3704,7 +3744,7 @@ function postNode(post, isOp, thread) {
   card.append(avatarNode(post.author));
   const main = el('div');
   const head = el('div', 'phead');
-  head.append(el('span', 'pauthor', post.author));
+  head.append(playerLink(post.author, el('span', 'pauthor', post.author)));
   for (const b of badgeNodes(post.author)) head.append(b);
   if (isOp) head.append(el('span', 'tag', 'OP'));
   head.append(el('span', 'pdate', post.date));
@@ -3893,6 +3933,136 @@ function countUp(node, target) {
   };
   requestAnimationFrame(step);
 }
+
+/* ================= player profile cards ================= */
+function profileData(name) {
+  const normalized = name.toLowerCase();
+  const placements = [];
+  for (const key of CAT_ORDER) {
+    const cat = state.doc.categories[key];
+    const idx = cat.players.findIndex((player) => player.name.toLowerCase() === normalized);
+    if (idx >= 0) placements.push({ key, label: cat.label, idx, entry: cat.players[idx] });
+  }
+  const items = [];
+  for (const item of ITEM_RANKINGS) {
+    const idx = item.players.findIndex((row) => row[0].toLowerCase() === normalized);
+    if (idx >= 0) items.push({ item, idx, score: item.players[idx][1], evidence: item.players[idx][2] });
+  }
+  const threads = FORUM_THREADS.filter((thread) => threadPosts(thread)
+    .some((post) => post.author.toLowerCase() === normalized));
+  const canonical = placements.length ? placements[0].entry.name
+    : items.length ? items[0].item.players[items[0].idx][0] : name;
+  return { name: canonical, placements, items, threads };
+}
+function profileScore(key, entry) {
+  if (entry.pts === null || entry.pts === undefined || entry.pts === '') return '—';
+  return key === 'timetrials'
+    ? Number(entry.pts).toLocaleString('en-US') + ' score'
+    : Number(entry.pts).toFixed(2) + ' pts';
+}
+let profileLastFocus = null;
+function closeProfile() {
+  $('playerModal').hidden = true;
+  document.body.classList.remove('modal-open');
+  if (profileLastFocus && profileLastFocus.focus) profileLastFocus.focus();
+  profileLastFocus = null;
+}
+function openProfile(name) {
+  const data = profileData(name);
+  const card = $('playerModalCard');
+  card.textContent = '';
+
+  const close = el('button', 'pmodal-close', '✕');
+  close.setAttribute('aria-label', 'Close profile');
+  close.addEventListener('click', closeProfile);
+  card.append(close);
+
+  const head = el('div', 'profile-head');
+  head.append(avatarNode(data.name));
+  const heading = el('div');
+  heading.append(el('h3', '', data.name));
+  const chips = el('div', 'profile-chips');
+  if (data.placements.some((placement) => placement.key !== 'timetrials')) chips.append(el('span', 'rank-badge', 'Elite'));
+  if (MODS.some((mod) => mod.toLowerCase() === data.name.toLowerCase())) chips.append(el('span', 'badge mod', 'Mod'));
+  if (data.placements.some((placement) => (placement.entry.note || '').includes('speedrun.com'))) chips.append(el('span', 'tag', 'speedrun.com'));
+  heading.append(chips);
+  head.append(heading);
+  card.append(head);
+
+  const boardSection = el('div', 'psec');
+  boardSection.append(el('h4', '', 'Board placements'));
+  if (data.placements.length) {
+    const grid = el('div', 'pgrid');
+    for (const placement of data.placements) {
+      const cell = el('div', 'pstat');
+      cell.append(el('div', 'k', placement.label));
+      cell.append(el('div', 'v', '#' + (placement.idx + 1)));
+      const score = el('div', 's', profileScore(placement.key, placement.entry) + ' ');
+      score.append(statusNode(placement.entry));
+      cell.append(score);
+      grid.append(cell);
+    }
+    boardSection.append(grid);
+    const notes = data.placements.filter((placement) => placement.entry.note)
+      .map((placement) => placement.label + ': ' + placement.entry.note);
+    if (notes.length) boardSection.append(el('p', 'pnotes', notes.join(' · ')));
+  } else {
+    boardSection.append(el('p', 'pempty', 'No top-50 board placements on record.'));
+  }
+  card.append(boardSection);
+
+  const itemSection = el('div', 'psec');
+  itemSection.append(el('h4', '', 'Per-item reviews'));
+  if (data.items.length) {
+    const wrap = el('div');
+    for (const item of data.items) {
+      const row = el('div', 'pitem-row');
+      row.append(el('div', 'pi-rank', '#' + (item.idx + 1)));
+      row.append(el('div', 'pi-name', item.item.name));
+      row.append(el('div', 'pi-score', Number(item.score).toFixed(2) + ' pts'));
+      if (item.evidence) row.append(el('div', 'pi-ev', item.evidence));
+      wrap.append(row);
+    }
+    itemSection.append(wrap);
+  } else {
+    itemSection.append(el('p', 'pempty', 'No evidence-qualified item reviews in the current archive.'));
+  }
+  card.append(itemSection);
+
+  if (data.threads.length) {
+    const forumSection = el('div', 'psec');
+    forumSection.append(el('h4', '', 'Community record'));
+    const list = el('div', 'pthreads');
+    for (const thread of data.threads) {
+      const link = el('a', '', thread.title);
+      link.href = '#/forum/' + thread.id;
+      link.addEventListener('click', closeProfile);
+      list.append(link);
+    }
+    forumSection.append(list);
+    card.append(forumSection);
+  }
+
+  card.append(el('div', 'profile-foot',
+    'Provisional community data aggregated from the boards, per-item reviews and archived forum threads. Not an official PARKOUR record.'));
+
+  profileLastFocus = document.activeElement;
+  $('playerModal').hidden = false;
+  document.body.classList.add('modal-open');
+  close.focus();
+}
+function playerLink(name, childNode) {
+  const button = el('button', 'plink');
+  button.setAttribute('aria-haspopup', 'dialog');
+  button.title = 'View ' + name + '’s profile';
+  if (childNode) button.append(childNode); else button.textContent = name;
+  button.addEventListener('click', (event) => { event.stopPropagation(); openProfile(name); });
+  return button;
+}
+$('playerModalBack').addEventListener('click', closeProfile);
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && !$('playerModal').hidden) closeProfile();
+});
 
 /* ================= router ================= */
 const PAGES = { ranked: 'page-ranked', items: 'page-items', forum: 'page-forum', annc: 'page-annc', rules: 'page-rules' };

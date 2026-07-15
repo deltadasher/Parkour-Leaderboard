@@ -113,6 +113,11 @@ proficiency 30, gap impact 25, tactical application 15, routing and integration 
 and results 5. The owner specifically confirmed ncm_k's leading Wingsuit, Aero Punch, and Thrust
 Capacitor performance and excluded ncm_k from Springhook pending qualifying current-season evidence.
 
+Player profile bios must be generated only from data already present in the current leaderboard,
+per-item reviews, moderator list, and preserved forum archive. They may summarize placements and
+activity in playful prose, but must not invent personal traits, demographics, locations, relationships,
+biographical history, or achievements not represented in those sources.
+
 ## Meta category
 
 Meta currently concerns combined proficiency with:

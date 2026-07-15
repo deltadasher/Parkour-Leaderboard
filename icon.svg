@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="PKL Ranked">
+  <rect width="512" height="512" rx="96" fill="#111"/>
+  <path d="M84 106h344v72H84zm0 114h252v72H84zm0 114h168v72H84z" fill="#f06445"/>
+  <path d="M366 220h62v186h-62z" fill="#fff"/>
+</svg>

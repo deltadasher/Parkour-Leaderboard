@@ -943,7 +943,7 @@ try {
   <div class="wrap mast-inner">
     <p class="eyebrow">Parkour Legacy · Community ladder · Unofficial</p>
     <h1>Ranked <span class="hollow">Top&nbsp;50</span></h1>
-    <p class="mast-sub"><strong>Four Elite ranked rulesets, per-item reviews, plus the time-trial score board.</strong>
+    <p class="mast-sub"><strong>Four Elite ranked rulesets, a derived Overall board, per-item reviews, plus the time-trial score board.</strong>
       Provisional community data for Meta, Recounter, Gearless, Gearless:&nbsp;Gloveless and
       Time&nbsp;Trials — ready for evidence-based review and maintenance.</p>
     <nav class="sitenav" aria-label="Site">
@@ -1011,6 +1011,10 @@ try {
   <div class="formula"><strong>Competitive rank ladder:</strong> Unranked → Bronze → Silver → Gold →
     Platinum → Diamond → Master → Elite. Every player currently placed in a ranked-category top 50
     is Elite. Time Trials is a score board and does not receive competitive ranks.</div>
+  <div class="formula"><strong>Overall Review Score (100 points):</strong> 85 points from the average
+    Review Score across a player's ranked-category placements; up to 10 points for category breadth
+    (2.5 per ranked board); and up to 5 points for evidence-qualified per-item depth (1 per item).
+    Time Trials is excluded because it uses a separate in-game score scale.</div>
   <div class="formula"><strong>Per-item Review Score (100 points):</strong> usage and mechanical
     proficiency 30; role-specific gap impact 25; tactical application 15; routing and integration 15;
     adaptability 10; competitive results 5. One action is credited once under its primary purpose,
@@ -2784,6 +2788,12 @@ const BUILTIN = {
 };
 
 const CAT_ORDER = ['meta', 'recounter', 'gearless', 'gloveless', 'timetrials'];
+const BOARD_ORDER = ['overall', ...CAT_ORDER];
+const OVERALL_CATEGORY = {
+  label: 'Overall',
+  unit: 'overall score',
+  desc: 'Cross-category standing derived from ranked Review Scores, category breadth, and evidence-qualified per-item depth. Time Trials is excluded.',
+};
 const TIERS = [
   { id: 'S', label: 'Top 10', from: 0,  to: 9  },
   { id: 'A', label: 'Ranks 11–20', from: 10, to: 19 },
@@ -2832,8 +2842,35 @@ function el(tag, cls, text) {
   return n;
 }
 const tierOf = (i) => TIERS.find((t) => i >= t.from && i <= t.to) || TIERS[TIERS.length - 1];
-const players = () => state.doc.categories[state.cat].players;
-const unit = () => state.doc.categories[state.cat].unit || (state.cat === 'timetrials' ? 'score' : 'review score');
+function overallPlayers() {
+  const records = new Map();
+  for (const key of CAT_ORDER.filter((category) => category !== 'timetrials')) {
+    state.doc.categories[key].players.forEach((player) => {
+      const normalized = player.name.toLowerCase();
+      if (!records.has(normalized)) records.set(normalized, { name: player.name, scores: [], statuses: [] });
+      const record = records.get(normalized);
+      if (Number.isFinite(Number(player.pts))) record.scores.push(Number(player.pts));
+      record.statuses.push(dataStatus(player));
+    });
+  }
+  for (const record of records.values()) {
+    record.itemCount = ITEM_RANKINGS.filter((item) => item.players.some((row) => row[0].toLowerCase() === record.name.toLowerCase())).length;
+  }
+  return [...records.values()].map((record) => {
+    const average = record.scores.reduce((sum, score) => sum + score, 0) / record.scores.length;
+    const breadth = record.scores.length;
+    const score = Math.min(100, average * .85 + breadth * 2.5 + Math.min(5, record.itemCount));
+    return {
+      name: record.name,
+      pts: Number(score.toFixed(2)),
+      note: breadth + ' ranked ' + (breadth === 1 ? 'board' : 'boards') + ' · ' + record.itemCount + ' item ' + (record.itemCount === 1 ? 'review' : 'reviews'),
+      status: record.statuses.every((status) => status === 'verified') ? 'verified' : 'provisional',
+    };
+  }).sort((a, b) => b.pts - a.pts || a.name.localeCompare(b.name)).slice(0, MAX_PLAYERS);
+}
+const currentCategory = () => state.cat === 'overall' ? OVERALL_CATEGORY : state.doc.categories[state.cat];
+const players = () => state.cat === 'overall' ? overallPlayers() : state.doc.categories[state.cat].players;
+const unit = () => currentCategory().unit || (state.cat === 'timetrials' ? 'score' : 'review score');
 const fmtPts = (p) => {
   if (p === null || p === undefined || p === '') return '—';
   return state.cat === 'timetrials' ? Number(p).toLocaleString('en-US') : Number(p).toFixed(2);
@@ -2860,8 +2897,8 @@ function nameNode(name, query) {
 function buildTabs() {
   const bar = $('tabs');
   bar.textContent = '';
-  for (const key of CAT_ORDER) {
-    const c = state.doc.categories[key];
+  for (const key of BOARD_ORDER) {
+    const c = key === 'overall' ? OVERALL_CATEGORY : state.doc.categories[key];
     const b = el('button', 'tab');
     b.setAttribute('role', 'tab');
     b.setAttribute('aria-selected', String(key === state.cat));
@@ -2869,6 +2906,7 @@ function buildTabs() {
     b.append(el('span', '', c.label));
     b.addEventListener('click', () => {
       state.cat = key;
+      if (key === 'overall') state.editing = false;
       state.query = '';
       $('search').value = '';
       render();
@@ -3076,7 +3114,7 @@ function render() {
   document.documentElement.dataset.cat = state.cat;
   document.body.classList.toggle('editing', state.editing);
   document.body.classList.toggle('searching', !!state.query);
-  const cat = state.doc.categories[state.cat];
+  const cat = currentCategory();
   buildTabs();
   const desc = $('catDesc');
   desc.textContent = '';
@@ -3092,9 +3130,12 @@ function render() {
   if (oldMetricNote) oldMetricNote.remove();
   const metricNote = el('p', 'metric-note', state.cat === 'timetrials'
     ? 'Time Trials uses the in-game score: higher score places higher.'
-    : 'Displayed number: provisional Review Score out of 100, using hundredths where the evidence is close. Scores consider gear usage and proficiency, integration, runner gapping, catcher following, adaptability, and results. Exact in-game Ranked Ratings have not yet been published.');
+    : state.cat === 'overall'
+      ? 'Overall Score: 85% of the player’s average ranked-category Review Score, plus 2.5 points per ranked board (maximum 10), plus 1 point per evidence-qualified item review (maximum 5). Time Trials is excluded.'
+      : 'Displayed number: provisional Review Score out of 100, using hundredths where the evidence is close. Scores consider gear usage and proficiency, integration, runner gapping, catcher following, adaptability, and results. Exact in-game Ranked Ratings have not yet been published.');
   document.querySelector('#page-ranked .toolbar').insertAdjacentElement('afterend', metricNote);
   $('editBtn').textContent = state.editing ? 'Done' : 'Edit';
+  $('editBtn').hidden = state.cat === 'overall';
   $('editBtn').classList.toggle('primary', state.editing);
   $('importBtn').hidden = !state.editing;
   $('resetBtn').hidden = !state.editing;
@@ -3940,6 +3981,9 @@ function countUp(node, target) {
 function profileData(name) {
   const normalized = name.toLowerCase();
   const placements = [];
+  const overall = overallPlayers();
+  const overallIdx = overall.findIndex((player) => player.name.toLowerCase() === normalized);
+  if (overallIdx >= 0) placements.push({ key: 'overall', label: 'Overall', idx: overallIdx, entry: overall[overallIdx] });
   for (const key of CAT_ORDER) {
     const cat = state.doc.categories[key];
     const idx = cat.players.findIndex((player) => player.name.toLowerCase() === normalized);

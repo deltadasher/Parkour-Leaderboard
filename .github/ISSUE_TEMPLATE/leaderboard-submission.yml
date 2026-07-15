@@ -21,7 +21,7 @@ body:
     validations: { required: true }
   - type: textarea
     id: sessions
-    attributes: { label: Session summary, description: Include match count, unique opponents, maps, weighted win rate, and required gear uses where applicable. }
+    attributes: { label: Six-round set summary, description: Include three runner gaps, three catcher gaps, both averages, maps, results, and required gear uses. }
     validations: { required: true }
   - type: textarea
     id: evidence

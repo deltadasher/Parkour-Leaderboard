@@ -863,15 +863,15 @@ footer .spacer { flex: 1; }
       structure for the Meta leaderboard. Drafted with AI assistance; not yet ratified.</p>
   </div>
   <div class="rmeta">
-    <span>Version <b>1.0</b></span>
+    <span>Version <b>1.1</b></span>
     <span>Status <b>Draft</b></span>
     <span>Example dates <b>not official</b></span>
     <span>Applies to <b>Meta</b></span>
     <span>Maintained by <b>project contributors</b></span>
   </div>
   <div class="rule-summary" aria-label="Meta qualification and scoring summary">
-    <article><h3>Qualification</h3><p>8+ ranked matches, 5+ unique opponents, 3 meaningful uses of every required gear, 50%+ weighted win rate, and complete evidence.</p></article>
-    <article><h3>Review score · 100</h3><p>Gear proficiency 30 · integration 25 · match impact 20 · adaptability 15 · competitive results 10.</p></article>
+    <article><h3>Measured set</h3><p>Three rounds as runner and three as catcher. End gaps are averaged separately for each role; full evidence and meaningful gear usage are required.</p></article>
+    <article><h3>Review score · 100</h3><p>Gear usage/proficiency 25 · integration 15 · runner gap 20 · catcher follow 20 · adaptability 10 · results 10.</p></article>
     <article><h3>Published metric</h3><p><strong>Review Score</strong> is the provisional 0–100 performance summary shown here. Exact in-game Ranked Ratings have not yet been published and are not displayed.</p></article>
   </div>
   <nav class="rtoc" id="rtoc" aria-label="Rulebook contents"></nav>
@@ -904,16 +904,18 @@ footer .spacer { flex: 1; }
 3. PlayerName — A</pre>
 
   <h2 id="rb-3"><span class="no">3.</span>Minimum Submission Requirements</h2>
-  <p>A submitted session must include:</p>
+  <p>A counted evaluation set must give each player both roles and include:</p>
   <ul>
-    <li>at least 8 ranked matches;</li>
-    <li>at least 5 unique opponents;</li>
-    <li>no more than 3 counted matches against the same opponent;</li>
+    <li>three complete rounds as runner;</li>
+    <li>three complete rounds as catcher;</li>
+    <li>the end-of-round gap in metres for all six rounds;</li>
+    <li>separate three-round runner and catcher averages;</li>
     <li>at least 3 meaningful uses of each required gear;</li>
     <li>at least 3 different maps or map archetypes, when available;</li>
-    <li>a weighted session win rate of at least 50%;</li>
     <li>complete and reviewable evidence.</li>
   </ul>
+  <p>The same opponent may supply the six-round set because both players alternate roles. Additional
+    opponents and sets improve confidence and are required for high placements under section 9.</p>
   <p>The required gears must remain available throughout the submitted session.</p>
   <p>A player may use other mechanics or non-category equipment only if current ranked rules allow
     them. Their score must still be based specifically on the four Meta gears.</p>
@@ -955,32 +957,41 @@ footer .spacer { flex: 1; }
   <p>Every gear must meet the minimum proficiency floor for the player's assigned tier.</p>
 
   <h2 id="rb-6"><span class="no">6.</span>Scoring System</h2>
-  <p>Each submission is scored out of 100 points.</p>
-  <h3>6.1 Individual Gear Proficiency — 30 points</h3>
-  <p>Each gear is scored separately: Wingsuit 7.5, Aero Punch 7.5, Thrust Capacitor 7.5,
-    Springhook 7.5. Reviewers should consider mechanical consistency; timing; precision; advanced
-    applications; tactical appropriateness; failure frequency; and how easily mistakes are punished.</p>
+  <p>Each submission is scored out of 100 points. Scores may use hundredths. Reviewers must retain
+    the component worksheet and the six raw gap measurements; close placements may differ by only
+    0.01 when the evidence supports it.</p>
+  <h3>6.1 Gear Usage and Proficiency — 25 points</h3>
+  <p>All required gears are reviewed for meaningful usage, mechanical consistency, timing, precision,
+    advanced applications, tactical appropriateness, failure frequency, and the distance gained or
+    lost after use. A failed gear activation that materially collapses a runner gap or prevents a
+    catcher from closing distance must affect this component and the applicable gap component.</p>
   <p>A player with a major weakness in one gear should not receive a high overall Meta grade.</p>
-  <h3>6.2 Gear Integration — 25 points</h3>
+  <h3>6.2 Gear Integration — 15 points</h3>
   <p>Measures how effectively the player combines gears: successful two-gear combinations;
     three-gear sequences; variety of combinations; conversion from movement into pressure or
     objectives; appropriate gear transitions; improvisation during disrupted sequences.</p>
   <p>Merely activating multiple gears in succession does not automatically count as integration —
     the sequence must produce a recognizable tactical or mechanical benefit.</p>
-  <h3>6.3 Match Impact — 20 points</h3>
-  <p>Measures whether gear usage materially affects the match. Positive examples: winning an
-    engagement; escaping a losing engagement; securing superior positioning; completing a difficult
-    route; creating objective pressure; forcing a defensive response; converting movement into a
-    score or capture.</p>
-  <p>Negative examples: unnecessary activations; losing control after a failed use; predictable
-    repetition; self-sabotaging routes; dying because of careless gear usage. Raw activation count
-    should never be treated as impact.</p>
-  <h3>6.4 Adaptability — 15 points</h3>
+  <h3>6.3 Runner Gap Performance — 20 points</h3>
+  <p><strong>Gapping</strong> is the runner's end-of-round distance from the catcher. Record three runner
+    gaps and calculate <code>runner average = (gap 1 + gap 2 + gap 3) / 3</code>. Higher is better.
+    A runner should normally finish at least 50 m ahead.</p>
+  <p>Use <code>runner ratio = runner average / 50</code>. Averages from 0–50 m scale from 0–10
+    points; averages from 50–200 m scale from 10–20 points; cap the component at 20. For 180 m,
+    92 m and 325 m, the average is 199 m, the ratio is 3.98, and the baseline is 19.93/20.</p>
+  <h3>6.4 Catcher Follow Performance — 20 points</h3>
+  <p><strong>Following</strong> is how closely the catcher stays to the runner. Record the three end gaps
+    from the player's catcher rounds and calculate their average. Lower is better; a catcher should
+    normally keep the average below 50 m.</p>
+  <p>Use <code>follow ratio = 50 / catcher average</code> and
+    <code>follow points = min(20, 10 × follow ratio)</code>. A zero-metre catch receives 20 points.
+    The same 180 m, 92 m and 325 m results average 199 m, but for a catcher that is poor: the ratio
+    is about 0.25 and the baseline is 2.51/20.</p>
+  <h3>6.5 Adaptability — 10 points</h3>
   <p>Evaluated across different maps; open and enclosed environments; aggressive and defensive
-    opponents; stronger and weaker opponents; winning and losing game states; disrupted or countered
-    strategies. A high-scoring player must show they can change their approach rather than repeat
-    one memorized sequence.</p>
-  <h3>6.5 Competitive Results — 10 points</h3>
+    opponents; both runner and catcher roles; winning and losing game states; disrupted or countered
+    strategies. A high-scoring player must change their approach rather than repeat one memorized sequence.</p>
+  <h3>6.6 Competitive Results — 10 points</h3>
   <p>Includes weighted win rate; round or score differential; opponent strength; performance against
     existing leaderboard players; consistency across the full session. Win rate matters, but it must
     not override clear mechanical or tactical weaknesses.</p>
@@ -1024,10 +1035,10 @@ footer .spacer { flex: 1; }
   <h2 id="rb-9"><span class="no">9.</span>Additional Requirements for High Placements</h2>
   <h3>Top 10 Requirements</h3>
   <ul>
-    <li>at least 15 counted matches;</li>
-    <li>at least 8 unique opponents;</li>
-    <li>at least 2 verified sessions;</li>
-    <li>matches against at least 3 current top-50 players;</li>
+    <li>at least 3 complete six-round evaluation sets;</li>
+    <li>at least 3 unique opponents;</li>
+    <li>at least 2 verified sessions on different days;</li>
+    <li>at least one set against a current top-50 player;</li>
     <li>no gear below A-level proficiency;</li>
     <li>evidence from more than one day.</li>
   </ul>
@@ -1043,7 +1054,7 @@ footer .spacer { flex: 1; }
   <h2 id="rb-10"><span class="no">10.</span>Evidence Requirements</h2>
   <p>Accepted evidence may include: a full, uncut session recording; server-side replay; official
     match logs; tournament VODs; moderator-recorded matches; match logs combined with full clips.</p>
-  <p>The evidence must clearly show the player's username; current ranked rating or rank; the
+  <p>The evidence must clearly show the player's username; current rank and, when available, ranked rating; the
     complete match sequence; the opponents; match results; gear usage; and any relevant score or
     objective information.</p>
   <p>Preferred evidence is a full-session recording beginning before the first queue and ending
@@ -1075,7 +1086,8 @@ footer .spacer { flex: 1; }
   <p>Each submission should be reviewed by at least two reviewers. Reviewers should:</p>
   <ul>
     <li>verify evidence integrity;</li>
-    <li>confirm minimum match requirements;</li>
+    <li>confirm three runner rounds and three catcher rounds;</li>
+    <li>record all six gaps and verify both role averages and ratios;</li>
     <li>count meaningful uses for all four gears;</li>
     <li>evaluate opponent quality;</li>
     <li>assign category scores;</li>
@@ -1090,7 +1102,7 @@ footer .spacer { flex: 1; }
   <p>Published player profiles should include:</p>
   <pre>Player:
 Roblox Username:
-Ranked Rating:
+In-game Ranked Rating (when published):
 Leaderboard Placement:
 Tier:
 Overall Score:
@@ -1102,7 +1114,10 @@ Gear Proficiency:
 - Springhook:
 
 Gear Integration:
-Match Impact:
+Runner Gaps (3):
+Runner Average / Ratio / Score:
+Catcher Gaps (3):
+Catcher Average / Follow Ratio / Score:
 Adaptability:
 Competitive Results:
 
@@ -1143,15 +1158,17 @@ Reviewer Notes:</pre>
   <p>Required submission template:</p>
   <pre>Roblox Username:
 Display Name:
-Current Ranked Rating:
 Current Rank:
+In-game Ranked Rating (if published):
 Region:
 Submission Date:
 
-Number of Matches:
-Unique Opponents:
-Session Win Rate:
+Runner Gaps (3):
+Runner Average:
+Catcher Gaps (3):
+Catcher Average:
 Maps Played:
+Round Results:
 
 Evidence Link:
 Match Log:
@@ -1237,9 +1254,9 @@ Revision History:</pre>
   <h2 id="rb-22"><span class="no">22.</span>Example Rules Announcement</h2>
   <p><strong>Meta Category Submission Rules Now Active</strong><br>
     <span class="note">Type: Rules Update · Status: Active · Publication Date: YYYY-MM-DD · Effective Date: YYYY-MM-DD</span></p>
-  <p>The Meta leaderboard is now accepting submissions. Players must submit at least eight ranked
-    matches against at least five unique opponents. Wingsuit, Aero Punch, Thrust Capacitor, and
-    Springhook must each be used meaningfully at least three times.</p>
+  <p>The Meta leaderboard is now accepting submissions. A counted set contains three rounds as
+    runner and three as catcher with all six end gaps recorded. Wingsuit, Aero Punch, Thrust
+    Capacitor, and Springhook must each be used meaningfully at least three times.</p>
   <p>Highlight compilations are not accepted as complete evidence. Full-session recordings, official
     replays, or equivalent match records are required. Top-10 and S-tier placements require multiple
     verified sessions.</p>
@@ -1304,220 +1321,220 @@ const BUILTIN = {
       "players": [
         {
           "name": "AstrMotif",
-          "pts": 98.75,
+          "pts": 99.28,
           "note": "Also #2 in Gearless: Gloveless"
         },
         {
           "name": "ncm_k",
-          "pts": 98,
-          "note": "Also #5 in Gearless: Gloveless"
+          "pts": 99.27,
+          "note": "Former #1 · Springhook failures reduced runner-gap consistency"
         },
         {
           "name": "hi_4v",
-          "pts": 97.25,
+          "pts": 99.02,
           "note": "Top 5 in Meta, Recounter and Time Trials"
         },
         {
           "name": "bn7t",
-          "pts": 96.5,
+          "pts": 98.56,
           "note": "Also #2 in Gearless"
         },
         {
           "name": "Danbossuk",
-          "pts": 95.75
+          "pts": 98.31
         },
         {
           "name": "jimmy_741",
-          "pts": 95
+          "pts": 97.89
         },
         {
           "name": "DOVLIXLORD",
-          "pts": 94.25
+          "pts": 97.36
         },
         {
           "name": "wobblypickle",
-          "pts": 93.5
+          "pts": 97.34
         },
         {
           "name": "Stufu",
-          "pts": 92.75
+          "pts": 96.57
         },
         {
           "name": "ordinarylantern",
-          "pts": 92
+          "pts": 95.84
         },
         {
           "name": "Denise595",
-          "pts": 91.25,
+          "pts": 95.2,
           "note": "Tester"
         },
         {
           "name": "puff_yes",
-          "pts": 90.5
+          "pts": 93.3
         },
         {
           "name": "weirdwaffle",
-          "pts": 89.75
+          "pts": 92.87
         },
         {
           "name": "grumpy_domino1",
-          "pts": 89,
+          "pts": 91.84,
           "note": "Developer"
         },
         {
           "name": "RANFELMAX",
-          "pts": 88.25
+          "pts": 91.76
         },
         {
           "name": "Ivan96",
-          "pts": 87.5
+          "pts": 91.41
         },
         {
           "name": "fm5w",
-          "pts": 86.75
+          "pts": 90.46
         },
         {
           "name": "karaa",
-          "pts": 86,
+          "pts": 89.79,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Hugo781",
-          "pts": 85.25
+          "pts": 89.05
         },
         {
           "name": "Ivan66",
-          "pts": 84.5
+          "pts": 88.08
         },
         {
           "name": "neo4591",
-          "pts": 83.75
+          "pts": 87.54
         },
         {
           "name": "rvn_modezz",
-          "pts": 83,
+          "pts": 87.46,
           "note": "Tester"
         },
         {
           "name": "serenity_xyz",
-          "pts": 82.25
+          "pts": 85.02
         },
         {
           "name": "Nuubzinho007",
-          "pts": 81.5
+          "pts": 84.06
         },
         {
           "name": "shinymarble4",
-          "pts": 80.75,
+          "pts": 83.77,
           "note": "Tester"
         },
         {
           "name": "dreadful101",
-          "pts": 80,
+          "pts": 82.74,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "sleepy_raven5",
-          "pts": 79.25
+          "pts": 82.14
         },
         {
           "name": "Vervelpre",
-          "pts": 78.5
+          "pts": 81.16
         },
         {
           "name": "Tandienal9",
-          "pts": 77.75,
+          "pts": 81.11,
           "note": "Developer"
         },
         {
           "name": "slipperyshoes",
-          "pts": 77
+          "pts": 80.81
         },
         {
           "name": "blueblueblueha",
-          "pts": 76.25,
+          "pts": 80.16,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Duzumb",
-          "pts": 75.5,
+          "pts": 79.66,
           "note": "Tester"
         },
         {
           "name": "Unlocked1243",
-          "pts": 74.75
+          "pts": 78.87
         },
         {
           "name": "OSKDOVKING",
-          "pts": 74,
+          "pts": 76.81,
           "note": "Tester"
         },
         {
           "name": "eutnet",
-          "pts": 73.25
+          "pts": 76.44
         },
         {
           "name": "Dariox257",
-          "pts": 72.5,
+          "pts": 76.36,
           "note": "Tester"
         },
         {
           "name": "Felketoskk",
-          "pts": 71.75
+          "pts": 75.84
         },
         {
           "name": "iamSpencery536",
-          "pts": 71
+          "pts": 74.96
         },
         {
           "name": "wffl_tonez",
-          "pts": 70.25
+          "pts": 73.95
         },
         {
           "name": "LackingSkill",
-          "pts": 69.5,
+          "pts": 73.22,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "CloudedPanda",
-          "pts": 68.75
+          "pts": 72.47
         },
         {
           "name": "plasticcactus56",
-          "pts": 68
+          "pts": 71.7
         },
         {
           "name": "xcm6869",
-          "pts": 67.25
+          "pts": 71.68
         },
         {
           "name": "grumpylantern",
-          "pts": 66.5
+          "pts": 70.67
         },
         {
           "name": "Diemor",
-          "pts": 65.75
+          "pts": 66.72
         },
         {
           "name": "HOLLODABRO",
-          "pts": 65,
+          "pts": 65.73,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "spookymagnet",
-          "pts": 64.25
+          "pts": 64.86
         },
         {
           "name": "Umbmor",
-          "pts": 63.5
+          "pts": 64.13
         },
         {
           "name": "MilkyWhite",
-          "pts": 62.75
+          "pts": 63.23
         },
         {
           "name": "JmsinHnoesJM",
-          "pts": 62
+          "pts": 63.17
         }
       ]
     },
@@ -1528,217 +1545,217 @@ const BUILTIN = {
       "players": [
         {
           "name": "PlanetOfEnder",
-          "pts": 98.75
+          "pts": 98.91
         },
         {
           "name": "spwb2669",
-          "pts": 98
+          "pts": 98.25
         },
         {
           "name": "hi_4v",
-          "pts": 97.25,
+          "pts": 97.36,
           "note": "Also #3 in Meta and Time Trials"
         },
         {
           "name": "Prezerf",
-          "pts": 96.5,
+          "pts": 96.53,
           "note": "Also #3 in Gearless: Gloveless"
         },
         {
           "name": "Djspencer777",
-          "pts": 95.75
+          "pts": 95.6
         },
         {
           "name": "pgsz1t",
-          "pts": 95,
+          "pts": 94.58,
           "note": "Moderator"
         },
         {
           "name": "skepticalgoose",
-          "pts": 94.25
+          "pts": 93.76
         },
         {
           "name": "klp3130",
-          "pts": 93.5,
+          "pts": 93.72,
           "note": "Gifter board regular"
         },
         {
           "name": "Spookskwad",
-          "pts": 92.75
+          "pts": 93.38
         },
         {
           "name": "zn_v",
-          "pts": 92,
+          "pts": 92.85,
           "note": "Tester"
         },
         {
           "name": "TANVIATITAN",
-          "pts": 91.25,
+          "pts": 92.03,
           "note": "Tester"
         },
         {
           "name": "Zephyr_Protogen",
-          "pts": 90.5,
+          "pts": 89.13,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Duzfel",
-          "pts": 89.75
+          "pts": 88.3
         },
         {
           "name": "blackytvde",
-          "pts": 89
+          "pts": 87.52
         },
         {
           "name": "grumpykettle",
-          "pts": 88.25
+          "pts": 87.45
         },
         {
           "name": "Rensprof",
-          "pts": 87.5
+          "pts": 86.94
         },
         {
           "name": "Ellisy45",
-          "pts": 86.75
+          "pts": 86.63
         },
         {
           "name": "puff_yes",
-          "pts": 86
+          "pts": 85.54
         },
         {
           "name": "soggydomino",
-          "pts": 85.25
+          "pts": 84.95
         },
         {
           "name": "vxb90",
-          "pts": 84.5
+          "pts": 84.55
         },
         {
           "name": "frrt_tonezz",
-          "pts": 83.75
+          "pts": 83.77
         },
         {
           "name": "6RAYY",
-          "pts": 83,
+          "pts": 83.75,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "nqq9f",
-          "pts": 82.25,
+          "pts": 81.53,
           "note": "Moderator"
         },
         {
           "name": "rusty_comet",
-          "pts": 81.5
+          "pts": 80.72
         },
         {
           "name": "Rubyz98",
-          "pts": 80.75
+          "pts": 79.78
         },
         {
           "name": "spooky_domino",
-          "pts": 80
+          "pts": 79.56
         },
         {
           "name": "bhzc8x",
-          "pts": 79.25
+          "pts": 79.3
         },
         {
           "name": "Nora388",
-          "pts": 78.5
+          "pts": 78.86
         },
         {
           "name": "grumpy_raven66",
-          "pts": 77.75,
+          "pts": 78.76,
           "note": "Tester"
         },
         {
           "name": "maeeee",
-          "pts": 77,
+          "pts": 78.53,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "cfl44",
-          "pts": 76.25
+          "pts": 77.78
         },
         {
           "name": "sourpretzel83",
-          "pts": 75.5
+          "pts": 77.57
         },
         {
           "name": "Nuubzinho007",
-          "pts": 74.75
+          "pts": 76.71
         },
         {
           "name": "delta4254547",
-          "pts": 74,
+          "pts": 73.58,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "zkfq60",
-          "pts": 73.25
+          "pts": 72.59
         },
         {
           "name": "4sche",
-          "pts": 72.5
+          "pts": 72.56
         },
         {
           "name": "Verquiran",
-          "pts": 71.75
+          "pts": 72.4
         },
         {
           "name": "MrOscarl769",
-          "pts": 71,
+          "pts": 71.78,
           "note": "Gifter board regular"
         },
         {
           "name": "serenity_xyz",
-          "pts": 70.25
+          "pts": 70.95
         },
         {
           "name": "skepticalmarble",
-          "pts": 69.5
+          "pts": 70.28
         },
         {
           "name": "Shiraorii",
-          "pts": 68.75
+          "pts": 69.2
         },
         {
           "name": "Ketdov",
-          "pts": 68,
+          "pts": 68.9,
           "note": "Moderator"
         },
         {
           "name": "karaa",
-          "pts": 67.25
+          "pts": 68.87
         },
         {
           "name": "jccf_n",
-          "pts": 66.5
+          "pts": 67.97
         },
         {
           "name": "polite_pretzel",
-          "pts": 65.75
+          "pts": 64.12
         },
         {
           "name": "bsct_zonez",
-          "pts": 65
+          "pts": 63.23
         },
         {
           "name": "sourbeetle99",
-          "pts": 64.25
+          "pts": 62.58
         },
         {
           "name": "ttr_vibezz",
-          "pts": 63.5
+          "pts": 62.34
         },
         {
           "name": "rusty_magnet",
-          "pts": 62.75
+          "pts": 61.91
         },
         {
           "name": "PEXVELTITAN",
-          "pts": 62
+          "pts": 61.84
         }
       ]
     },
@@ -1749,221 +1766,221 @@ const BUILTIN = {
       "players": [
         {
           "name": "remarkablebeauty",
-          "pts": 98.75
+          "pts": 98.63
         },
         {
           "name": "bn7t",
-          "pts": 98,
+          "pts": 97.79,
           "note": "Also #4 in Meta"
         },
         {
           "name": "smellylukestar",
-          "pts": 97.25
+          "pts": 97.44
         },
         {
           "name": "Dividedii",
-          "pts": 96.5
+          "pts": 96.87
         },
         {
           "name": "Ose_e2",
-          "pts": 95.75
+          "pts": 96.32
         },
         {
           "name": "Felmorr3",
-          "pts": 95
+          "pts": 95.24
         },
         {
           "name": "Marco93",
-          "pts": 94.25
+          "pts": 94.42
         },
         {
           "name": "NinjaCreeper15",
-          "pts": 93.5,
+          "pts": 94.36,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "zkx60",
-          "pts": 92.75,
+          "pts": 93.6,
           "note": "Tester"
         },
         {
           "name": "MilkyWhite",
-          "pts": 92,
+          "pts": 92.73,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Quivel",
-          "pts": 91.25,
+          "pts": 92.01,
           "note": "Moderator"
         },
         {
           "name": "lntrn_modez",
-          "pts": 90.5,
+          "pts": 88.63,
           "note": "Tester"
         },
         {
           "name": "slipperyshoes",
-          "pts": 89.75,
+          "pts": 88.04,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "finplayzz",
-          "pts": 89
+          "pts": 87.14
         },
         {
           "name": "rgwj_c",
-          "pts": 88.25,
+          "pts": 87.11,
           "note": "Moderator"
         },
         {
           "name": "vh_s",
-          "pts": 87.5,
+          "pts": 86.63,
           "note": "Tester"
         },
         {
           "name": "prtzl_wavezz",
-          "pts": 86.75
+          "pts": 86.02
         },
         {
           "name": "MrLenay173",
-          "pts": 86
+          "pts": 85.32
         },
         {
           "name": "CloudedPanda",
-          "pts": 85.25,
+          "pts": 84.75,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "qx8b",
-          "pts": 84.5
+          "pts": 84.27
         },
         {
           "name": "Ramona519",
-          "pts": 83.75,
+          "pts": 83.62,
           "note": "Moderator"
         },
         {
           "name": "skeptical_otter",
-          "pts": 83
+          "pts": 83.57
         },
         {
           "name": "Morzerviaa",
-          "pts": 82.25
+          "pts": 80.54
         },
         {
           "name": "Simon87",
-          "pts": 81.5
+          "pts": 79.73
         },
         {
           "name": "weird_lantern",
-          "pts": 80.75,
+          "pts": 79.22,
           "note": "Tester"
         },
         {
           "name": "mrdarii",
-          "pts": 80
+          "pts": 78.66
         },
         {
           "name": "mellow_ferret9",
-          "pts": 79.25,
+          "pts": 78.38,
           "note": "Moderator"
         },
         {
           "name": "weirdyeti",
-          "pts": 78.5
+          "pts": 77.23
         },
         {
           "name": "lhz_n",
-          "pts": 77.75
+          "pts": 77.13
         },
         {
           "name": "SirZenovlia",
-          "pts": 77
+          "pts": 76.94
         },
         {
           "name": "dusty_biscuit",
-          "pts": 76.25
+          "pts": 75.81
         },
         {
           "name": "Quilical",
-          "pts": 75.5
+          "pts": 74.94
         },
         {
           "name": "Presilduz",
-          "pts": 74.75
+          "pts": 73.96
         },
         {
           "name": "rm37",
-          "pts": 74
+          "pts": 71.71
         },
         {
           "name": "JmsinHnoesJM",
-          "pts": 73.25,
+          "pts": 71.2,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "goose_wavezz",
-          "pts": 72.5
+          "pts": 71.11
         },
         {
           "name": "uideau",
-          "pts": 71.75,
+          "pts": 70.86,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "quietpickle",
-          "pts": 71,
+          "pts": 70.17,
           "note": "Tester"
         },
         {
           "name": "gooducko",
-          "pts": 70.25
+          "pts": 69.17
         },
         {
           "name": "altroinc",
-          "pts": 69.5
+          "pts": 68.64
         },
         {
           "name": "jimmy_741",
-          "pts": 68.75,
+          "pts": 67.65,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "2Tyred2Sleep",
-          "pts": 68
+          "pts": 67.33
         },
         {
           "name": "mng80",
-          "pts": 67.25
+          "pts": 67.24
         },
         {
           "name": "mjtn_q",
-          "pts": 66.5
+          "pts": 66.91
         },
         {
           "name": "gm5q",
-          "pts": 65.75
+          "pts": 63.7
         },
         {
           "name": "wlrs_zonez",
-          "pts": 65
+          "pts": 62.9
         },
         {
           "name": "waterwater",
-          "pts": 64.25
+          "pts": 62.43
         },
         {
           "name": "Zephyr_Protogen",
-          "pts": 63.5,
+          "pts": 61.71,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Preoratrii",
-          "pts": 62.75
+          "pts": 60.78
         },
         {
           "name": "Viamauu",
-          "pts": 62
+          "pts": 60.72
         }
       ]
     },
@@ -1974,214 +1991,214 @@ const BUILTIN = {
       "players": [
         {
           "name": "kburm1",
-          "pts": 98.75
+          "pts": 98.44
         },
         {
           "name": "AstrMotif",
-          "pts": 98,
+          "pts": 97.63,
           "note": "Meta #1"
         },
         {
           "name": "Prezerf",
-          "pts": 97.25,
+          "pts": 97.28,
           "note": "Also #4 in Recounter"
         },
         {
           "name": "skeptical_creature",
-          "pts": 96.5
+          "pts": 96.92
         },
         {
           "name": "ncm_k",
-          "pts": 95.75,
+          "pts": 95.89,
           "note": "Meta #2"
         },
         {
           "name": "lzj7k",
-          "pts": 95
+          "pts": 95.3
         },
         {
           "name": "iamLena10",
-          "pts": 94.25
+          "pts": 95.08
         },
         {
           "name": "Premorpree5",
-          "pts": 93.5
+          "pts": 95.02
         },
         {
           "name": "soggyanchovy",
-          "pts": 92.75
+          "pts": 94.78
         },
         {
           "name": "MORSILMAX",
-          "pts": 92
+          "pts": 94
         },
         {
           "name": "Lixnalzer3",
-          "pts": 91.25
+          "pts": 93.07
         },
         {
           "name": "Nora972",
-          "pts": 90.5
+          "pts": 89.5
         },
         {
           "name": "DIEFELMAX",
-          "pts": 89.75
+          "pts": 89.1
         },
         {
           "name": "weirdyeti18",
-          "pts": 89,
+          "pts": 88.65,
           "note": "Tester"
         },
         {
           "name": "Stufu",
-          "pts": 88.25
+          "pts": 88.56
         },
         {
           "name": "Tanfel",
-          "pts": 87.5
+          "pts": 88.17
         },
         {
           "name": "Tanran",
-          "pts": 86.75
+          "pts": 87.5
         },
         {
           "name": "Umblix",
-          "pts": 86,
+          "pts": 87.33,
           "note": "Tester"
         },
         {
           "name": "Milo36",
-          "pts": 85.25
+          "pts": 86.34
         },
         {
           "name": "blueblueblueha",
-          "pts": 84.5
+          "pts": 85.67
         },
         {
           "name": "notSumairu",
-          "pts": 83.75
+          "pts": 85.36
         },
         {
           "name": "remarkable_kettle",
-          "pts": 83
+          "pts": 85.28
         },
         {
           "name": "lf8637",
-          "pts": 82.25
+          "pts": 81.3
         },
         {
           "name": "DjMiloy13",
-          "pts": 81.5
+          "pts": 81.05
         },
         {
           "name": "drz17",
-          "pts": 80.75
+          "pts": 80.02
         },
         {
           "name": "itsFelix279",
-          "pts": 80
+          "pts": 79.32
         },
         {
           "name": "Marco885",
-          "pts": 79.25
+          "pts": 78.6
         },
         {
           "name": "magnumkemal",
-          "pts": 78.5,
+          "pts": 77.56,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Tyler614",
-          "pts": 77.75
+          "pts": 77.48
         },
         {
           "name": "FELSILTITAN",
-          "pts": 77
+          "pts": 76.48
         },
         {
           "name": "theTylery373",
-          "pts": 76.25,
+          "pts": 76.23,
           "note": "Developer"
         },
         {
           "name": "4sche",
-          "pts": 75.5
+          "pts": 75.16
         },
         {
           "name": "trnp_tonezz",
-          "pts": 74.75
+          "pts": 74.32
         },
         {
           "name": "neo4591",
-          "pts": 74,
+          "pts": 71.23,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "frozen_pigeon",
-          "pts": 73.25
+          "pts": 70.15
         },
         {
           "name": "Felixy59",
-          "pts": 72.5,
+          "pts": 70.05,
           "note": "Gifter board regular"
         },
         {
           "name": "HOLLODABRO",
-          "pts": 71.75
+          "pts": 69.75
         },
         {
           "name": "plasticpretzel",
-          "pts": 71
+          "pts": 69.41
         },
         {
           "name": "zr6x",
-          "pts": 70.25
+          "pts": 68.81
         },
         {
           "name": "Feldie",
-          "pts": 69.5
+          "pts": 67.94
         },
         {
           "name": "Diequilix",
-          "pts": 68.75,
+          "pts": 67.08,
           "note": "Tester"
         },
         {
           "name": "waterwater",
-          "pts": 68
+          "pts": 66.86
         },
         {
           "name": "crunchytoaster78",
-          "pts": 67.25
+          "pts": 66.83
         },
         {
           "name": "sofa_vibez",
-          "pts": 66.5
+          "pts": 65.78
         },
         {
           "name": "Tantan",
-          "pts": 65.75
+          "pts": 62.69
         },
         {
           "name": "LackingSkill",
-          "pts": 65,
+          "pts": 61.89,
           "note": "Also places on speedrun.com"
         },
         {
           "name": "Mauketvel",
-          "pts": 64.25
+          "pts": 61.67
         },
         {
           "name": "Tridie",
-          "pts": 63.5
+          "pts": 60.94
         },
         {
           "name": "Simon311",
-          "pts": 62.75
+          "pts": 60.02
         },
         {
           "name": "Diequi",
-          "pts": 62
+          "pts": 59.95
         }
       ]
     },
@@ -2672,7 +2689,7 @@ function renderBoard() {
       const add = el('button', 'addrow', '+ Add player (' + list.length + '/' + MAX_PLAYERS + ')');
       add.addEventListener('click', () => {
         const last = list[list.length - 1];
-        const decrement = state.cat === 'timetrials' ? 10 : 0.75;
+        const decrement = state.cat === 'timetrials' ? 10 : 0.01;
         list.push({ name: '', pts: last && last.pts ? Math.max(0, last.pts - decrement) : null, note: '', status: 'provisional' });
         persist(); render();
         const inputs = document.querySelectorAll('.row .einp');
@@ -2707,7 +2724,7 @@ function render() {
   if (oldMetricNote) oldMetricNote.remove();
   const metricNote = el('p', 'metric-note', state.cat === 'timetrials'
     ? 'Time Trials uses the in-game score: higher score places higher.'
-    : 'Displayed number: provisional Review Score out of 100, summarized from current-season placement. Baseline scale: #1 = 98.75 and #50 = 62.00, with even 0.75-point placement steps. Exact in-game Ranked Ratings have not yet been published.');
+    : 'Displayed number: provisional Review Score out of 100, using hundredths where the evidence is close. Scores consider gear usage and proficiency, integration, runner gapping, catcher following, adaptability, and results. Exact in-game Ranked Ratings have not yet been published.');
   document.querySelector('#page-ranked .toolbar').insertAdjacentElement('afterend', metricNote);
   $('editBtn').textContent = state.editing ? 'Done' : 'Edit';
   $('editBtn').classList.toggle('primary', state.editing);
@@ -2864,7 +2881,7 @@ const FORUM_THREADS = [
     author: 'Vervelpre', created: '2026-07-11',
     posts: [
       { author: 'Vervelpre', date: '2026-07-11 16:20', body: [
-        { pre: 'Roblox Username: Vervelpre\nDisplay Name: verv\nCurrent Ranked Rating: 2288\nCurrent Rank: Emerald I\nRegion: EU\nSubmission Date: 2026-07-11\n\nNumber of Matches: 9\nUnique Opponents: 6\nSession Win Rate: 56%\nMaps Played: 4\n\nEvidence Link: [full uncut session VOD]\nMatch Log: attached\nKnown Alternate Accounts: none\n\nGear Uses:\n- Wingsuit: 5\n- Aero Punch: 6\n- Thrust Capacitor: 4\n- Springhook: 3\n\nAdditional Notes: springhook use #3 is a recovery at 41:22, flagging it myself for review.' },
+        { pre: 'Roblox Username: Vervelpre\nDisplay Name: verv\nCurrent Rank: Emerald I\nRegion: EU\nSubmission Date: 2026-07-11\n\nRunner Gaps: 84 m, 112 m, 76 m\nRunner Average: 90.67 m\nCatcher Gaps: 48 m, 31 m, 55 m\nCatcher Average: 44.67 m\nMaps Played: 4\nRound Results: attached\n\nEvidence Link: [full uncut session VOD]\nMatch Log: attached\nKnown Alternate Accounts: none\n\nGear Uses:\n- Wingsuit: 5\n- Aero Punch: 6\n- Thrust Capacitor: 4\n- Springhook: 3\n\nAdditional Notes: springhook use #3 is a recovery at 41:22, flagging it myself for review.' },
       ]},
       { author: 'itsPetra608', date: '2026-07-12 09:15', body: [
         'First review complete. 3+ meaningful uses confirmed on all four gears — the springhook recovery at 41:22 counts under rule 4 (recovering from a dangerous position). Balance check passes: no gear over 55% of credited actions. Awaiting second reviewer.',
@@ -2939,7 +2956,7 @@ const ANNC = [
     title: 'Springhook added to the Meta category',
     body: [
       'Following update 42, the Meta gear set is now Wingsuit, Aero Punch, Thrust Capacitor and Springhook. Grapple-era speed techs remain legal in ranked but are no longer part of the scored Meta kit.',
-      'The three-use rule (rulebook section 4) applies to Springhook as it does to every required gear. Scoring weights are unchanged: 7.5 points per gear under Individual Gear Proficiency.',
+      'The three-use rule (rulebook section 4) applies to Springhook as it does to every required gear. Under rulebook v1.1, gear usage and proficiency contribute 25 points total; runner gap and catcher follow performance contribute 20 points each.',
       'Submissions recorded before the effective date are evaluated under the previous gear set.',
     ],
     affected: ['Meta'], action: 'Include at least 3 meaningful Springhook uses in new submissions.',
@@ -2969,7 +2986,7 @@ const ANNC = [
     pub: '2026-06-18', eff: '2026-06-20', author: 'pgsz1t',
     title: 'Meta category submission rules now active',
     body: [
-      'The Meta leaderboard is now accepting submissions under rulebook v1.0. Players must submit at least eight ranked matches against at least five unique opponents. Each required gear must be used meaningfully at least three times.',
+      'The Meta leaderboard is now accepting submissions under the current rulebook. A counted evaluation set contains three runner rounds and three catcher rounds with all six end gaps recorded. Each required gear must be used meaningfully at least three times.',
       'Highlight compilations are not accepted as complete evidence — full-session recordings, official replays, or equivalent match records are required. Top-10 and S-tier placements require multiple verified sessions.',
       'Submissions created before the effective date are evaluated under the previous rules unless staff explicitly state otherwise.',
     ],

@@ -3658,6 +3658,158 @@ const FORUM_THREADS = [
   },
 ];
 
+// Fictional local-only prototype threads. These are kept apart from the preserved
+// archive above and from real user-created GitHub Issues.
+const SEEDED_FORUM_THREADS = [
+  { id: 'seed-do-not-reply', board: 'discussion', title: 'do not reply to this thread', author: 'AstrMotif', created: '2026-07-15', posts: [
+    { author: 'AstrMotif', date: '2026-07-15 08:00', body: ['dont'] },
+  ]},
+  { id: 'seed-ban-better', board: 'proposals', hot: true, title: 'proposal: ban people who are better than me', author: 'wobblypickle', created: '2026-07-15', posts: [
+    { author: 'wobblypickle', date: '2026-07-15 08:12', body: ['this would fix ranked immediately'] },
+  ]},
+  { id: 'seed-corrupt-recording', board: 'submissions', title: 'my recording corrupted but trust me', author: 'jimmy_741', created: '2026-07-15', posts: [
+    { author: 'jimmy_741', date: '2026-07-15 08:40', body: ['i got like a really good score. the file is 0 bytes because windows is jealous'] },
+  ]},
+  { id: 'seed-c-tier-defamatory', board: 'appeals', title: 'my C tier is defamatory', author: 'DOVLIXLORD', created: '2026-07-15', posts: [
+    { author: 'DOVLIXLORD', date: '2026-07-15 09:03', body: ['this letter has caused me emotional damages. change it to any other letter'] },
+  ]},
+  { id: 'seed-best-drywall', board: 'discussion', title: 'which map has the best drywall', author: 'soggyanchovy', created: '2026-07-15', posts: [
+    { author: 'soggyanchovy', date: '2026-07-15 09:22', body: ['texture flavor acoustics etc. serious answers'] },
+  ]},
+  { id: 'seed-gap-real', board: 'proposals', title: 'is gap real or invented by moderators', author: 'skepticalgoose', created: '2026-07-15', posts: [
+    { author: 'skepticalgoose', date: '2026-07-15 10:01', body: ['i have never held a gap in my hands. explain that'] },
+  ]},
+  { id: 'seed-eyeless', board: 'proposals', title: 'new category: gearless gloveless eyeless', author: 'ordinarylantern', created: '2026-07-15', posts: [
+    { author: 'ordinarylantern', date: '2026-07-15 10:19', body: ['monitor off. honor system. this is the purest possible category'] },
+  ]},
+  { id: 'seed-cereal', board: 'discussion', title: 'important announcement', author: 'AstrMotif', created: '2026-07-15', posts: [
+    { author: 'AstrMotif', date: '2026-07-15 10:44', body: ['i made cereal'] },
+  ]},
+  { id: 'seed-rec-counter', board: 'discussion', title: 'does recounter count recs or counters', author: 'blueblueblueha', created: '2026-07-15', posts: [
+    { author: 'blueblueblueha', date: '2026-07-15 11:02', body: ['been thinking about the name for six hours'] },
+  ]},
+  { id: 'seed-controller-evidence', board: 'submissions', title: 'submission evidence: photo of my controller', author: 'mjtn_q', created: '2026-07-15', posts: [
+    { author: 'mjtn_q', date: '2026-07-15 11:31', body: ['it has fingerprints so you know i played. one button is in the carpet'] },
+  ]},
+  { id: 'seed-mod-ate-score', board: 'appeals', title: 'moderator ate my review score', author: 'grumpy_domino1', created: '2026-07-15', posts: [
+    { author: 'grumpy_domino1', date: '2026-07-15 12:03', body: ['it was there and now it isnt. hungry ass website'] },
+  ]},
+  { id: 'seed-queue-sound', board: 'discussion', title: 'what sound do you make before queueing', author: 'diemor', created: '2026-07-15', posts: [
+    { author: 'diemor', date: '2026-07-15 12:48', body: ['mine is mrrp but with intent'] },
+  ]},
+];
+
+const SEEDED_FORUM_REPLIES = {
+  'seed-do-not-reply': [
+    { author: 'hi_4v', date: '2026-07-15 08:01', body: ['ok'] },
+    { author: 'bn7t', date: '2026-07-15 08:01', body: [':3'] },
+    { author: 'AstrMotif', date: '2026-07-15 08:02', body: ['WHY DID YOU BOTH REPLY'] },
+    { author: 'ncm_k', date: '2026-07-15 08:03', body: ['flood'] },
+    { author: 'AstrMotif', date: '2026-07-15 08:04', body: ['stop'] },
+    { author: 'AstrMotif', date: '2026-07-15 08:04', body: ['seriously'] },
+    { author: 'wobblypickle', date: '2026-07-15 08:06', body: ['i think they mean do not reply after me'] },
+    { author: 'pgsz1t', date: '2026-07-15 08:09', body: ['Locking this if the notifications become a problem. Also, replying to request no replies is still replying.'] },
+    { author: 'skepticalgoose', date: '2026-07-15 08:11', body: ['honk'] },
+  ],
+  'seed-ban-better': [
+    { author: 'Danbossuk', date: '2026-07-15 08:16', body: ['support but only if i choose who is better than you'] },
+    { author: 'wobblypickle', date: '2026-07-15 08:17', body: ['denied'] },
+    { author: 'hi_4v', date: '2026-07-15 08:19', body: ['this eliminates the entire queue including you'] },
+    { author: 'wobblypickle', date: '2026-07-15 08:20', edited: true, body: ['proposal revised: ban people who say that'] },
+    { author: 'ncm_k', date: '2026-07-15 08:23', body: ['skill issue as legislation'] },
+    { author: 'AstrMotif', date: '2026-07-15 08:25', body: ['GOOD PROPOSAL. finally somebody fixing the game'] },
+    { author: 'bn7t', date: '2026-07-15 08:29', body: ['can the ban have a cooldown'] },
+    { author: 'itsPetra608', date: '2026-07-15 08:35', body: ['Declined for the extremely surprising reason that rankings require other people.'] },
+  ],
+  'seed-corrupt-recording': [
+    { author: 'pgsz1t', date: '2026-07-15 08:45', body: ['We cannot review a zero-byte file. If your platform saved a replay ID, attach that instead.'] },
+    { author: 'jimmy_741', date: '2026-07-15 08:47', body: ['what if i describe it really accurately'] },
+    { author: 'ncm_k', date: '2026-07-15 08:49', body: ['recover the container header with ffmpeg if data exists. if it is literally zero bytes there is no file'] },
+    { author: 'jimmy_741', date: '2026-07-15 08:50', body: ['can ffmpeg believe me'] },
+    { author: 'AstrMotif', date: '2026-07-15 08:52', body: ['i believe you put him at #1'] },
+    { author: '[deleted]', date: '2026-07-15 08:55', deleted: true, body: ['[deleted by moderator]'] },
+    { author: 'Quivel', date: '2026-07-15 09:01', body: ['Submission closed unless recoverable evidence is added. Please stop uploading photos of the empty folder.'] },
+  ],
+  'seed-c-tier-defamatory': [
+    { author: 'DOVLIXLORD', date: '2026-07-15 09:05', body: ['B would be acceptable because it looks more expensive'] },
+    { author: 'grumpy_domino1', date: '2026-07-15 09:06', body: ['no'] },
+    { author: 'DOVLIXLORD', date: '2026-07-15 09:07', body: ['you are not the appeals department'] },
+    { author: 'grumpy_domino1', date: '2026-07-15 09:07', body: ['no'] },
+    { author: 'Ramona519', date: '2026-07-15 09:14', body: ['An appeal needs a scoring or evidence error. Disliking typography is not one.'] },
+    { author: 'DOVLIXLORD', date: '2026-07-15 09:16', body: ['appealing this response too'] },
+  ],
+  'seed-best-drywall': [
+    { author: 'morsilmax', date: '2026-07-15 09:24', body: ['downtown is load bearing. do not ask how i know'] },
+    { author: 'lixnalzer3', date: '2026-07-15 09:25', body: ['texture is mid but the router pairing is excellent'] },
+    { author: 'soggyanchovy', date: '2026-07-15 09:27', body: ['finally professionals'] },
+    { author: 'ordinarylantern', date: '2026-07-15 09:29', body: ['the museum wall has a hollow sound near spawn'] },
+    { author: 'ncm_k', date: '2026-07-15 09:31', body: ['you people are why landlords require deposits'] },
+    { author: 'AstrMotif', date: '2026-07-15 09:33', body: ['CEMENT IS BETTER it has structural personality'] },
+    { author: 'soggyanchovy', date: '2026-07-15 09:34', body: ['wrong thread cement boy'] },
+    { author: 'AstrMotif', date: '2026-07-15 09:35', body: ['same food group'] },
+    { author: 'milo36', date: '2026-07-15 09:42', body: ['orange juice'] },
+  ],
+  'seed-gap-real': [
+    { author: 'hi_4v', date: '2026-07-15 10:03', body: ['it is distance. the site averages three runner endings and three catcher endings separately. this is not metaphysics'] },
+    { author: 'skepticalgoose', date: '2026-07-15 10:04', body: ['sounds invented'] },
+    { author: 'ncm_k', date: '2026-07-15 10:05', body: ['meters existed before moderators'] },
+    { author: 'skepticalgoose', date: '2026-07-15 10:06', body: ['source'] },
+    { author: 'fm5w', date: '2026-07-15 10:08', body: ['my source is i walked outside once'] },
+    { author: 'bn7t', date: '2026-07-15 10:10', body: ['big distance good when run. little distance good when catch. hope this helps :3'] },
+    { author: 'skepticalgoose', date: '2026-07-15 10:12', body: ['moderator language'] },
+    { author: 'Quivel', date: '2026-07-15 10:15', body: ['The proposal contains no proposed rule change. Moving it mentally into the goose enclosure.'] },
+  ],
+  'seed-eyeless': [
+    { author: 'wobblypickle', date: '2026-07-15 10:21', body: ['i already play this category sometimes'] },
+    { author: 'AstrMotif', date: '2026-07-15 10:23', body: ['i can win this. falling is map knowledge'] },
+    { author: 'hi_4v', date: '2026-07-15 10:25', body: ['this is just disconnecting the monitor'] },
+    { author: 'ordinarylantern', date: '2026-07-15 10:26', body: ['yes finally somebody understands'] },
+    { author: 'neo4591', date: '2026-07-15 10:28', body: ['does colorblind mode count as one eye'] },
+    { author: 'Stufu', date: '2026-07-15 10:31', body: ['how would evidence review work'] },
+    { author: 'ordinarylantern', date: '2026-07-15 10:32', body: ['reviewer also closes eyes'] },
+    { author: 'pgsz1t', date: '2026-07-15 10:38', body: ['No.'] },
+    { author: 'ordinarylantern', date: '2026-07-15 10:39', body: ['authoritarian'] },
+  ],
+  'seed-cereal': [
+    { author: 'bn7t', date: '2026-07-15 10:45', body: ['huge'] },
+    { author: 'ncm_k', date: '2026-07-15 10:46', body: ['which filesystem'] },
+    { author: 'AstrMotif', date: '2026-07-15 10:47', body: ['bowl'] },
+    { author: 'ncm_k', date: '2026-07-15 10:48', body: ['acceptable'] },
+  ],
+  'seed-rec-counter': [
+    { author: 'DOVLIXLORD', date: '2026-07-15 11:04', body: ['it recounts the counter every time you forget'] },
+    { author: 'blueblueblueha', date: '2026-07-15 11:05', body: ['what counter'] },
+    { author: 'DOVLIXLORD', date: '2026-07-15 11:06', body: ['the rec one'] },
+    { author: 'blueblueblueha', date: '2026-07-15 11:06', body: ['oh'] },
+    { author: 'ncm_k', date: '2026-07-15 11:10', body: ['none of these words are helping'] },
+  ],
+  'seed-controller-evidence': [
+    { author: 'Quivel', date: '2026-07-15 11:34', body: ['A controller photo does not show the session, opponent, six rounds, or end gaps. Please use the evidence template.'] },
+    { author: 'mjtn_q', date: '2026-07-15 11:35', body: ['it shows commitment'] },
+    { author: 'plasticcactus56', date: '2026-07-15 11:36', body: ['which button is in carpet'] },
+    { author: 'mjtn_q', date: '2026-07-15 11:37', body: ['jump i think'] },
+    { author: 'plasticcactus56', date: '2026-07-15 11:38', body: ['oh no'] },
+    { author: 'mjtn_q', date: '2026-07-15 11:39', body: ['found a cheeto'] },
+    { author: 'Quivel', date: '2026-07-15 11:42', body: ['That is still not evidence.'] },
+  ],
+  'seed-mod-ate-score': [
+    { author: 'itsPetra608', date: '2026-07-15 12:06', body: ['Your browser has a local edit from yesterday. Reset local leaderboard data and the built-in score will reappear. Nobody ate it.'] },
+    { author: 'grumpy_domino1', date: '2026-07-15 12:07', body: ['prove you arent hungry'] },
+    { author: 'itsPetra608', date: '2026-07-15 12:08', body: ['I regret answering this accurately.'] },
+  ],
+  'seed-queue-sound': [
+    { author: 'spookymagnet', date: '2026-07-15 12:50', body: ['rawr but it clips the mic'] },
+    { author: 'nqq9f', date: '2026-07-15 12:51', body: ['uwu'] },
+    { author: 'grumpy_domino1', date: '2026-07-15 12:52', body: ['no'] },
+    { author: 'diemor', date: '2026-07-15 12:53', body: ['you have to make one. legally'] },
+    { author: 'grumpy_domino1', date: '2026-07-15 12:54', body: ['...'] },
+    { author: 'zephyr_protogen', date: '2026-07-15 12:56', body: ['windows usb disconnect sound'] },
+    { author: 'AstrMotif', date: '2026-07-15 13:00', body: ['mine is the falling noise because i queue in the air'] },
+    { author: 'diemor', date: '2026-07-15 13:02', body: ['mrrp approved'] },
+    { author: 'waterwater', date: '2026-07-15 13:05', body: ['does anyone know if dinner is ready'] },
+  ],
+};
+
 const ANNC = [
   {
     pinned: true, type: 'Staff Notice', status: 'Active',
@@ -3726,9 +3878,9 @@ const ANNC = [
 /* ================= forum sources ================= */
 const GITHUB_REPO = 'deltadasher/Parkour-Leaderboard';
 const GITHUB_ISSUES = 'https://github.com/' + GITHUB_REPO + '/issues';
-const allThreads = () => FORUM_THREADS;
+const allThreads = () => FORUM_THREADS.concat(SEEDED_FORUM_THREADS);
 const getThread = (id) => allThreads().find((t) => t.id === id);
-const threadPosts = (t) => t.posts;
+const threadPosts = (t) => t.posts.concat(SEEDED_FORUM_REPLIES[t.id] || []);
 
 /* ================= forum rendering ================= */
 function hueOf(name) {
@@ -3824,7 +3976,7 @@ function renderForum() {
   const head = el('div', 'pane-head');
   head.append(el('h2', '', 'Community Forum'));
   head.append(el('p', 'pane-sub',
-    'New threads and replies are public and persistent through GitHub accounts. Preserved community threads remain available below as a read-only archive.'));
+    'New threads and replies are public and persistent through GitHub accounts. Preserved community threads and fictional local-only prototype seeds remain available below as a read-only archive.'));
   pane.append(head);
 
   const shared = el('section', 'shared-forum');
@@ -3888,7 +4040,7 @@ function renderForum() {
     meta.append(el('span', '', 'by ' + t.author));
     meta.append(el('span', '', (posts.length - 1) + (posts.length === 2 ? ' reply' : ' replies')));
     meta.append(el('span', '', 'last post ' + posts[posts.length - 1].date));
-    meta.append(el('span', 'tag', 'archived'));
+    meta.append(el('span', 'tag', SEEDED_FORUM_REPLIES[t.id] ? 'seeded prototype' : 'archived'));
     row.append(meta);
     list.append(row);
   }
@@ -3904,6 +4056,8 @@ function postNode(post, isOp, thread) {
   head.append(playerLink(post.author, el('span', 'pauthor', post.author)));
   for (const b of badgeNodes(post.author)) head.append(b);
   if (isOp) head.append(el('span', 'tag', 'OP'));
+  if (post.edited) head.append(el('span', 'tag', 'edited'));
+  if (post.deleted) head.append(el('span', 'tag', 'deleted'));
   head.append(el('span', 'pdate', post.date));
   main.append(head);
   const body = el('div', 'pbody');
@@ -3943,6 +4097,7 @@ function renderThread(id) {
   const info = el('div', 'thread-info');
   const bd = FORUM_BOARDS.find((b) => b.id === t.board);
   info.append(el('span', 'tag', bd ? bd.name : t.board));
+  if (SEEDED_FORUM_REPLIES[t.id]) info.append(el('span', 'tag', 'seeded prototype · local only'));
   info.append(el('span', '', 'started by ' + t.author + ' · ' + t.created));
   pane.append(info);
 
@@ -4117,7 +4272,7 @@ function profileData(name) {
     const idx = item.players.findIndex((row) => row[0].toLowerCase() === normalized);
     if (idx >= 0) items.push({ item, idx, score: item.players[idx][1], evidence: item.players[idx][2] });
   }
-  const threads = FORUM_THREADS.filter((thread) => threadPosts(thread)
+  const threads = allThreads().filter((thread) => threadPosts(thread)
     .some((post) => post.author.toLowerCase() === normalized));
   const canonical = placements.length ? placements[0].entry.name
     : items.length ? items[0].item.players[items[0].idx][0] : name;
@@ -4351,6 +4506,162 @@ const PLAYER_BIOS = {
   'prtzl_tonezz': 'Q_Q Q_Q Q_Q',
   'tfzp9p': 'bnm,.///??',
 };
+
+// Forum writing roster. The first two entries are owner-supplied canon; the
+// remainder are deterministic seeded personas so every leaderboard player has a
+// stable voice without storing hundreds of near-identical handwritten objects.
+const FORUM_CHARACTERS = [
+  {
+    username: "ncm_k",
+    displayName: "muzzle",
+    bio: "flood",
+    role: "player",
+    personality: [
+      "dry",
+      "barely explains anything",
+      "acts like every topic is beneath them",
+      "occasionally says something extremely technical for no reason"
+    ],
+    speechStyle: [
+      "lowercase",
+      "short replies",
+      "rare punctuation",
+      "never uses emojis except :3 sarcastically"
+    ],
+    recurringBits: [
+      "linux",
+      "opsec",
+      "dismisses bad arguments instantly",
+      "says flood with no context"
+    ],
+    dislikes: [
+      "long explanations",
+      "fake expertise",
+      "people overusing the word meta"
+    ],
+    replyLength: "1-3 sentences",
+    profanityLevel: "medium",
+    coherence: "high",
+    chaos: "medium"
+  },
+
+  {
+    username: "AstrMotif",
+    displayName: "AstrMotif",
+    bio: "eated cement",
+    role: "player",
+    personality: [
+      "confident",
+      "impulsive",
+      "says dumb things with complete sincerity",
+      "will defend an obviously bad idea"
+    ],
+    speechStyle: [
+      "lowercase",
+      "blunt",
+      "occasionally types in all caps when challenged"
+    ],
+    recurringBits: [
+      "cement",
+      "falling off buildings",
+      "pretending mistakes were intentional"
+    ],
+    dislikes: [
+      "being corrected",
+      "route criticism"
+    ],
+    replyLength: "1-4 sentences",
+    profanityLevel: "low",
+    coherence: "medium",
+    chaos: "high"
+  }
+];
+
+const FORUM_PERSONA_PARTS = {
+  personality: [
+    ['earnest', 'misses obvious bait', 'tries to help before getting distracted'],
+    ['argumentative', 'contradicts friends on principle', 'remembers ancient petty disputes'],
+    ['sleepy', 'answers only half the question', 'sometimes becomes weirdly insightful'],
+    ['overconfident', 'guesses instead of checking', 'doubles down when corrected'],
+    ['friendly', 'backs up familiar users', 'derails into unrelated updates'],
+    ['suspicious', 'assumes trivial conspiracies', 'takes wording much too literally'],
+    ['quiet', 'appears once with a devastating reply', 'refuses to elaborate'],
+    ['chaotic', 'treats bad ideas as urgent', 'forgets the premise mid-reply'],
+  ],
+  speechStyle: [
+    ['lowercase', 'sentence fragments', 'little punctuation'],
+    ['mostly lowercase', 'occasional ALL CAPS', 'repeats one word for emphasis'],
+    ['terse', 'one-word answers', 'uses ??? when confused'],
+    ['run-on sentences', 'abruptly stops', 'rarely proofreads'],
+    ['lowercase', 'deadpan', 'uses emoticons sparingly'],
+    ['bad grammar', 'double posts', 'answers the wrong person'],
+  ],
+  recurringBits: [
+    ['broken household objects', 'claims accidents were unrelated', 'asks where food went'],
+    ['bad wifi', 'Discord notification noises', 'forgets why they opened the thread'],
+    ['says meow at inappropriate moments', 'keyboard paws', 'denies being a creature'],
+    ['parental controls', 'unfinished chores', 'one more queue'],
+    ['confuses game terminology', 'revives old arguments', 'posts punctuation'],
+    ['gives competent evidence advice', 'immediately ruins it', 'mentions a missing button'],
+    ['takes proposals literally', 'invented legal language', 'declares tiny victories'],
+    ['snacks', 'microwave incidents', 'unexplained carpet damage'],
+  ],
+  dislikes: [
+    ['being pinged twice', 'long rule quotes'],
+    ['corrections', 'waiting for context'],
+    ['voice chat chewing', 'serious polls'],
+    ['homework questions', 'bedtime allegations'],
+    ['fake evidence', 'people saying source'],
+    ['capital letters', 'being perceived'],
+  ],
+  replyLength: ['one word to 2 sentences', '1-3 sentences', '2-4 short sentences', 'usually one fragment'],
+  profanityLevel: ['none', 'low', 'medium', 'high'],
+  coherence: ['low', 'medium', 'high'],
+  chaos: ['low', 'medium', 'high'],
+};
+
+function forumHash(name) {
+  let value = 2166136261;
+  for (const char of name.toLowerCase()) {
+    value ^= char.charCodeAt(0);
+    value = Math.imul(value, 16777619);
+  }
+  return value >>> 0;
+}
+function allSeededPlayerNames() {
+  const names = new Map();
+  for (const category of Object.values(BUILTIN.categories)) {
+    for (const player of category.players) names.set(player.name.toLowerCase(), player.name);
+  }
+  for (const item of ITEM_RANKINGS) {
+    for (const player of item.players) names.set(player[0].toLowerCase(), player[0]);
+  }
+  for (const thread of FORUM_THREADS.concat(SEEDED_FORUM_THREADS)) {
+    for (const post of threadPosts(thread)) {
+      if (post.author !== '[deleted]') names.set(post.author.toLowerCase(), post.author);
+    }
+  }
+  return [...names.values()];
+}
+for (const [index, username] of allSeededPlayerNames().entries()) {
+  if (FORUM_CHARACTERS.some((character) => character.username.toLowerCase() === username.toLowerCase())) continue;
+  const hash = forumHash(username);
+  const pick = (key, offset) => FORUM_PERSONA_PARTS[key][(hash + index * offset) % FORUM_PERSONA_PARTS[key].length];
+  FORUM_CHARACTERS.push({
+    username,
+    displayName: username,
+    bio: PLAYER_BIOS[username.toLowerCase()] || 'they let me have a keyboard',
+    role: MODS.some((mod) => mod.toLowerCase() === username.toLowerCase()) ? 'moderator' : 'player',
+    personality: pick('personality', 3).slice(),
+    speechStyle: pick('speechStyle', 5).slice(),
+    recurringBits: pick('recurringBits', 7).slice(),
+    dislikes: pick('dislikes', 11).slice(),
+    replyLength: pick('replyLength', 13),
+    profanityLevel: pick('profanityLevel', 17),
+    coherence: pick('coherence', 19),
+    chaos: pick('chaos', 23),
+  });
+}
 function profileBio(data) {
   return PLAYER_BIOS[data.name.toLowerCase()] || 'they let me have a keyboard';
 }

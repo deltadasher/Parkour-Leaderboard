@@ -226,6 +226,12 @@ identity, persistence, notifications, moderation history, and abuse controls. Th
 matching public issues from GitHub's unauthenticated REST API and links to GitHub for posting or replying.
 The built-in historical threads remain a read-only archive.
 
+Fictional forum seeds are stored separately in `SEEDED_FORUM_THREADS` and
+`SEEDED_FORUM_REPLIES`, carry a visible `seeded prototype` label, and are not community records.
+`FORUM_CHARACTERS` contains the owner-supplied ncm_k and AstrMotif definitions plus stable,
+deterministically generated personas for every seeded player. Do not describe these personas or
+seed posts as authenticated statements by the named players.
+
 This means:
 
 - new posts are shared publicly and synchronized between devices;

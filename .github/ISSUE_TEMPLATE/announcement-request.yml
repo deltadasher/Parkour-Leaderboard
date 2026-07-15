@@ -1,0 +1,48 @@
+name: Announcement request
+description: Submit a public request for a reviewed site announcement.
+title: "[ANNOUNCEMENT REQUEST] Short subject"
+body:
+  - type: markdown
+    attributes:
+      value: This form requests an announcement. It does not publish one or represent a staff decision.
+  - type: input
+    id: subject
+    attributes:
+      label: Subject
+      placeholder: What should the community be told?
+    validations:
+      required: true
+  - type: textarea
+    id: facts
+    attributes:
+      label: Confirmed facts
+      description: Include sources that a reviewer can independently check.
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected categories or players
+    validations:
+      required: true
+  - type: input
+    id: effective
+    attributes:
+      label: Proposed effective date
+      placeholder: YYYY-MM-DD or not applicable
+    validations:
+      required: true
+  - type: textarea
+    id: action
+    attributes:
+      label: Requested player action
+      placeholder: State none if no action is required.
+    validations:
+      required: true
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Acknowledgement
+      options:
+        - label: I understand this request is public and requires review before it can appear as an announcement.
+          required: true

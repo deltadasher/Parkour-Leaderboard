@@ -352,6 +352,27 @@ h1 .hollow {
 }
 .pcard .ppts small { color: var(--faint); font-weight: 600; letter-spacing: .1em; }
 .pcard .pnote { margin-top: 6px; font-size: 13px; color: var(--muted); }
+.data-status {
+  display: inline-block;
+  margin-top: 7px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  padding: 2px 7px;
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.data-status.verified { border-color: #2e8b57; color: #2e8b57; }
+.metric-note {
+  margin: 0 0 18px;
+  padding: 10px 12px;
+  border-left: 3px solid var(--cat);
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 12.5px;
+}
 
 /* ---------- board ---------- */
 .board { padding: 10px 0 30px; }
@@ -658,6 +679,17 @@ body.editing .row .grip { display: block; }
 .composer textarea { min-height: 88px; resize: vertical; }
 .composer .crow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .composer .crow input { flex: 1 1 180px; }
+.shared-forum {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--cat);
+  border-radius: 4px;
+  background: var(--panel);
+}
+.shared-forum h3 { margin: 0 0 5px; font-size: 16px; }
+.shared-forum p { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+.shared-forum .actions { display: flex; flex-wrap: wrap; gap: 7px; }
 .localnote { font-size: 11.5px; color: var(--faint); }
 
 /* ---------- announcements ---------- */
@@ -695,6 +727,15 @@ body.editing .row .grip { display: block; }
 /* ---------- rulebook ---------- */
 .rules .rmeta { display: flex; gap: 6px 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin: -8px 0 18px; }
 .rules .rmeta b { color: var(--ink); font-weight: 600; }
+.rule-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 18px;
+}
+.rule-summary article { padding: 12px; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
+.rule-summary h3 { margin: 0 0 5px; font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.rule-summary p { margin: 0; color: var(--muted); font-size: 12.5px; }
 .rtoc {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -748,6 +789,7 @@ footer .spacer { flex: 1; }
 
 /* ---------- responsive / motion ---------- */
 @media (max-width: 720px) {
+  .rule-summary { grid-template-columns: 1fr; }
   .podium { grid-template-columns: 1fr; align-items: stretch; }
   .pcard.p1 { order: 1; }
   .pcard.p2 { order: 2; }
@@ -826,6 +868,11 @@ footer .spacer { flex: 1; }
     <span>Example dates <b>not official</b></span>
     <span>Applies to <b>Meta</b></span>
     <span>Maintained by <b>project contributors</b></span>
+  </div>
+  <div class="rule-summary" aria-label="Meta qualification and scoring summary">
+    <article><h3>Qualification</h3><p>8+ ranked matches, 5+ unique opponents, 3 meaningful uses of every required gear, 50%+ weighted win rate, and complete evidence.</p></article>
+    <article><h3>Review score · 100</h3><p>Gear proficiency 30 · integration 25 · match impact 20 · adaptability 15 · competitive results 10.</p></article>
+    <article><h3>Two separate metrics</h3><p><strong>Ranked Rating</strong> comes from the game. <strong>Review Score</strong> is the 0–100 evidence evaluation. One must never be mislabeled as the other.</p></article>
   </div>
   <nav class="rtoc" id="rtoc" aria-label="Rulebook contents"></nav>
 
@@ -1246,7 +1293,7 @@ const BUILTIN = {
   "categories": {
     "meta": {
       "label": "Meta",
-      "unit": "pts",
+      "unit": "rating",
       "desc": "Combined mastery of Wingsuit, Aero Punch, Thrust Capacitor, and Springhook under standard ranked rules.",
       "gear": [
         "Wingsuit",
@@ -1476,7 +1523,7 @@ const BUILTIN = {
     },
     "recounter": {
       "label": "Recounter",
-      "unit": "pts",
+      "unit": "rating",
       "desc": "Built around the Recounter back-gear. Beyond that, any gear goes.",
       "players": [
         {
@@ -1697,7 +1744,7 @@ const BUILTIN = {
     },
     "gearless": {
       "label": "Gearless",
-      "unit": "pts",
+      "unit": "rating",
       "desc": "No gears equipped — you keep your glove.",
       "players": [
         {
@@ -1922,7 +1969,7 @@ const BUILTIN = {
     },
     "gloveless": {
       "label": "Gearless: Gloveless",
-      "unit": "pts",
+      "unit": "rating",
       "desc": "No gears at all, not even the glove. The purist ladder.",
       "players": [
         {
@@ -2358,13 +2405,23 @@ const BUILTIN = {
 
 const CAT_ORDER = ['meta', 'recounter', 'gearless', 'gloveless', 'timetrials'];
 const TIERS = [
-  { id: 'S', from: 0,  to: 9  },
-  { id: 'A', from: 10, to: 19 },
-  { id: 'B', from: 20, to: 34 },
-  { id: 'C', from: 35, to: 49 },
+  { id: 'S', label: 'Top 10', from: 0,  to: 9  },
+  { id: 'A', label: 'Ranks 11–20', from: 10, to: 19 },
+  { id: 'B', label: 'Ranks 21–35', from: 20, to: 34 },
+  { id: 'C', label: 'Ranks 36–50', from: 35, to: 49 },
 ];
 const MAX_PLAYERS = 50;
 const LS_KEY = 'pkl-ranked-v2';
+
+function normalizeDoc(doc) {
+  // v2 originally called every numeric field "pts". Preserve the values while
+  // migrating ranked categories to the rulebook's current terminology.
+  for (const key of CAT_ORDER) {
+    const category = doc.categories[key];
+    if (key !== 'timetrials' && category.unit === 'pts') category.unit = 'rating';
+  }
+  return doc;
+}
 
 function loadData() {
   try {
@@ -2373,10 +2430,10 @@ function loadData() {
       const doc = JSON.parse(raw);
       const complete = doc && doc.categories &&
         CAT_ORDER.every((k) => doc.categories[k] && Array.isArray(doc.categories[k].players));
-      if (complete) return { saved: true, doc };
+      if (complete) return { saved: true, doc: normalizeDoc(doc) };
     }
   } catch (e) { /* corrupted or blocked storage: fall back to built-in */ }
-  return { saved: false, doc: JSON.parse(JSON.stringify(BUILTIN)) };
+  return { saved: false, doc: normalizeDoc(JSON.parse(JSON.stringify(BUILTIN))) };
 }
 
 const state = Object.assign({ cat: 'meta', query: '', editing: false }, loadData());
@@ -2397,8 +2454,13 @@ function el(tag, cls, text) {
 }
 const tierOf = (i) => TIERS.find((t) => i >= t.from && i <= t.to) || TIERS[TIERS.length - 1];
 const players = () => state.doc.categories[state.cat].players;
-const unit = () => state.doc.categories[state.cat].unit || 'pts';
+const unit = () => state.doc.categories[state.cat].unit || (state.cat === 'timetrials' ? 'score' : 'rating');
 const fmtPts = (p) => (p === null || p === undefined || p === '' ? '—' : Number(p).toLocaleString('en-US'));
+const dataStatus = (p) => p.status || (state.saved ? 'provisional' : 'sample data');
+function statusNode(p) {
+  const status = dataStatus(p);
+  return el('span', 'data-status ' + (status === 'verified' ? 'verified' : ''), status);
+}
 
 function nameNode(name, query) {
   const s = el('div', 'nm');
@@ -2455,6 +2517,7 @@ function renderPodium() {
     pts.append(el('small', '', unit().toUpperCase()));
     card.append(pts);
     if (p.note) card.append(el('div', 'pnote', p.note));
+    card.append(statusNode(p));
     pod.append(card);
   });
 }
@@ -2488,10 +2551,20 @@ function makeRow(p, idx) {
     nt.style.fontSize = '12.5px';
     nt.setAttribute('aria-label', 'Note for rank ' + (idx + 1));
     nt.addEventListener('input', () => { p.note = nt.value; persist(); });
-    who.append(nm, nt);
+    const st = el('select', 'einp');
+    st.setAttribute('aria-label', 'Verification status for rank ' + (idx + 1));
+    for (const value of ['sample data', 'provisional', 'verified', 'archived']) {
+      const option = el('option', '', value);
+      option.value = value;
+      option.selected = dataStatus(p) === value;
+      st.append(option);
+    }
+    st.addEventListener('change', () => { p.status = st.value; persist(); });
+    who.append(nm, nt, st);
   } else {
     who.append(nameNode(p.name, state.query));
     if (p.note) who.append(el('div', 'nt', p.note));
+    who.append(statusNode(p));
   }
   row.append(who);
 
@@ -2500,7 +2573,7 @@ function makeRow(p, idx) {
     pts.value = p.pts ?? '';
     pts.placeholder = unit();
     pts.inputMode = 'numeric';
-    pts.setAttribute('aria-label', 'Points for rank ' + (idx + 1));
+    pts.setAttribute('aria-label', unit() + ' for rank ' + (idx + 1));
     pts.addEventListener('input', () => {
       const v = pts.value.replace(/[^\d]/g, '');
       p.pts = v === '' ? null : Number(v);
@@ -2576,8 +2649,8 @@ function renderBoard() {
     if (!slice.length && !(state.editing && t.from < MAX_PLAYERS)) continue;
     const head = el('div', 'tierhead');
     head.dataset.tier = t.id;
-    head.append(el('span', 'tletter', t.id));
-    head.append(el('span', 'tmeta', 'Tier · Ranks ' + String(t.from + 1).padStart(2, '0') + '–' + String(t.to + 1).padStart(2, '0')));
+    head.append(el('span', 'tletter', t.label));
+    head.append(el('span', 'tmeta', 'Placement band · ' + String(t.from + 1).padStart(2, '0') + '–' + String(t.to + 1).padStart(2, '0')));
     head.append(el('span', 'trule'));
     board.append(head);
     const rows = el('div', 'rows');
@@ -2600,7 +2673,7 @@ function renderBoard() {
       board.append(add);
     }
     board.append(el('p', 'edit-hint',
-      'Drag ⠿ or use ↑ ↓ to reorder — S/A/B/C are automatic visual placement bands, not verified proficiency grades.'));
+      'Drag ⠿ or use ↑ ↓ to reorder. Placement bands are not S/A/B/C proficiency grades; assign verified grades only after a rulebook review.'));
   }
 }
 
@@ -2620,6 +2693,12 @@ function render() {
     for (const g of cat.gear) chips.append(el('span', 'gearchip', g));
     desc.append(chips);
   }
+  const oldMetricNote = document.querySelector('.metric-note');
+  if (oldMetricNote) oldMetricNote.remove();
+  const metricNote = el('p', 'metric-note', state.cat === 'timetrials'
+    ? 'Time Trials uses the in-game score: higher score places higher.'
+    : 'Displayed number: in-game Ranked Rating. The rulebook Review Score is a separate 0–100 evidence evaluation and is not yet published for these provisional entries.');
+  document.querySelector('#page-ranked .toolbar').insertAdjacentElement('afterend', metricNote);
   $('editBtn').textContent = state.editing ? 'Done' : 'Edit';
   $('editBtn').classList.toggle('primary', state.editing);
   $('importBtn').hidden = !state.editing;
@@ -2672,9 +2751,14 @@ $('importFile').addEventListener('change', (e) => {
       if (!doc || !doc.categories) throw new Error('bad shape');
       for (const key of CAT_ORDER) {
         if (!doc.categories[key] || !Array.isArray(doc.categories[key].players)) throw new Error('missing ' + key);
+        for (const player of doc.categories[key].players) {
+          if (!player || typeof player.name !== 'string' || player.name.length > 40) throw new Error('invalid player');
+          if (player.pts !== null && player.pts !== undefined && (!Number.isFinite(Number(player.pts)) || Number(player.pts) < 0)) throw new Error('invalid metric');
+          if (player.status && !['sample data', 'provisional', 'verified', 'archived'].includes(player.status)) throw new Error('invalid status');
+        }
         doc.categories[key].players = doc.categories[key].players.slice(0, MAX_PLAYERS);
       }
-      state.doc = doc;
+      state.doc = normalizeDoc(doc);
       persist();
       render();
     } catch (err) {
@@ -2692,8 +2776,8 @@ const CAT_ABBR = { meta: 'META', recounter: 'RC', gearless: 'GL', gloveless: 'GG
 const FORUM_BOARDS = [
   { id: 'discussion', name: 'Player Discussion', desc: 'Playstyles, placements, strategy talk.' },
   { id: 'proposals', name: 'Rules & Proposals', desc: 'Scoring changes, gear eligibility, formats.' },
-  { id: 'submissions', name: 'Leaderboard Submissions', desc: '[META SUBMISSION] threads, reviewed by staff.' },
-  { id: 'appeals', name: 'Appeals', desc: 'Formal disputes of reviewer decisions.' },
+  { id: 'submissions', name: 'Leaderboard Submissions', desc: 'Draft locally or submit persistently through GitHub Issues.' },
+  { id: 'appeals', name: 'Appeals', desc: 'Draft locally or open a persistent GitHub appeal.' },
 ];
 
 const FORUM_THREADS = [
@@ -2951,8 +3035,28 @@ function renderForum() {
   const head = el('div', 'pane-head');
   head.append(el('h2', '', 'Local Forum Demo'));
   head.append(el('p', 'pane-sub',
-    'Prototype only: posts stay in this browser and are not submitted to staff, shared, authenticated, or moderated.'));
+    'Local drafts stay in this browser. Shared submissions, appeals, proposals, and discussions use GitHub Issues for persistence, accounts, comments, and moderation history.'));
   pane.append(head);
+
+  const shared = el('section', 'shared-forum');
+  shared.append(el('h3', '', 'Shared community intake'));
+  shared.append(el('p', '', 'GitHub sign-in is required. Posts made there are public and persistent; the local composer below remains a private browser-only draft space.'));
+  const sharedActions = el('div', 'actions');
+  const issueLinks = [
+    ['Submit a player', 'leaderboard-submission.yml'],
+    ['Open an appeal', 'appeal.yml'],
+    ['Propose a rule', 'rule-proposal.yml'],
+    ['Start a discussion', 'player-discussion.yml'],
+  ];
+  for (const [label, template] of issueLinks) {
+    const link = el('a', 'btn', label);
+    link.href = 'https://github.com/deltadasher/Parkour-Leaderboard/issues/new?template=' + template;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    sharedActions.append(link);
+  }
+  shared.append(sharedActions);
+  pane.append(shared);
 
   const boards = el('div', 'boards');
   const mkCard = (id, name, desc, count) => {
@@ -2992,6 +3096,7 @@ function renderForum() {
     meta.append(el('span', '', (posts.length - 1) + (posts.length === 2 ? ' reply' : ' replies')));
     meta.append(el('span', '', 'last post ' + posts[posts.length - 1].date));
     if (t.local) meta.append(el('span', 'tag', 'local'));
+    else meta.append(el('span', 'tag', 'example data'));
     row.append(meta);
     list.append(row);
   }
@@ -3137,11 +3242,23 @@ function renderAnnc() {
   head.append(el('p', 'pane-sub',
     'Prototype content demonstrating the announcement format. Dates, authors, and decisions are not official unless independently confirmed.'));
   pane.append(head);
+
+  const workflow = el('section', 'shared-forum');
+  workflow.append(el('h3', '', 'Announcement workflow'));
+  workflow.append(el('p', '', 'Community members can submit a public announcement request. Publication on this page still requires a reviewed repository update, so requests cannot silently become staff notices.'));
+  const request = el('a', 'btn', 'Request an announcement');
+  request.href = 'https://github.com/deltadasher/Parkour-Leaderboard/issues/new?template=announcement-request.yml';
+  request.target = '_blank';
+  request.rel = 'noopener noreferrer';
+  workflow.append(request);
+  pane.append(workflow);
+
   const wrap = el('div', 'anncs');
   const sorted = ANNC.slice().sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0) || (a.pub < b.pub ? 1 : -1));
   for (const a of sorted) {
     const card = el('article', 'annc' + (a.pinned ? ' pinned' : ''));
     const hd = el('div', 'ahead');
+    hd.append(el('span', 'tag', 'example data'));
     if (a.pinned) hd.append(el('span', 'tag', '\u{1F4CC} pinned'));
     hd.append(el('span', 'tag', a.type));
     hd.append(el('span', 'stat ' + a.status.toLowerCase(), a.status));

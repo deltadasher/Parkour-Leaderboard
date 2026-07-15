@@ -1,0 +1,24 @@
+name: Appeal
+description: Appeal a documented leaderboard or evidence decision.
+title: "[APPEAL] RobloxUsername — decision"
+body:
+  - type: input
+    id: username
+    attributes: { label: Roblox username }
+    validations: { required: true }
+  - type: textarea
+    id: decision
+    attributes: { label: Original submission and disputed decision }
+    validations: { required: true }
+  - type: textarea
+    id: error
+    attributes: { label: Exact claimed error }
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes: { label: Relevant public evidence and timestamps }
+    validations: { required: true }
+  - type: textarea
+    id: resolution
+    attributes: { label: Requested correction }
+    validations: { required: true }

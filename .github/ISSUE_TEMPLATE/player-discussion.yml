@@ -1,0 +1,11 @@
+name: Player discussion
+description: Start a persistent public discussion about play, strategy, or placements.
+title: "[DISCUSSION] Topic"
+body:
+  - type: textarea
+    id: topic
+    attributes: { label: Topic, description: Focus on evidence and avoid unsupported accusations. }
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes: { label: Optional evidence, timestamps, or examples }

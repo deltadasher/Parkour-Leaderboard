@@ -1,0 +1,36 @@
+name: Leaderboard submission
+description: Submit evidence for a provisional leaderboard review.
+title: "[SUBMISSION] RobloxUsername — Current Rank"
+body:
+  - type: markdown
+    attributes:
+      value: "Do not post private information. Link only evidence you are allowed to share publicly."
+  - type: input
+    id: username
+    attributes: { label: Roblox username, placeholder: Exact account name }
+    validations: { required: true }
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [Meta, Recounter, Gearless, "Gearless: Gloveless", Time Trials]
+    validations: { required: true }
+  - type: input
+    id: rating
+    attributes: { label: Current ranked rating or Time Trial score }
+    validations: { required: true }
+  - type: textarea
+    id: sessions
+    attributes: { label: Session summary, description: Include match count, unique opponents, maps, weighted win rate, and required gear uses where applicable. }
+    validations: { required: true }
+  - type: textarea
+    id: evidence
+    attributes: { label: Public evidence links and timestamps }
+    validations: { required: true }
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have read the applicable rulebook and may share this evidence publicly.
+          required: true

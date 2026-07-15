@@ -4,7 +4,7 @@ An unofficial, community-maintained PARKOUR Legacy leaderboard and reference int
 
 ## Status
 
-This repository is a working community prototype. Ranking data is provisional or unverified unless evidence is explicitly attached. The forum is a local browser demo: it does not synchronize, authenticate users, or send submissions to moderators.
+This repository is a working community prototype. Ranking data is provisional or unverified unless evidence is explicitly attached. The site distinguishes in-game **Ranked Rating** from the rulebook's separate **0–100 Review Score**. Built-in forum threads are example data; local drafts use browser storage, while persistent community intake uses GitHub Issue forms.
 
 ## Run locally
 
@@ -24,7 +24,8 @@ Expected URL: `https://deltadasher.github.io/Parkour-Leaderboard/`
 
 - dependency-free HTML, CSS, and vanilla JavaScript;
 - hash routes for leaderboard, forum demo, announcements, and rulebook;
-- localStorage for browser-local edits and forum-demo posts;
+- localStorage for browser-local edits and forum drafts;
+- GitHub Issue forms for persistent submissions, appeals, rule proposals, discussion, and reviewed announcement requests;
 - JSON import/export for transferring leaderboard data;
 - installable web manifest and service worker.
 

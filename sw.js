@@ -1,4 +1,4 @@
-const CACHE = 'pkl-ranked-v12';
+const CACHE = 'pkl-ranked-v13';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon.svg'];
 
 self.addEventListener('install', (event) => {

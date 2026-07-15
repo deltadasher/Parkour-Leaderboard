@@ -119,11 +119,11 @@ proficiency 30, gap impact 25, tactical application 15, routing and integration 
 and results 5. The owner specifically confirmed ncm_k's leading Wingsuit, Aero Punch, and Thrust
 Capacitor performance and excluded ncm_k from Springhook pending qualifying current-season evidence.
 
-Player profile bios use a clearly labeled, fictionalized first-person community voice. Factual claims
-inside them must come only from the current leaderboard, per-item reviews, moderator list, and preserved
-forum archive. Playful taglines and personality are allowed as flavor text, but must never be described
-as an actual player quote or submission. Do not invent demographics, locations, relationships,
-biographical history, or achievements not represented in the project data.
+Player profile bios are deliberately unserious first-person community flavor text. They should read
+like jokes, introductions, nonsense, or something a player might put in a casual profile—not as a
+competitive resume. Do not insert placements, scores, item reviews, or evidence summaries into the bio;
+those already appear elsewhere in the card. Never describe flavor bios as authenticated player quotes.
+Do not invent demographics, locations, relationships, biographical history, or real-world claims.
 
 ## Meta category
 

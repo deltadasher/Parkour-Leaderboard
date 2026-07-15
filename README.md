@@ -29,7 +29,7 @@ Expected URL: `https://deltadasher.github.io/Parkour-Leaderboard/`
 - localStorage for browser-local leaderboard edits;
 - live public forum listings from GitHub Issues, with posting and replies handled securely by GitHub;
 - persistent Auto/Dark/Light theme control and reduced-motion-aware interface animation;
-- click-to-open player profile cards with first-person community flavor bios, board placements, per-item reviews, notes, and archived forum activity for any listed player;
+- click-to-open player profile cards with unserious first-person bios, board placements, per-item reviews, notes, and archived forum activity for any listed player;
 - GitHub Issue forms for persistent submissions, appeals, rule proposals, discussion, and reviewed announcement requests;
 - JSON import/export for transferring leaderboard data;
 - installable web manifest and service worker.

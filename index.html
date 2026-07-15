@@ -4006,50 +4006,55 @@ function profileScore(key, entry) {
     ? Number(entry.pts).toLocaleString('en-US') + ' score'
     : Number(entry.pts).toFixed(2) + ' pts';
 }
-function joinNames(values) {
-  if (values.length < 2) return values[0] || '';
-  if (values.length === 2) return values[0] + ' and ' + values[1];
-  return values.slice(0, -1).join(', ') + ', and ' + values[values.length - 1];
-}
+const PLAYER_BIOS = {
+  'ncm_k': 'tuff linux opsec level 9000 meta player',
+  'astrmotif': 'i have a route. whether the route survives contact with the building is between me and god',
+  'hi_4v': 'i brought timestamps, screenshots, and an unreasonable amount of confidence',
+  'bn7t': 'sub-perfect entry enthusiast. perfect entries are a government conspiracy',
+  'planetofender': 'local recounter enjoyer and part-time gravity negotiator',
+  'remarkablebeauty': 'movement so gearless the inventory filed for unemployment',
+  'prezerf': 'i pressed the correct button once and have been chasing that high ever since',
+  'kburm1': 'no glove no problem no explanation',
+  'skepticalgoose': 'honk first review the footage later',
+  'ordinarylantern': 'just a normal lantern doing extremely normal rooftop activities',
+};
 function profileBio(data) {
-  const lines = [];
-  const ranked = data.placements.filter((placement) => placement.key !== 'timetrials');
-  const timeTrial = data.placements.find((placement) => placement.key === 'timetrials');
-  if (ranked.length) {
-    const best = ranked.reduce((current, placement) => placement.idx < current.idx ? placement : current);
-    let opening = 'I’m currently holding #' + (best.idx + 1) + ' on the ' + best.label + ' board';
-    const others = ranked.filter((placement) => placement !== best).map((placement) => placement.label + ' #' + (placement.idx + 1));
-    if (others.length) opening += ', and you can also find me at ' + joinNames(others);
-    lines.push(opening + '.');
-  } else if (timeTrial) {
-    lines.push('I’m currently #' + (timeTrial.idx + 1) + ' on the Time Trials score board—no Elite badge needed, just the clock.');
-  } else if (data.items.length) {
-    lines.push('You’ll find me in the evidence-qualified per-item archive, where the gear gets judged one movement at a time.');
-  } else {
-    lines.push('I’m mostly known around here for leaving my mark in the preserved community forum archive.');
-  }
-
-  if (data.items.length) {
-    const strongest = data.items.slice().sort((a, b) => b.score - a.score).slice(0, 3)
-      .map((item) => item.item.name + ' #' + (item.idx + 1) + ' (' + Number(item.score).toFixed(2) + ')');
-    lines.push('My sharpest reviewed gear work right now is ' + joinNames(strongest) + '.');
-  }
-  if (data.threads.length) {
-    lines.push('I’ve also shown up in ' + data.threads.length + ' archived forum ' + (data.threads.length === 1 ? 'thread' : 'threads') + '—receipts included.');
-  }
-  if (MODS.some((mod) => mod.toLowerCase() === data.name.toLowerCase())) {
-    lines.push('When I’m not running routes, I’m also listed here as a community moderator.');
-  }
-  const flavor = [
-    'I like clean routes, ugly gaps, and scoreboards that make people argue.',
-    'Catch me if you can; if you can’t, check the gap average.',
-    'I’m here for fast lines, tighter reviews, and one more run.',
-    'My route is usually planned. The recovery definitely wasn’t.',
-    'I trust the footage, the timestamps, and absolutely nothing else.',
-    'If the line looks questionable, that probably means it’s interesting.',
+  const key = data.name.toLowerCase();
+  if (PLAYER_BIOS[key]) return PLAYER_BIOS[key];
+  const intros = [
+    'yo im ' + data.name + '.',
+    'hi im ' + data.name + ' and',
+    data.name + ' here.',
+    'hello internet this is ' + data.name + '.',
+    'unfortunately ' + data.name + ' has logged on.',
+    'it is i, ' + data.name + '.',
   ];
-  lines.push(flavor[hueOf(data.name) % flavor.length]);
-  return lines.join(' ');
+  const nonsense = [
+    'my gameplan is momentum and refusing to elaborate.',
+    'if you saw me hit that wall no you didnt.',
+    'professional rooftop furniture inspector.',
+    'i only miss jumps for cinematic effect.',
+    'currently beefing with one very specific ledge.',
+    'every route is optimal if nobody checks the replay.',
+    'i put the park in parkour and forgot the rest.',
+    'my ping is innocent and my decisions are legally unreviewable.',
+    'i am powered by bad ideas and one clean landing.',
+    'the route was revealed to me in a dream.',
+    'i dont chase runners i simply arrive eventually.',
+    'movement scholar, evidence pending.',
+  ];
+  const closers = [
+    'dont ask for the vod.',
+    'we ball regardless.',
+    'source: trust me.',
+    'this is fine.',
+    'next run is the one.',
+    'skill issue under investigation.',
+    'no further questions.',
+    'probably afk.',
+  ];
+  const hash = hueOf(data.name);
+  return intros[hash % intros.length] + ' ' + nonsense[(hash * 7) % nonsense.length] + ' ' + closers[(hash * 13) % closers.length];
 }
 let profileLastFocus = null;
 function closeProfile() {
@@ -4080,7 +4085,7 @@ function openProfile(name) {
   head.append(heading);
   card.append(head);
   const bio = el('p', 'profile-bio');
-  bio.append(el('strong', '', 'Community flavor bio. '), profileBio(data));
+  bio.append(el('strong', '', 'Bio. '), profileBio(data));
   card.append(bio);
 
   const boardSection = el('div', 'psec');
@@ -4138,7 +4143,7 @@ function openProfile(name) {
   }
 
   card.append(el('div', 'profile-foot',
-    'Placements and scores come from the provisional community archive. The first-person bio is stylized community-written flavor text, not a verified statement from the player.'));
+    'Placements and scores come from the provisional community archive. Bios are unserious community flavor text and are not verified player statements.'));
 
   profileLastFocus = document.activeElement;
   $('playerModal').hidden = false;

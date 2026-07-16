@@ -232,6 +232,11 @@ Fictional forum seeds are stored separately in `SEEDED_FORUM_THREADS` and
 deterministically generated personas for every seeded player. Do not describe these personas or
 seed posts as authenticated statements by the named players.
 
+`HIGHLIGHT_SEEDS` supplies the fictional Game Highlights board. Its 25 threads are a dated snapshot:
+five each for AstrMotif, hi_4v, bn7t, Prezerf, and PlanetOfEnder, the built-in Overall top five when
+authored on 2026-07-16. Keep the highlight threads and replies visibly fictional/local-only; do not
+claim that the described clips or quoted reactions are authenticated player statements.
+
 This means:
 
 - new posts are shared publicly and synchronized between devices;

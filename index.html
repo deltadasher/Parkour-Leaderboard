@@ -3349,6 +3349,7 @@ const CAT_ABBR = { meta: 'META', recounter: 'RC', gearless: 'GL', gloveless: 'GG
 
 const FORUM_BOARDS = [
   { id: 'discussion', name: 'Player Discussion', desc: 'Playstyles, placements, strategy talk.' },
+  { id: 'highlights', name: 'Game Highlights', desc: 'Prototype clip threads featuring the current Overall top five.' },
   { id: 'proposals', name: 'Rules & Proposals', desc: 'Scoring changes, gear eligibility, formats.' },
   { id: 'submissions', name: 'Leaderboard Submissions', desc: 'Public account-backed submissions through GitHub.' },
   { id: 'appeals', name: 'Appeals', desc: 'Public persistent appeals and moderation history.' },
@@ -3810,6 +3811,146 @@ const SEEDED_FORUM_REPLIES = {
   ],
 };
 
+// Five fictional prototype highlight threads for each player in the built-in
+// Overall top five at the time this snapshot was authored (2026-07-16).
+const HIGHLIGHT_SEEDS = [
+  ['astr-roof-launch', 'AstrMotif', 'astrmotif left the roof at a medically concerning speed', 'runner launch crossed three roofs before the camera remembered where it was', [
+    ['hi_4v', 'you lost speed on the second landing but apparently gravity also lost interest'],
+    ['AstrMotif', 'I MEANT TO DO THAT'],
+    ['ncm_k', 'camera operator needs hazard pay'],
+  ]],
+  ['astr-springhook-save', 'AstrMotif', 'springhook save or uncontrolled screaming', 'missed the ledge, hooked the underside, came back up somehow. volume warning', [
+    ['bn7t', 'that noise was not from the game'],
+    ['AstrMotif', 'movement callout'],
+  ]],
+  ['astr-catcher-stairs', 'AstrMotif', 'astr caught them by refusing to use the stairs correctly', 'catcher line goes directly over the stairwell railing and into somebody else’s business', [
+    ['Prezerf', 'why take six steps when one terrible decision works'],
+    ['AstrMotif', 'EXACTLY'],
+    ['ordinarylantern', 'the railing filed a complaint'],
+  ]],
+  ['astr-cement-line', 'AstrMotif', 'cement% world record attempt during ranked', 'paused beside the construction wall for reasons nobody can defend then still recovered the round', [
+    ['soggyanchovy', 'drywall clears'],
+    ['AstrMotif', 'blocked and reported'],
+    ['ncm_k', 'both materials are infrastructure not lunch'],
+  ]],
+  ['astr-three-building', 'AstrMotif', 'three buildings one landing zero explanation', 'the route ends on a vent approximately the width of a pop tart', [
+    ['hi_4v', 'landing margin looked like six pixels'],
+    ['AstrMotif', 'plenty'],
+  ]],
+
+  ['hi-gap-autopsy', 'hi_4v', 'hi_4v performs a live autopsy on a 50m gap', 'runner crosses the threshold and immediately starts explaining the split while still moving', [
+    ['skepticalgoose', 'gap propaganda with decimals'],
+    ['hi_4v', 'the distance does not become fake because i measured it'],
+    ['ncm_k', 'do not engage the goose'],
+  ]],
+  ['hi-clean-follow', 'hi_4v', 'possibly the cleanest sub-50 follow in this archive', 'catcher mirrors the full rooftop line and closes without a collision', [
+    ['bn7t', 'ok this one is actually clean'],
+    ['AstrMotif', 'needs more falling'],
+  ]],
+  ['hi-capacitor-route', 'hi_4v', 'thrust capacitor route explained normally for eight seconds', 'good technical breakdown followed by the recording ending in the middle of a sentence', [
+    ['jimmy_741', 'why did it cut off'],
+    ['hi_4v', 'storage'],
+    ['jimmy_741', 'can ffmpeg believe this one'],
+  ]],
+  ['hi-frame-count', 'hi_4v', 'hi_4v counted the frames so none of us have to', 'side-by-side route comparison with an upsetting number of timeline markers', [
+    ['ncm_k', 'methodology is fine'],
+    ['wobblypickle', 'i counted seven roofs'],
+    ['hi_4v', 'that is not what frame count means'],
+  ]],
+  ['hi-silent-round', 'hi_4v', 'entire round with no vc except one disappointed sigh', 'efficient runner round. sigh occurs after touching a vent for 0.2 seconds', [
+    ['grumpy_domino1', 'too loud'],
+    ['hi_4v', 'muting you preemptively'],
+  ]],
+
+  ['bn-gloveless-line', 'bn7t', 'bn7t gloveless line made the catcher leave render distance', 'long runner chain with no visible hesitation and one deeply unnecessary :3 in chat', [
+    ['bn7t', ':3'],
+    ['ncm_k', 'there it is'],
+    ['AstrMotif', 'BAN THE FACE'],
+  ]],
+  ['bn-corner-catch', 'bn7t', 'corner read so rude it should require an apology', 'catcher cuts the blind turn instead of following and meets the runner on exit', [
+    ['Prezerf', 'that read was personal'],
+    ['bn7t', 'sorry :3'],
+  ]],
+  ['bn-three-charges', 'bn7t', 'three charges used without turning the route into soup', 'actual controlled springhook integration. rare wildlife footage', [
+    ['ncm_k', 'acceptable implementation'],
+    ['bn7t', 'printing this endorsement'],
+    ['AstrMotif', 'soup route is valid'],
+  ]],
+  ['bn-pipe-bounce', 'bn7t', 'pipe bounce replayed fourteen times in vc', 'tiny redirect into a clean landing and then everybody argues about whether it was planned', [
+    ['hi_4v', 'input direction says planned'],
+    ['wobblypickle', 'the pipe chose him'],
+    ['bn7t', 'both can be true'],
+  ]],
+  ['bn-one-hp-energy', 'bn7t', 'this round has one hp energy even though health is fine', 'runner survives several awful-looking contacts and never actually loses the line', [
+    ['AstrMotif', 'finally real movement'],
+    ['bn7t', 'do not learn from this'],
+  ]],
+
+  ['prezerf-recounter-intercept', 'Prezerf', 'prezerf recounter intercept from the wrong postal code', 'catcher commits to the alternate roof early and arrives exactly as the runner exits', [
+    ['hi_4v', 'good prediction or terrifying confidence'],
+    ['Prezerf', 'yes'],
+    ['skepticalgoose', 'mail fraud route'],
+  ]],
+  ['prezerf-mag-rail', 'Prezerf', 'mag rail exit looked illegal but the inputs are right there', 'fast exit angle with input overlay included for the courtroom', [
+    ['ncm_k', 'inputs match'],
+    ['DOVLIXLORD', 'acquitted'],
+  ]],
+  ['prezerf-blind-turn', 'Prezerf', 'blind turn read followed by immediate regret from the runner', 'catcher waits half a beat, cuts left, and the runner walks directly into it', [
+    ['AstrMotif', 'psychic allegations'],
+    ['Prezerf', 'they did it twice before'],
+    ['AstrMotif', 'educated psychic allegations'],
+  ]],
+  ['prezerf-wall-save', 'Prezerf', 'wall recovery that should not have preserved momentum', 'bad approach becomes a usable line through very fast damage control', [
+    ['hi_4v', 'lost less than half a second. solid recovery'],
+    ['wobblypickle', 'the wall helped'],
+  ]],
+  ['prezerf-lobby-witness', 'Prezerf', 'the entire lobby stopped arguing for eleven seconds', 'clean chase finish briefly creates peace on earth', [
+    ['grumpy_domino1', 'i was still arguing'],
+    ['Prezerf', 'muted does not count'],
+  ]],
+
+  ['ender-rooftop-chase', 'PlanetOfEnder', 'planetofender rooftop chase featuring no safe decisions', 'recounter catcher round closes through a chain of aggressive rooftop cuts', [
+    ['Prezerf', 'good cuts'],
+    ['PlanetOfEnder', 'the safe route was busy'],
+  ]],
+  ['ender-grappler-turn', 'PlanetOfEnder', 'grappler turn made three spectators say huh together', 'sharp direction change sends the catcher past before they can correct', [
+    ['spwb2669', 'huh'],
+    ['bn7t', 'huh :3'],
+    ['ncm_k', 'predictable responses'],
+  ]],
+  ['ender-adrenaline-reset', 'PlanetOfEnder', 'adrenaline reset timing for people who keep doing it too early', 'clip shows the timing clearly and then the comments immediately ignore it', [
+    ['AstrMotif', 'so use it immediately'],
+    ['PlanetOfEnder', 'you watched the opposite lesson'],
+    ['AstrMotif', 'watched it faster'],
+  ]],
+  ['ender-final-second', 'PlanetOfEnder', 'catch landed at the last possible stupid second', 'timer nearly expires before a tiny corner correction closes the follow', [
+    ['hi_4v', 'roughly two tenths left'],
+    ['skepticalgoose', 'invented by timer moderators'],
+  ]],
+  ['ender-no-floor', 'PlanetOfEnder', 'planetofender discovers the floor is optional', 'runner spends most of the clip attached to anything except normal ground', [
+    ['zephyr_protogen', 'floor driver missing'],
+    ['PlanetOfEnder', 'did not install it'],
+    ['ncm_k', 'arch user behavior'],
+  ]],
+];
+
+const SEEDED_HIGHLIGHT_THREADS = HIGHLIGHT_SEEDS.map(([id, player, title, body]) => ({
+  id: 'highlight-' + id,
+  board: 'highlights',
+  title,
+  author: player,
+  created: '2026-07-16',
+  posts: [{ author: player, date: '2026-07-16 12:00', body: [body] }],
+}));
+const SEEDED_HIGHLIGHT_REPLIES = Object.fromEntries(HIGHLIGHT_SEEDS.map(([id, , , , replies], threadIndex) => [
+  'highlight-' + id,
+  replies.map(([author, text], replyIndex) => ({
+    author,
+    date: '2026-07-16 ' + String(12 + Math.floor((threadIndex * 4 + replyIndex) / 60)).padStart(2, '0') + ':' + String((threadIndex * 4 + replyIndex) % 60).padStart(2, '0'),
+    body: [text],
+  })),
+]));
+
 const ANNC = [
   {
     pinned: true, type: 'Staff Notice', status: 'Active',
@@ -3878,9 +4019,11 @@ const ANNC = [
 /* ================= forum sources ================= */
 const GITHUB_REPO = 'deltadasher/Parkour-Leaderboard';
 const GITHUB_ISSUES = 'https://github.com/' + GITHUB_REPO + '/issues';
-const allThreads = () => FORUM_THREADS.concat(SEEDED_FORUM_THREADS);
+const allThreads = () => FORUM_THREADS.concat(SEEDED_FORUM_THREADS, SEEDED_HIGHLIGHT_THREADS);
 const getThread = (id) => allThreads().find((t) => t.id === id);
-const threadPosts = (t) => t.posts.concat(SEEDED_FORUM_REPLIES[t.id] || []);
+const seededReplies = (id) => SEEDED_FORUM_REPLIES[id] || SEEDED_HIGHLIGHT_REPLIES[id] || [];
+const isSeededThread = (id) => Object.hasOwn(SEEDED_FORUM_REPLIES, id) || Object.hasOwn(SEEDED_HIGHLIGHT_REPLIES, id);
+const threadPosts = (t) => t.posts.concat(seededReplies(t.id));
 
 /* ================= forum rendering ================= */
 function hueOf(name) {
@@ -3913,6 +4056,7 @@ let fboard = 'all';
 
 function issueBoard(title) {
   if (/^\[ANNOUNCEMENT REQUEST\]/i.test(title)) return null;
+  if (/^\[HIGHLIGHT\]/i.test(title)) return 'highlights';
   if (/^\[SUBMISSION\]/i.test(title)) return 'submissions';
   if (/^\[APPEAL\]/i.test(title)) return 'appeals';
   if (/^\[PROPOSAL\]/i.test(title)) return 'proposals';
@@ -4040,7 +4184,7 @@ function renderForum() {
     meta.append(el('span', '', 'by ' + t.author));
     meta.append(el('span', '', (posts.length - 1) + (posts.length === 2 ? ' reply' : ' replies')));
     meta.append(el('span', '', 'last post ' + posts[posts.length - 1].date));
-    meta.append(el('span', 'tag', SEEDED_FORUM_REPLIES[t.id] ? 'seeded prototype' : 'archived'));
+    meta.append(el('span', 'tag', isSeededThread(t.id) ? 'seeded prototype' : 'archived'));
     row.append(meta);
     list.append(row);
   }
@@ -4097,7 +4241,7 @@ function renderThread(id) {
   const info = el('div', 'thread-info');
   const bd = FORUM_BOARDS.find((b) => b.id === t.board);
   info.append(el('span', 'tag', bd ? bd.name : t.board));
-  if (SEEDED_FORUM_REPLIES[t.id]) info.append(el('span', 'tag', 'seeded prototype · local only'));
+  if (isSeededThread(t.id)) info.append(el('span', 'tag', 'seeded prototype · local only'));
   info.append(el('span', '', 'started by ' + t.author + ' · ' + t.created));
   pane.append(info);
 
@@ -4636,7 +4780,7 @@ function allSeededPlayerNames() {
   for (const item of ITEM_RANKINGS) {
     for (const player of item.players) names.set(player[0].toLowerCase(), player[0]);
   }
-  for (const thread of FORUM_THREADS.concat(SEEDED_FORUM_THREADS)) {
+  for (const thread of FORUM_THREADS.concat(SEEDED_FORUM_THREADS, SEEDED_HIGHLIGHT_THREADS)) {
     for (const post of threadPosts(thread)) {
       if (post.author !== '[deleted]') names.set(post.author.toLowerCase(), post.author);
     }

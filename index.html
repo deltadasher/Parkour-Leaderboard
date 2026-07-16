@@ -1011,10 +1011,11 @@ try {
   <div class="formula"><strong>Competitive rank ladder:</strong> Unranked → Bronze → Silver → Gold →
     Platinum → Diamond → Master → Elite. Every player currently placed in a ranked-category top 50
     is Elite. Time Trials is a score board and does not receive competitive ranks.</div>
-  <div class="formula"><strong>Overall Review Score (100 points):</strong> 85 points from the average
-    Review Score across a player's ranked-category placements; up to 10 points for category breadth
+  <div class="formula"><strong>Overall Review Score (100 points):</strong> 70 points from the average
+    Review Score across a player's ranked-category placements; up to 15 points from average placement
+    strength (#1 earns 15 placement points and #50 earns 0.30); up to 10 points for category breadth
     (2.5 per ranked board); and up to 5 points for evidence-qualified per-item depth (1 per item).
-    Time Trials is excluded because it uses a separate in-game score scale.</div>
+    Placement points are averaged across represented ranked boards. Time Trials is excluded.</div>
   <div class="formula"><strong>Per-item Review Score (100 points):</strong> usage and mechanical
     proficiency 30; role-specific gap impact 25; tactical application 15; routing and integration 15;
     adaptability 10; competitive results 5. One action is credited once under its primary purpose,
@@ -2792,7 +2793,7 @@ const BOARD_ORDER = ['overall', ...CAT_ORDER];
 const OVERALL_CATEGORY = {
   label: 'Overall',
   unit: 'overall score',
-  desc: 'Cross-category standing derived from ranked Review Scores, category breadth, and evidence-qualified per-item depth. Time Trials is excluded.',
+  desc: 'Cross-category standing derived from ranked Review Scores, average board placement, category breadth, and evidence-qualified per-item depth. Time Trials is excluded.',
 };
 const TIERS = [
   { id: 'S', label: 'Top 10', from: 0,  to: 9  },
@@ -2845,11 +2846,12 @@ const tierOf = (i) => TIERS.find((t) => i >= t.from && i <= t.to) || TIERS[TIERS
 function overallPlayers() {
   const records = new Map();
   for (const key of CAT_ORDER.filter((category) => category !== 'timetrials')) {
-    state.doc.categories[key].players.forEach((player) => {
+    state.doc.categories[key].players.forEach((player, index) => {
       const normalized = player.name.toLowerCase();
-      if (!records.has(normalized)) records.set(normalized, { name: player.name, scores: [], statuses: [] });
+      if (!records.has(normalized)) records.set(normalized, { name: player.name, scores: [], placements: [], statuses: [] });
       const record = records.get(normalized);
       if (Number.isFinite(Number(player.pts))) record.scores.push(Number(player.pts));
+      record.placements.push(index + 1);
       record.statuses.push(dataStatus(player));
     });
   }
@@ -2859,11 +2861,14 @@ function overallPlayers() {
   return [...records.values()].map((record) => {
     const average = record.scores.reduce((sum, score) => sum + score, 0) / record.scores.length;
     const breadth = record.scores.length;
-    const score = Math.min(100, average * .85 + breadth * 2.5 + Math.min(5, record.itemCount));
+    const averagePlacement = record.placements.reduce((sum, placement) => sum + placement, 0) / record.placements.length;
+    const placementStrength = record.placements.reduce((sum, placement) =>
+      sum + ((MAX_PLAYERS - placement + 1) / MAX_PLAYERS) * 15, 0) / record.placements.length;
+    const score = Math.min(100, average * .70 + placementStrength + breadth * 2.5 + Math.min(5, record.itemCount));
     return {
       name: record.name,
       pts: Number(score.toFixed(2)),
-      note: breadth + ' ranked ' + (breadth === 1 ? 'board' : 'boards') + ' · ' + record.itemCount + ' item ' + (record.itemCount === 1 ? 'review' : 'reviews'),
+      note: 'avg placement #' + Number(averagePlacement.toFixed(2)) + ' · ' + breadth + ' ranked ' + (breadth === 1 ? 'board' : 'boards') + ' · ' + record.itemCount + ' item ' + (record.itemCount === 1 ? 'review' : 'reviews'),
       status: record.statuses.every((status) => status === 'verified') ? 'verified' : 'provisional',
     };
   }).sort((a, b) => b.pts - a.pts || a.name.localeCompare(b.name)).slice(0, MAX_PLAYERS);
@@ -3131,7 +3136,7 @@ function render() {
   const metricNote = el('p', 'metric-note', state.cat === 'timetrials'
     ? 'Time Trials uses the in-game score: higher score places higher.'
     : state.cat === 'overall'
-      ? 'Overall Score: 85% of the player’s average ranked-category Review Score, plus 2.5 points per ranked board (maximum 10), plus 1 point per evidence-qualified item review (maximum 5). Time Trials is excluded.'
+      ? 'Overall Score: 70% of average ranked-category Review Score, plus up to 15 points from average placement strength (#1 = 15; #50 = 0.30), plus 2.5 points per ranked board (maximum 10), plus 1 point per evidence-qualified item review (maximum 5). Time Trials is excluded.'
       : 'Displayed number: provisional Review Score out of 100, using hundredths where the evidence is close. Scores consider gear usage and proficiency, integration, runner gapping, catcher following, adaptability, and results. Exact in-game Ranked Ratings have not yet been published.');
   document.querySelector('#page-ranked .toolbar').insertAdjacentElement('afterend', metricNote);
   $('editBtn').textContent = state.editing ? 'Done' : 'Edit';

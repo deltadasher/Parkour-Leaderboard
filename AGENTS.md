@@ -96,10 +96,12 @@ Player order determines leaderboard placement unless the application explicitly 
 
 Do not silently reorder real or provisional player data.
 
-The Overall board is a derived, non-editable view. Its score is calculated from 85% of a player's
-average Review Score across Meta, Recounter, Gearless, and Gearless: Gloveless; 2.5 points per ranked
-category represented, capped at 10; and 1 point per evidence-qualified item review, capped at 5.
-Time Trials must remain excluded from Overall because its in-game score is not on the 0–100 scale.
+The Overall board is a derived, non-editable view. Its score is calculated from 70% of a player's
+average Review Score across Meta, Recounter, Gearless, and Gearless: Gloveless; up to 15 points from
+average placement strength across those represented boards, scaling linearly from 15 points for #1
+to 0.30 for #50; 2.5 points per ranked category represented, capped at 10; and 1 point per
+evidence-qualified item review, capped at 5. Time Trials must remain excluded from Overall because
+its in-game score is not on the 0–100 scale.
 
 ## Competitive ranks and per-item reviews
 

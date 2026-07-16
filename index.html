@@ -385,6 +385,7 @@ h1 .hollow {
   text-transform: uppercase;
 }
 .data-status.verified { border-color: #2e8b57; color: #2e8b57; }
+.data-status.under-review { border-color: #c78600; color: #9a6500; }
 .rank-badge { display: inline-block; margin: 5px 5px 0 0; padding: 2px 7px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 9px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .metric-note {
   margin: 0 0 18px;
@@ -1673,7 +1674,7 @@ Glove: Disabled or unequipped</pre>
 'use strict';
 /* ================= data ================= */
 const BUILTIN = {
-  "version": 3,
+  "version": 4,
   "updated": "2026-07-16",
   "categories": {
     "meta": {
@@ -1690,7 +1691,8 @@ const BUILTIN = {
         {
           "name": "ncm_k",
           "pts": 99.34,
-          "note": "Defeated AstrMotif 4–2 · stronger full-match gap consistency"
+          "note": "Under integrity review: recent-highest horizontal velocity telemetry reached 341.5 in the AstrMotif match; appeal pending",
+          "status": "under review"
         },
         {
           "name": "AstrMotif",
@@ -2824,7 +2826,7 @@ const TIERS = [
   { id: 'C', label: 'Ranks 36–50', from: 35, to: 49 },
 ];
 const MAX_PLAYERS = 50;
-const LS_KEY = 'pkl-ranked-v5';
+const LS_KEY = 'pkl-ranked-v6';
 
 function normalizeDoc(doc) {
   // Imported legacy documents used "pts" or "rating" for ranked categories.
@@ -2891,7 +2893,9 @@ function overallPlayers() {
       name: record.name,
       pts: Number(score.toFixed(2)),
       note: 'avg placement #' + Number(averagePlacement.toFixed(2)) + ' · ' + breadth + ' ranked ' + (breadth === 1 ? 'board' : 'boards') + ' · ' + record.itemCount + ' item ' + (record.itemCount === 1 ? 'review' : 'reviews'),
-      status: record.statuses.every((status) => status === 'verified') ? 'verified' : 'provisional',
+      status: record.statuses.includes('under review')
+        ? 'under review'
+        : (record.statuses.every((status) => status === 'verified') ? 'verified' : 'provisional'),
     };
   }).sort((a, b) => b.pts - a.pts || a.name.localeCompare(b.name)).slice(0, MAX_PLAYERS);
 }
@@ -2906,7 +2910,7 @@ const dataStatus = (p) => p.status || 'provisional';
 const competitiveRank = () => state.cat === 'timetrials' ? null : 'Elite';
 function statusNode(p) {
   const status = dataStatus(p);
-  return el('span', 'data-status ' + (status === 'verified' ? 'verified' : ''), status);
+  return el('span', 'data-status ' + status.replace(/\s+/g, '-'), status);
 }
 
 function nameNode(name, query) {
@@ -3003,7 +3007,7 @@ function makeRow(p, idx) {
     nt.addEventListener('input', () => { p.note = nt.value; persist(); });
     const st = el('select', 'einp');
     st.setAttribute('aria-label', 'Verification status for rank ' + (idx + 1));
-    for (const value of ['provisional', 'verified', 'archived']) {
+    for (const value of ['provisional', 'verified', 'under review', 'archived']) {
       const option = el('option', '', value);
       option.value = value;
       option.selected = dataStatus(p) === value;
@@ -3219,7 +3223,7 @@ $('importFile').addEventListener('change', (e) => {
           if (!player || typeof player.name !== 'string' || player.name.length > 40) throw new Error('invalid player');
           if (player.pts !== null && player.pts !== undefined && (!Number.isFinite(Number(player.pts)) || Number(player.pts) < 0)) throw new Error('invalid metric');
           if (key !== 'timetrials' && Number(player.pts) > 100) throw new Error('review score over 100');
-          if (player.status && !['sample data', 'provisional', 'verified', 'archived'].includes(player.status)) throw new Error('invalid status');
+          if (player.status && !['sample data', 'provisional', 'verified', 'under review', 'archived'].includes(player.status)) throw new Error('invalid status');
         }
         doc.categories[key].players = doc.categories[key].players.slice(0, MAX_PLAYERS);
       }
@@ -3383,6 +3387,27 @@ const FORUM_BOARDS = [
 ];
 
 const FORUM_THREADS = [
+  {
+    id: 'appeal-ncm-k-meta-velocity', board: 'appeals', hot: true,
+    title: '[APPEAL] ncm_k — Meta velocity integrity review',
+    author: 'ncm_k', created: '2026-07-16',
+    posts: [
+      { author: 'ncm_k', date: '2026-07-16 14:04', body: [
+        { pre: 'Category: Meta\nMatch: ncm_k vs AstrMotif\nOriginal action: placement marked Under Review\nFlagged telemetry: recent highest horizontal velocity 341.5\nReported issue: nearly 100 above the non-Kirito speed cap\nRequested resolution: review the complete match telemetry and footage before changing the placement' },
+        'the screenshot is a recent-highest sample, not sustained velocity. the same panel shows current velocity at 63.8 and horizontal velocity at 0 when it was captured. it does not show how long the peak lasted or what interaction produced it.',
+        'kirito was not in the loadout. that part is not disputed. i am asking for the full timeline and footage to be checked instead of treating one transient peak as proof by itself.',
+      ]},
+      { author: 'AstrMotif', date: '2026-07-16 14:07', body: [
+        'i was literally in the match. nothing about the round looked like sustained extra speed and the gap did not jump like somebody was holding 341 horizontal. check the whole recording.',
+      ]},
+      { author: 'Danbossuk', date: '2026-07-16 14:11', body: [
+        'backing the appeal. recent highest can catch a single physics event. the number needs context from the timeline before anyone calls the match invalid.',
+      ]},
+      { author: 'hi_4v', date: '2026-07-16 14:15', body: [
+        'the visible fields are not enough to distinguish a transient spike from maintained horizontal movement. compare frame-by-frame displacement and the server log if one exists.',
+      ]},
+    ],
+  },
   {
     id: 'springhook-high-level', board: 'discussion', hot: true,
     title: 'Springhook has no place in high level ranked',
@@ -3979,6 +4004,17 @@ const SEEDED_HIGHLIGHT_REPLIES = Object.fromEntries(HIGHLIGHT_SEEDS.map(([id, , 
 ]));
 
 const ANNC = [
+  {
+    pinned: true, type: 'Integrity Review', status: 'Under Review',
+    pub: '2026-07-16', eff: '2026-07-16', author: 'project contributors',
+    title: 'ncm_k Meta placement under review after velocity flag',
+    body: [
+      'ncm_k remains listed at Meta #1 with an Under Review label after telemetry from the match against AstrMotif showed a recent-highest horizontal velocity of 341.5 — reported as nearly 100 above the non-Kirito speed cap. Kirito was not part of the loadout.',
+      'The screenshot also shows current velocity of 63.8 and horizontal velocity of 0 at capture. It does not establish how long the recorded peak lasted or what caused it. The flag is therefore an unresolved integrity concern, not a cheating finding.',
+      'ncm_k opened an immediate appeal arguing that the recent-highest value was a transient sample that must be checked against the complete telemetry and footage. AstrMotif, Danbossuk, and hi_4v have supported review of the full evidence. No moderator or administrator has ruled on the appeal.',
+    ],
+    affected: ['Meta', 'Overall'], action: 'Placement and match result remain unchanged pending a staff evidence review.',
+  },
   {
     pinned: true, type: 'Integrity Review', status: 'Under Review',
     pub: '2026-07-16', eff: '2026-07-16', author: 'project contributors',
